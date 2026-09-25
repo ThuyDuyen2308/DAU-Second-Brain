@@ -1,0 +1,170 @@
+{
+  "generated_at": "2026-09-11T13:35:41.150082",
+  "language": "vie+eng",
+  "summary": {
+    "total_documents": 10,
+    "good": 7,
+    "acceptable": 2,
+    "warning": 1,
+    "poor": 0,
+    "total_pages": 20,
+    "total_characters": 32026
+  },
+  "documents": [
+    {
+      "source_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2025\\tb-phuc-khao-bai-thi-kthp-dot-12-hk-1-2025-2026-20251222093134-e.pdf",
+      "notification_title": "Thông báo triển khai phúc khảo đợt thi 1&2 học kỳ 1 năm học 2025-2026. - 22/12/2025",
+      "total_pages": 1,
+      "quality_score": 100,
+      "quality_label": "GOOD",
+      "warnings": [],
+      "metrics": {
+        "text_length": 2105,
+        "word_count": 446,
+        "empty_page_ratio": 0.0,
+        "suspicious_character_ratio": 0.0012,
+        "vietnamese_character_ratio": 0.2377
+      }
+    },
+    {
+      "source_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\29tb-nop-chung-chi-quy-doi-chuan-dau-ra-20260723105842-e.pdf",
+      "notification_title": "Thông báo nộp chứng chỉ quy đổi chuẩn đầu ra ngoại ngữ, tin học - 23/07/2026",
+      "total_pages": 1,
+      "quality_score": 100,
+      "quality_label": "GOOD",
+      "warnings": [],
+      "metrics": {
+        "text_length": 2001,
+        "word_count": 439,
+        "empty_page_ratio": 0.0,
+        "suspicious_character_ratio": 0.0039,
+        "vietnamese_character_ratio": 0.25
+      }
+    },
+    {
+      "source_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\31-tb-dhktdn-ve-viec-nop-hoc-phi-va-bao-hiem-trong-hoc-ky-1-nam-hoc-2026-2027-20260803015022-e.pdf",
+      "notification_title": "Thông báo về việc nộp học phí và bảo hiểm trong học kỳ I năm học 2026-2027 đối với sinh viên các khóa đang theo học tại trường - 03/08/2026",
+      "total_pages": 5,
+      "quality_score": 86,
+      "quality_label": "ACCEPTABLE",
+      "warnings": [
+        "Trang 5: Tỷ lệ ký tự bất thường cao (16.6%).",
+        "Trang 5: Không phát hiện mẫu văn bản hành chính phổ biến (Số hiệu, Ngày tháng, Điều/Khoản...)."
+      ],
+      "metrics": {
+        "text_length": 8543,
+        "word_count": 1802,
+        "empty_page_ratio": 0.0,
+        "suspicious_character_ratio": 0.0373,
+        "vietnamese_character_ratio": 0.2057
+      }
+    },
+    {
+      "source_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\32-tb-dhktdn-ve-viec-nop-hoc-phi-cac-hoc-phan-hoc-lai-va-hoc-cai-thien-doi-voi-sinh-vien-cac-khoa-nam-hoc-2026-2027-20260803015350-e.pdf",
+      "notification_title": "Thông báo về việc nộp học phí các học phần học lại và học cải thiện đối với sinh viên các khóa trong năm học 2026-2027 - 03/08/2026",
+      "total_pages": 4,
+      "quality_score": 88,
+      "quality_label": "ACCEPTABLE",
+      "warnings": [],
+      "metrics": {
+        "text_length": 6211,
+        "word_count": 1360,
+        "empty_page_ratio": 0.0,
+        "suspicious_character_ratio": 0.0298,
+        "vietnamese_character_ratio": 0.2015
+      }
+    },
+    {
+      "source_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\43-tb-dhktdn-to-chuc-khao-sat-danh-gia-nang-luc-hoc-phan-toan-20260828015324-e.pdf",
+      "notification_title": "Thông báo tổ chức khảo sát năng lực Toán học cho sinh viên khóa tuyển sinh năm 2026.",
+      "total_pages": 2,
+      "quality_score": 100,
+      "quality_label": "GOOD",
+      "warnings": [],
+      "metrics": {
+        "text_length": 2776,
+        "word_count": 601,
+        "empty_page_ratio": 0.0,
+        "suspicious_character_ratio": 0.0014,
+        "vietnamese_character_ratio": 0.2358
+      }
+    },
+    {
+      "source_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\tb-phuc-khao-bai-thi-kthp-dot-1-hk2-nam-hoc-2025-2026-20260511083640-e.pdf",
+      "notification_title": "Thông báo triển khai phúc khảo đợt thi 1 học kỳ 2 năm học 2025-2026. - 11/05/2026",
+      "total_pages": 1,
+      "quality_score": 100,
+      "quality_label": "GOOD",
+      "warnings": [],
+      "metrics": {
+        "text_length": 2022,
+        "word_count": 429,
+        "empty_page_ratio": 0.0,
+        "suspicious_character_ratio": 0.0006,
+        "vietnamese_character_ratio": 0.2365
+      }
+    },
+    {
+      "source_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\tb-phuc-khao-bai-thi-kthp-dot-3-hk-1-2025-2026-20260122020656-e.pdf",
+      "notification_title": "Thông báo triển khai phúc khảo đợt thi 3 học kỳ 1 năm học 2025-2026. - 22/01/2026",
+      "total_pages": 1,
+      "quality_score": 100,
+      "quality_label": "GOOD",
+      "warnings": [],
+      "metrics": {
+        "text_length": 2028,
+        "word_count": 430,
+        "empty_page_ratio": 0.0,
+        "suspicious_character_ratio": 0.0013,
+        "vietnamese_character_ratio": 0.2449
+      }
+    },
+    {
+      "source_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\thong-bao-cham-phuc-khao-bai-thi-ket-thuc-hoc-phan-dot-2-hoc-ky-2-nam-hoc-2025-2026-20260817080228-e.pdf",
+      "notification_title": "Thông báo chấm phúc khảo bài thi kết thúc học phần đợt 2 năm học 2025-2026. - 17/08/2026",
+      "total_pages": 1,
+      "quality_score": 100,
+      "quality_label": "GOOD",
+      "warnings": [],
+      "metrics": {
+        "text_length": 1980,
+        "word_count": 418,
+        "empty_page_ratio": 0.0,
+        "suspicious_character_ratio": 0.0019,
+        "vietnamese_character_ratio": 0.235
+      }
+    },
+    {
+      "source_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\thong-bao-khao-sat-su-hai-long-cua-sv-2025-2026-20260428080310-e.pdf",
+      "notification_title": "Thông báo triển khai khảo sát sự hài lòng của sinh viên năm học 2025-2026 - 28/04/2026",
+      "total_pages": 1,
+      "quality_score": 100,
+      "quality_label": "GOOD",
+      "warnings": [],
+      "metrics": {
+        "text_length": 1416,
+        "word_count": 298,
+        "empty_page_ratio": 0.0,
+        "suspicious_character_ratio": 0.0027,
+        "vietnamese_character_ratio": 0.2383
+      }
+    },
+    {
+      "source_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\thong-bao-xet-quy-doi-tuong-duong-chung-chi-ngoai-ngu-tin-hoc-chuan-dau-ra-hoc-ky-1-nam-hoc-2026-2027-20260824021117-e.pdf",
+      "notification_title": "Thông báo xét quy đổi tương đương Chứng chỉ Ngoại ngữ, Tin học chuẩn đầu ra học kỳ 1 năm học 2026-2027. - 24/08/2026",
+      "total_pages": 3,
+      "quality_score": 67,
+      "quality_label": "WARNING",
+      "warnings": [
+        "Trang 3: Trang hoàn toàn không có ký tự nào (rỗng)."
+      ],
+      "metrics": {
+        "text_length": 2944,
+        "word_count": 628,
+        "empty_page_ratio": 0.3333,
+        "suspicious_character_ratio": 0.0039,
+        "vietnamese_character_ratio": 0.2234
+      }
+    }
+  ]
+}

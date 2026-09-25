@@ -1,0 +1,20 @@
+# Credentials & Secrets (Do not commit to GitHub)
+.env
+.env.local
+.env.*.local
+!.env.example
+cookies.txt
+crawler/cookies.txt
+**/cookies.txt
+
+# Python cache & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# OS specific files
+.DS_Store
+Thumbs.db

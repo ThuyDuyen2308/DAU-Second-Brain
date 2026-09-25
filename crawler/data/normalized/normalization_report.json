@@ -1,0 +1,103 @@
+{
+  "generated_at": "2026-09-13T16:07:16.979303",
+  "total_notifications": 10,
+  "total_documents_normalized": 10,
+  "documents_matched_ocr": 10,
+  "documents_missing_ocr": 0,
+  "warnings_count": 0,
+  "errors_count": 0,
+  "warnings": [],
+  "errors": [],
+  "documents_summary": [
+    {
+      "id": "dau_doc_6f16da4ce50f",
+      "title": "Thông báo tổ chức khảo sát năng lực Toán học cho sinh viên khóa tuyển sinh năm 2026.",
+      "document_number": "43/TB-DHKTDN",
+      "category": "Khảo sát",
+      "has_ocr": true,
+      "total_pages": 2,
+      "content_chars": 2776
+    },
+    {
+      "id": "dau_doc_158c03e0c765",
+      "title": "Thông báo xét quy đổi tương đương Chứng chỉ Ngoại ngữ, Tin học chuẩn đầu ra học kỳ 1 năm học 2026-2027. - 24/08/2026",
+      "document_number": "94/TB",
+      "category": "Chuẩn đầu ra",
+      "has_ocr": true,
+      "total_pages": 3,
+      "content_chars": 2942
+    },
+    {
+      "id": "dau_doc_7c0f885f8d57",
+      "title": "Thông báo chấm phúc khảo bài thi kết thúc học phần đợt 2 năm học 2025-2026. - 17/08/2026",
+      "document_number": "607/QĐ-ĐHKTĐN",
+      "category": "Khảo thí",
+      "has_ocr": true,
+      "total_pages": 1,
+      "content_chars": 1980
+    },
+    {
+      "id": "dau_doc_87d032708d2f",
+      "title": "Thông báo về việc nộp học phí các học phần học lại và học cải thiện đối với sinh viên các khóa trong năm học 2026-2027 - 03/08/2026",
+      "document_number": null,
+      "category": "Học phí",
+      "has_ocr": true,
+      "total_pages": 4,
+      "content_chars": 6211
+    },
+    {
+      "id": "dau_doc_25f4e8253b12",
+      "title": "Thông báo về việc nộp học phí và bảo hiểm trong học kỳ I năm học 2026-2027 đối với sinh viên các khóa đang theo học tại trường - 03/08/2026",
+      "document_number": "34/TB-ĐHKTĐN",
+      "category": "Học phí",
+      "has_ocr": true,
+      "total_pages": 5,
+      "content_chars": 8543
+    },
+    {
+      "id": "dau_doc_569c11a0977a",
+      "title": "Thông báo nộp chứng chỉ quy đổi chuẩn đầu ra ngoại ngữ, tin học - 23/07/2026",
+      "document_number": "443/QD-DHKTDN",
+      "category": "Chuẩn đầu ra",
+      "has_ocr": true,
+      "total_pages": 1,
+      "content_chars": 2001
+    },
+    {
+      "id": "dau_doc_5674991fa681",
+      "title": "Thông báo triển khai phúc khảo đợt thi 1 học kỳ 2 năm học 2025-2026. - 11/05/2026",
+      "document_number": "607/QD-DHKTDN",
+      "category": "Khảo thí",
+      "has_ocr": true,
+      "total_pages": 1,
+      "content_chars": 2022
+    },
+    {
+      "id": "dau_doc_08fecbb7ea97",
+      "title": "Thông báo triển khai khảo sát sự hài lòng của sinh viên năm học 2025-2026 - 28/04/2026",
+      "document_number": "707/QD-DHKTDN",
+      "category": "Khảo sát",
+      "has_ocr": true,
+      "total_pages": 1,
+      "content_chars": 1416
+    },
+    {
+      "id": "dau_doc_7fd2baa55105",
+      "title": "Thông báo triển khai phúc khảo đợt thi 3 học kỳ 1 năm học 2025-2026. - 22/01/2026",
+      "document_number": "607/QD-DHKTDN",
+      "category": "Khảo thí",
+      "has_ocr": true,
+      "total_pages": 1,
+      "content_chars": 2028
+    },
+    {
+      "id": "dau_doc_e4a68cfd4a22",
+      "title": "Thông báo triển khai phúc khảo đợt thi 1&2 học kỳ 1 năm học 2025-2026. - 22/12/2025",
+      "document_number": "607/QD-DHKTDN",
+      "category": "Khảo thí",
+      "has_ocr": true,
+      "total_pages": 1,
+      "content_chars": 2105
+    }
+  ]
+}
