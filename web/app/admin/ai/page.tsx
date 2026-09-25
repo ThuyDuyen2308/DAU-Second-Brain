@@ -2,272 +2,193 @@
 "use client";
 
 import React, { useState } from "react";
+import { AskResponse } from "@/types/ask";
 
-interface PipelineStep {
-  id: string;
-  name: string;
-  category: "ingestion" | "retrieval" | "generation";
-  status: "deployed" | "architecture_ready" | "not_configured" | "offline_ready";
-  statusLabel: string;
-  description: string;
-  techDetails: string;
-}
+export default function AdminAIPage() {
+  const [testQuestion, setTestQuestion] = useState("Học phí học kỳ 1 năm học 2026-2027 là bao nhiêu?");
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<AskResponse | null>(null);
 
-const PIPELINE_STEPS: PipelineStep[] = [
-  {
-    id: "step_1",
-    name: "1. Bóc tách OCR & Chuẩn hóa",
-    category: "ingestion",
-    status: "deployed",
-    statusLabel: "Đã triển khai",
-    description: "Bóc tách text từ file scan PDF với động cơ Tesseract OCR và bộ lọc ảnh tiếng Việt (vie+eng).",
-    techDetails: "10 văn bản, 20 trang, 100% Quality Audit GOOD",
-  },
-  {
-    id: "step_2",
-    name: "2. Phân mảnh (Chunking)",
-    category: "ingestion",
-    status: "deployed",
-    statusLabel: "Đã triển khai",
-    description: "Cắt nội dung thành các đoạn 300 - 750 ký tự, bảo toàn câu tiếng Việt và metadata số trang.",
-    techDetails: "56 chunks có cấu trúc phân trang",
-  },
-  {
-    id: "step_3",
-    name: "3. Keyword Retrieval",
-    category: "retrieval",
-    status: "deployed",
-    statusLabel: "Đã triển khai",
-    description: "Trích xuất từ khóa, chuẩn hóa từ đồng nghĩa, ưu tiên số hiệu văn bản và kiểm soát từ dừng.",
-    techDetails: "Boost số hiệu +35 điểm, Tiêu đề +20 điểm",
-  },
-  {
-    id: "step_4",
-    name: "4. Semantic Search (Vector)",
-    category: "retrieval",
-    status: "architecture_ready",
-    statusLabel: "Đã triển khai kiến trúc",
-    description: "Đo lường khoảng cách ngữ nghĩa thông qua vector embedding và thuật toán Cosine Similarity.",
-    techDetails: "Vector Cosine Matching, Cache index JSON",
-  },
-  {
-    id: "step_5",
-    name: "5. Hybrid Ranking",
-    category: "retrieval",
-    status: "deployed",
-    statusLabel: "Đã triển khai",
-    description: "Kết hợp điểm số Keyword và Semantic theo trọng số 40% - 60%, tự động fallback khi thiếu key.",
-    techDetails: "FinalScore = Kw*0.4 + Sem*0.6, Coverage threshold 40%",
-  },
-  {
-    id: "step_6",
-    name: "6. Context Builder & Anti-Hallucination",
-    category: "generation",
-    status: "deployed",
-    statusLabel: "Đã triển khai",
-    description: "Đóng gói ngữ cảnh có rào chắn System Prompt nghiêm ngặt, ngăn chặn AI suy đoán ngoài tài liệu.",
-    techDetails: "Prompt neo giữ tài liệu, Compound Gating",
-  },
-  {
-    id: "step_7",
-    name: "7. Google Gemini 1.5 Flash",
-    category: "generation",
-    status: "not_configured",
-    statusLabel: "Chưa cấu hình API key",
-    description: "Mô hình ngôn ngữ tự nhiên tổng hợp câu trả lời mượt mà, hỗ trợ quota guard và timeout 15s.",
-    techDetails: "Endpoint v1beta, sẵn sàng kích hoạt khi có key",
-  },
-  {
-    id: "step_8",
-    name: "8. Local Extractive Synthesizer",
-    category: "generation",
-    status: "offline_ready",
-    statusLabel: "Đang sẵn sàng cho demo",
-    description: "Bộ trích xuất câu văn nguyên bản từ tài liệu gốc, hoạt động ngoại tuyến và không tốn quota.",
-    techDetails: "Mặc định kích hoạt khi chưa có GEMINI_API_KEY",
-  },
-  {
-    id: "step_9",
-    name: "9. Backend Citation Mapping",
-    category: "generation",
-    status: "deployed",
-    statusLabel: "Đã triển khai",
-    description: "Backend tự đối chiếu Document ID và số trang thực tế để tạo link `#page-n`, chống nguồn ảo.",
-    techDetails: "100% Citation Integrity (7/7 PASS)",
-  },
-];
+  const sampleQueries = [
+    "Học phí học kỳ 1 năm học 2026-2027 là bao nhiêu?",
+    "Thủ tục phúc khảo bài thi như thế nào?",
+    "Tôi cần nộp giấy chứng nhận ngoại ngữ ở đâu?",
+    "Thông báo 34/TB-ĐHKTĐN nói về vấn đề gì?",
+  ];
 
-export default function AdminAiPage() {
-  const [modalAction, setModalAction] = useState<string | null>(null);
+  const handleRunPipeline = async (qText?: string) => {
+    const text = (qText || testQuestion).trim();
+    if (!text || loading) return;
 
-  const getBadgeStyle = (status: PipelineStep["status"]) => {
-    switch (status) {
-      case "deployed":
-        return "bg-emerald-50 text-emerald-700 border-emerald-200";
-      case "architecture_ready":
-        return "bg-blue-50 text-blue-700 border-blue-200";
-      case "offline_ready":
-        return "bg-purple-50 text-purple-700 border-purple-200";
-      case "not_configured":
-        return "bg-amber-50 text-amber-800 border-amber-200";
-      default:
-        return "bg-slate-100 text-slate-700 border-slate-200";
+    setLoading(true);
+    setResult(null);
+
+    try {
+      const res = await fetch("/api/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: text }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Máy chủ phản hồi mã ${res.status}`);
+      }
+
+      const data: AskResponse = await res.json();
+      setResult(data);
+    } catch (err: any) {
+      console.error("Lỗi test pipeline:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="space-y-8">
-      {/* 1. Header */}
+      {/* Header */}
       <div>
         <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider mb-2">
-          <span>AI Pipeline</span>
+          <span>Second Brain Inspector</span>
         </div>
         <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-          AI & Kho tri thức
+          Trực quan hóa Pipeline AI & RAG
         </h2>
         <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl">
-          Theo dõi và quản lý pipeline xử lý dữ liệu phục vụ hệ thống hỏi đáp DAU Second Brain.
+          Thử nghiệm quy trình xử lý 7 bước thực tế của Second Brain: từ câu hỏi đầu vào, phân tích từ khóa, điểm số tìm kiếm đến prompt ngữ cảnh và trích dẫn nguồn.
         </p>
       </div>
 
-      {/* 2. Pipeline Action Buttons */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-            Thao tác xử lý dữ liệu
-          </h4>
-          <p className="text-[11px] text-slate-500 mt-0.5">
-            Quản lý và kích hoạt các script xử lý dữ liệu trong kho tri thức
-          </p>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setModalAction("Build Embeddings (Vector Indexing)")}
-            className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors cursor-pointer"
-          >
-            Build Embeddings
-          </button>
-          <button
-            type="button"
-            onClick={() => setModalAction("Re-index Keyword Database")}
-            className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors cursor-pointer"
-          >
-            Re-index
-          </button>
-          <button
-            type="button"
-            onClick={() => setModalAction("Kiểm tra toàn vẹn Dataset")}
-            className="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors shadow-xs cursor-pointer"
-          >
-            Kiểm tra Dataset
-          </button>
-        </div>
-      </div>
-
-      {/* 3. Retrieval Configuration Parameters */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
-        <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
-          Cấu hình thuật toán Hybrid Retrieval
-        </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
-          <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100">
-            <span className="text-slate-400 block mb-1">Trọng số Từ khóa (Keyword):</span>
-            <span className="font-mono text-lg font-black text-slate-900">40%</span>
-            <span className="text-[10px] text-slate-500 block mt-0.5">Bắt số hiệu, ngày tháng</span>
-          </div>
-
-          <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100">
-            <span className="text-slate-400 block mb-1">Trọng số Ngữ nghĩa (Semantic):</span>
-            <span className="font-mono text-lg font-black text-slate-900">60%</span>
-            <span className="text-[10px] text-slate-500 block mt-0.5">Hiểu ý định câu hỏi</span>
-          </div>
-
-          <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100">
-            <span className="text-slate-400 block mb-1">Ngưỡng bao phủ (Coverage):</span>
-            <span className="font-mono text-lg font-black text-slate-900">≥ 40%</span>
-            <span className="text-[10px] text-slate-500 block mt-0.5">Chống ảo giác ngoài phạm vi</span>
-          </div>
-
-          <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100">
-            <span className="text-slate-400 block mb-1">Ưu tiên Số hiệu văn bản:</span>
-            <span className="font-mono text-lg font-black text-blue-600">+35 điểm</span>
-            <span className="text-[10px] text-slate-500 block mt-0.5">Định vị chính xác Top 1</span>
-          </div>
-        </div>
-      </div>
-
-      {/* 4. Sơ đồ các bước trong Pipeline (Pipeline Steps Cards) */}
-      <div className="space-y-3">
-        <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
-          Chi tiết 9 bước trong Pipeline xử lý
+      {/* Test Control Box */}
+      <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-4">
+        <h3 className="text-sm font-extrabold text-slate-900">
+          Chạy thử nghiệm Pipeline với câu hỏi thực tế
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {PIPELINE_STEPS.map((step) => (
-            <div
-              key={step.id}
-              className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs flex flex-col justify-between space-y-3"
+        <div className="flex flex-col sm:flex-row gap-2">
+          <input
+            type="text"
+            value={testQuestion}
+            onChange={(e) => setTestQuestion(e.target.value)}
+            placeholder="Nhập câu hỏi thử nghiệm..."
+            className="flex-1 text-xs p-3 border border-slate-300 rounded-xl outline-none focus:border-blue-500 font-medium"
+          />
+          <button
+            type="button"
+            onClick={() => handleRunPipeline()}
+            disabled={loading || !testQuestion.trim()}
+            className="px-5 py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-200 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex-shrink-0 cursor-pointer"
+          >
+            {loading ? "Đang chạy Pipeline..." : "Chạy Pipeline RAG"}
+          </button>
+        </div>
+
+        {/* Sample query buttons */}
+        <div className="flex flex-wrap gap-2 pt-1">
+          <span className="text-[11px] font-bold text-slate-400 self-center">Mẫu:</span>
+          {sampleQueries.map((sq, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => {
+                setTestQuestion(sq);
+                handleRunPipeline(sq);
+              }}
+              className="text-[11px] font-medium text-slate-700 bg-slate-100 hover:bg-blue-50 hover:text-blue-700 px-2.5 py-1 rounded-lg border border-slate-200 transition-colors cursor-pointer"
             >
-              <div>
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <h4 className="font-bold text-slate-900 text-xs sm:text-sm leading-snug">
-                    {step.name}
-                  </h4>
-                  <span
-                    className={`px-2 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap border ${getBadgeStyle(
-                      step.status
-                    )}`}
-                  >
-                    {step.statusLabel}
-                  </span>
-                </div>
-                <p className="text-xs text-slate-600 leading-relaxed">{step.description}</p>
-              </div>
-
-              <div className="pt-2.5 border-t border-slate-100 text-[11px] font-mono text-slate-500">
-                {step.techDetails}
-              </div>
-            </div>
+              {sq}
+            </button>
           ))}
         </div>
       </div>
 
-      {/* 5. Modal cảnh báo an toàn cho AI Actions */}
-      {modalAction && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-xl max-w-md w-full p-6 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+      {/* Results 7 Steps Visualizer */}
+      {result && (
+        <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-6 animate-in fade-in duration-200">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+            <h3 className="text-base font-extrabold text-slate-900">
+              Kết quả thực thi Second Brain Pipeline
+            </h3>
+            <span className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+              Thực thi thành công
+            </span>
+          </div>
+
+          <div className="space-y-6">
+            {/* STEP 1: Question */}
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
+              <span className="text-[10px] font-extrabold uppercase text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md">
+                Bước 1: Input Question
+              </span>
+              <p className="text-sm font-bold text-slate-900 mt-2">"{testQuestion}"</p>
+            </div>
+
+            {/* STEP 2: Retrieval Status */}
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-extrabold uppercase text-purple-600 bg-purple-50 px-2 py-0.5 rounded-md">
+                  Bước 2: Retrieval Engine
+                </span>
+                <span className="text-xs font-bold text-slate-700">
+                  Tìm thấy {result.relevantDocumentsFound} đoạn văn bản liên quan
+                </span>
               </div>
-              <h4 className="text-base font-bold text-slate-900">Thao tác: {modalAction}</h4>
-            </div>
-
-            <div className="p-3.5 bg-slate-50 rounded-xl text-xs text-slate-600 leading-relaxed space-y-1.5">
-              <p className="font-semibold text-slate-800">Thông báo kỹ thuật:</p>
-              <p>
-                Chức năng này đã có script xử lý tương ứng trong project (`web/scripts/build_embeddings.js` và `web/scripts/audit_dataset.js`) nhưng chưa được kết nối thành thao tác server-side trực tiếp từ trình duyệt để đảm bảo an toàn hệ thống.
-              </p>
-              <p className="text-slate-500 text-[11px]">
-                Để thực thi trong môi trường dòng lệnh:
-                <code className="block mt-1 p-1.5 bg-slate-200/70 rounded font-mono text-[10px] text-slate-800">
-                  npm run embeddings:build
-                </code>
+              <p className="text-xs text-slate-600">
+                Hybrid Search Engine (40% Keyword Match + 60% Semantic Cosine Similarity + 35p Số hiệu công văn).
               </p>
             </div>
 
-            <div className="flex justify-end pt-2">
-              <button
-                type="button"
-                onClick={() => setModalAction(null)}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-xl shadow-xs cursor-pointer"
-              >
-                Đã hiểu
-              </button>
+            {/* STEP 3: Retrieved Chunks & Sources */}
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+              <span className="text-[10px] font-extrabold uppercase text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md">
+                Bước 3 & 4: Top Retrieved Chunks & Context
+              </span>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {result.sources.map((src, idx) => (
+                  <div key={idx} className="p-3 bg-white rounded-xl border border-slate-200 text-xs space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="font-extrabold text-blue-700">
+                        {src.documentNumber || `Document ${idx + 1}`}
+                      </span>
+                      <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
+                        Trang {src.page}
+                      </span>
+                    </div>
+                    <p className="font-bold text-slate-800 line-clamp-1">{src.title}</p>
+                    <p className="text-[11px] text-slate-500 line-clamp-2 italic font-mono bg-slate-50 p-1.5 rounded-md">
+                      "{src.snippet}"
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* STEP 5 & 6: AI Provider & Answer */}
+            <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-200 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-extrabold uppercase text-blue-700 bg-blue-100 px-2 py-0.5 rounded-md">
+                  Bước 5 & 6: AI Generation ({result.modelUsed || "Local Synthesizer"})
+                </span>
+              </div>
+              <div className="text-xs text-slate-800 leading-relaxed font-normal whitespace-pre-wrap bg-white p-4 rounded-xl border border-blue-100 shadow-2xs">
+                {result.answer}
+              </div>
+            </div>
+
+            {/* STEP 7: Backend Citations */}
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+              <span className="text-[10px] font-extrabold uppercase text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">
+                Bước 7: Backend Citation Mapping
+              </span>
+              <div className="space-y-1 text-xs">
+                {result.sources.map((src, idx) => (
+                  <div key={idx} className="flex items-center gap-2 font-mono text-[11px] text-slate-700">
+                    <span className="text-emerald-600 font-bold">✓</span>
+                    <span>URL Trích dẫn {idx + 1}:</span>
+                    <span className="font-bold text-blue-600">{src.url}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
