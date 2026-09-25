@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { AUTH_CONFIG } from "@/lib/auth/config";
 import { createSessionToken } from "@/lib/auth/session";
 import { AuthUser } from "@/lib/auth/types";
+import { prisma } from "@/lib/db";
+import { verifyPassword } from "@/lib/auth/password";
 
 export async function POST(req: NextRequest) {
   try {
@@ -29,29 +31,50 @@ export async function POST(req: NextRequest) {
 
     let authenticatedUser: AuthUser | null = null;
 
-    // 1. Kiểm tra tài khoản Admin Demo
-    if (
-      cleanEmail === AUTH_CONFIG.admin.email &&
-      cleanPassword === AUTH_CONFIG.admin.password
-    ) {
-      authenticatedUser = {
-        id: "dau_admin_01",
-        email: AUTH_CONFIG.admin.email,
-        name: AUTH_CONFIG.admin.name,
-        role: "admin",
-      };
+    // 1. Kiểm tra tài khoản trong Database thực tế (PostgreSQL)
+    try {
+      const dbUser = await prisma.user.findUnique({
+        where: { email: cleanEmail },
+      });
+
+      if (dbUser && dbUser.passwordHash) {
+        const isPasswordCorrect = await verifyPassword(cleanPassword, dbUser.passwordHash);
+        if (isPasswordCorrect) {
+          authenticatedUser = {
+            id: dbUser.id,
+            email: dbUser.email,
+            name: dbUser.name,
+            role: dbUser.role === "ADMIN" ? "admin" : "student",
+          };
+        }
+      }
+    } catch (dbError) {
+      console.warn("[Login API] Không thể truy vấn database hoặc đang kết nối lại:", dbError);
     }
-    // 2. Kiểm tra tài khoản Sinh viên Demo
-    else if (
-      cleanEmail === AUTH_CONFIG.student.email &&
-      cleanPassword === AUTH_CONFIG.student.password
-    ) {
-      authenticatedUser = {
-        id: "dau_student_01",
-        email: AUTH_CONFIG.student.email,
-        name: AUTH_CONFIG.student.name,
-        role: "student",
-      };
+
+    // 2. Fallback kiểm tra cấu hình demo tĩnh nếu chưa có trong database
+    if (!authenticatedUser) {
+      if (
+        cleanEmail === AUTH_CONFIG.admin.email &&
+        cleanPassword === AUTH_CONFIG.admin.password
+      ) {
+        authenticatedUser = {
+          id: "dau_admin_01",
+          email: AUTH_CONFIG.admin.email,
+          name: AUTH_CONFIG.admin.name,
+          role: "admin",
+        };
+      } else if (
+        cleanEmail === AUTH_CONFIG.student.email &&
+        cleanPassword === AUTH_CONFIG.student.password
+      ) {
+        authenticatedUser = {
+          id: "dau_student_01",
+          email: AUTH_CONFIG.student.email,
+          name: AUTH_CONFIG.student.name,
+          role: "student",
+        };
+      }
     }
 
     // Nếu thông tin đăng nhập không khớp bất kỳ tài khoản nào

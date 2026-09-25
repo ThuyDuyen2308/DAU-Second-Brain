@@ -9,6 +9,7 @@ import {
   saveConversations,
   generateTitleFromQuestion,
 } from "@/lib/chat_storage";
+import { AuthUser } from "@/lib/auth/types";
 import ChatSidebar from "./ChatSidebar";
 import ChatMessageItem from "./ChatMessageItem";
 
@@ -19,6 +20,8 @@ export default function ChatInterface() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
 
   // Modals state
   const [renameState, setRenameState] = useState<{ id: string; title: string } | null>(null);
@@ -26,10 +29,37 @@ export default function ChatInterface() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // 1. Tải danh sách cuộc trò chuyện từ localStorage khi mount
+  // 1. Kiểm tra trạng thái xác thực và tải danh sách cuộc trò chuyện phù hợp
   useEffect(() => {
-    const loaded = loadConversations();
-    setConversations(loaded);
+    async function initAuthAndConversations() {
+      try {
+        const res = await fetch("/api/auth/me");
+        const data = await res.json();
+
+        if (data.authenticated && data.user) {
+          setCurrentUser(data.user);
+          // Người dùng đã đăng nhập -> Tải lịch sử chat chính thức từ PostgreSQL Database
+          const convRes = await fetch("/api/conversations");
+          if (convRes.ok) {
+            const convData = await convRes.json();
+            setConversations(convData.conversations || []);
+          }
+        } else {
+          setCurrentUser(null);
+          // Chế độ khách -> Đọc lịch sử tạm thời từ localStorage trình duyệt
+          const loaded = loadConversations();
+          setConversations(loaded);
+        }
+      } catch (err) {
+        console.warn("Lỗi kiểm tra phiên làm việc:", err);
+        const loaded = loadConversations();
+        setConversations(loaded);
+      } finally {
+        setAuthChecked(true);
+      }
+    }
+
+    initAuthAndConversations();
   }, []);
 
   // Cuộc trò chuyện hiện tại
@@ -56,7 +86,23 @@ export default function ChatInterface() {
     setErrorMsg(null);
   };
 
-  // 3. Xử lý gửi câu hỏi đến API /api/ask
+  // 3. Xử lý Đăng xuất an toàn
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      setCurrentUser(null);
+      // Xóa sạch trạng thái cuộc trò chuyện trên giao diện để tránh rò rỉ dữ liệu người dùng trước
+      setConversations([]);
+      setActiveId(null);
+      // Nạp lại danh sách khách nếu có
+      const guestConvs = loadConversations();
+      setConversations(guestConvs);
+    } catch (err) {
+      console.error("Lỗi đăng xuất:", err);
+    }
+  };
+
+  // 4. Xử lý gửi câu hỏi
   const handleSend = async (questionText?: string) => {
     const text = (questionText || inputQuestion).trim();
     if (!text || loading) return;
@@ -66,36 +112,110 @@ export default function ChatInterface() {
     setLoading(true);
 
     const nowIso = new Date().toISOString();
-    const userMsg: ChatMessage = {
+    const tempUserMsg: ChatMessage = {
       id: `msg_user_${Date.now()}`,
       role: "user",
       content: text,
       createdAt: nowIso,
     };
 
+    // TRƯỜNG HỢP A: Người dùng đã đăng nhập -> Lưu vào Database PostgreSQL
+    if (currentUser) {
+      try {
+        let convId = activeId;
+
+        // Nếu chưa chọn conversation -> Tạo conversation mới trên Database trước
+        if (!convId) {
+          const createConvRes = await fetch("/api/conversations", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ title: generateTitleFromQuestion(text) }),
+          });
+
+          if (!createConvRes.ok) {
+            throw new Error("Không thể khởi tạo cuộc trò chuyện trên máy chủ.");
+          }
+
+          const createConvData = await createConvRes.json();
+          convId = createConvData.conversation.id;
+          setActiveId(convId);
+
+          const newConv: Conversation = {
+            id: convId as string,
+            title: createConvData.conversation.title,
+            createdAt: createConvData.conversation.createdAt,
+            updatedAt: createConvData.conversation.updatedAt,
+            messages: [tempUserMsg],
+          };
+          setConversations((prev) => [newConv, ...prev]);
+        } else {
+          // Cập nhật tạm thời tin nhắn của user vào UI trong khi chờ AI phản hồi
+          setConversations((prev) =>
+            prev.map((c) =>
+              c.id === convId ? { ...c, messages: [...c.messages, tempUserMsg] } : c
+            )
+          );
+        }
+
+        // Gửi tin nhắn vào Database thông qua API `/api/conversations/[id]/messages` (chạy RAG thật)
+        const sendRes = await fetch(`/api/conversations/${convId}/messages`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ content: text }),
+        });
+
+        if (!sendRes.ok) {
+          const errData = await sendRes.json().catch(() => ({}));
+          throw new Error(errData.error || `Lỗi máy chủ (${sendRes.status})`);
+        }
+
+        const sendData = await sendRes.json();
+
+        // Cập nhật câu trả lời AI chính thức từ Database vào UI
+        setConversations((prev) =>
+          prev.map((c) => {
+            if (c.id === convId) {
+              const withoutTemp = c.messages.filter((m) => m.id !== tempUserMsg.id);
+              return {
+                ...c,
+                updatedAt: new Date().toISOString(),
+                messages: [...withoutTemp, sendData.userMessage, sendData.assistantMessage],
+              };
+            }
+            return c;
+          })
+        );
+      } catch (err: any) {
+        console.error("Lỗi gửi tin nhắn:", err);
+        setErrorMsg(err.message || "Không thể kết nối đến máy chủ tra cứu DAU.");
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
+
+    // TRƯỜNG HỢP B: Chế độ Khách (Chưa đăng nhập) -> Dùng localStorage tạm thời
     let targetConvId = activeId;
     let updatedConvs = [...conversations];
 
-    // Nếu chưa có cuộc trò chuyện đang chọn -> Tạo cuộc trò chuyện mới
     if (!targetConvId) {
-      targetConvId = `conv_${Date.now()}`;
+      targetConvId = `conv_guest_${Date.now()}`;
       const newConv: Conversation = {
         id: targetConvId,
         title: generateTitleFromQuestion(text),
         createdAt: nowIso,
         updatedAt: nowIso,
-        messages: [userMsg],
+        messages: [tempUserMsg],
       };
       updatedConvs.unshift(newConv);
       setActiveId(targetConvId);
     } else {
-      // Cập nhật câu hỏi người dùng vào cuộc trò chuyện hiện tại
       updatedConvs = updatedConvs.map((c) => {
         if (c.id === targetConvId) {
           return {
             ...c,
             updatedAt: nowIso,
-            messages: [...c.messages, userMsg],
+            messages: [...c.messages, tempUserMsg],
           };
         }
         return c;
@@ -105,7 +225,7 @@ export default function ChatInterface() {
     setConversations(updatedConvs);
     saveConversations(updatedConvs);
 
-    // Kích hoạt API RAG thật /api/ask
+    // Kích hoạt API RAG công khai /api/ask
     try {
       const res = await fetch("/api/ask", {
         method: "POST",
@@ -135,7 +255,6 @@ export default function ChatInterface() {
         })),
       };
 
-      // Cập nhật câu trả lời AI vào cuộc trò chuyện
       const finalConvs = updatedConvs.map((c) => {
         if (c.id === targetConvId) {
           return {
@@ -157,23 +276,48 @@ export default function ChatInterface() {
     }
   };
 
-  // 4. Đổi tên cuộc trò chuyện
-  const handleConfirmRename = () => {
+  // 5. Đổi tên cuộc trò chuyện
+  const handleConfirmRename = async () => {
     if (!renameState || !renameState.title.trim()) return;
+    const cleanTitle = renameState.title.trim();
+
+    if (currentUser) {
+      try {
+        await fetch(`/api/conversations/${renameState.id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title: cleanTitle }),
+        });
+      } catch (err) {
+        console.error("Lỗi cập nhật tiêu đề DB:", err);
+      }
+    }
+
     const updated = conversations.map((c) =>
-      c.id === renameState.id ? { ...c, title: renameState.title.trim() } : c
+      c.id === renameState.id ? { ...c, title: cleanTitle } : c
     );
     setConversations(updated);
-    saveConversations(updated);
+    if (!currentUser) saveConversations(updated);
     setRenameState(null);
   };
 
-  // 5. Xóa cuộc trò chuyện
-  const handleConfirmDelete = () => {
+  // 6. Xóa cuộc trò chuyện
+  const handleConfirmDelete = async () => {
     if (!deleteState) return;
+
+    if (currentUser) {
+      try {
+        await fetch(`/api/conversations/${deleteState.id}`, {
+          method: "DELETE",
+        });
+      } catch (err) {
+        console.error("Lỗi xóa cuộc trò chuyện trên DB:", err);
+      }
+    }
+
     const updated = conversations.filter((c) => c.id !== deleteState.id);
     setConversations(updated);
-    saveConversations(updated);
+    if (!currentUser) saveConversations(updated);
     if (activeId === deleteState.id) {
       setActiveId(null);
     }
@@ -186,10 +330,12 @@ export default function ChatInterface() {
       <ChatSidebar
         conversations={conversations}
         activeId={activeId}
+        currentUser={currentUser}
         onSelectConversation={(id) => setActiveId(id)}
         onNewConversation={handleNewConversation}
         onRenameConversation={(id, title) => setRenameState({ id, title })}
         onDeleteConversation={(id, title) => setDeleteState({ id, title })}
+        onLogout={handleLogout}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
@@ -232,24 +378,48 @@ export default function ChatInterface() {
             >
               Tra cứu văn bản
             </Link>
-            <Link
-              href="/categories"
-              className="hidden sm:inline-block text-xs font-semibold text-slate-600 hover:text-blue-600 px-3 py-1.5 rounded-xl hover:bg-slate-100 transition-colors"
-            >
-              Chủ đề
-            </Link>
-            <Link
-              href="/login"
-              className="text-xs font-semibold text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded-xl hover:bg-slate-100 transition-colors"
-            >
-              Đăng nhập
-            </Link>
-            <Link
-              href="/admin"
-              className="text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-3.5 py-1.5 rounded-xl shadow-xs transition-colors"
-            >
-              Quản trị
-            </Link>
+
+            {currentUser ? (
+              /* User Menu khi đã đăng nhập */
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 bg-slate-100 px-2.5 py-1 rounded-xl text-xs font-semibold text-slate-800">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span className="truncate max-w-[120px]">{currentUser.name}</span>
+                </div>
+                {currentUser.role === "admin" && (
+                  <Link
+                    href="/admin"
+                    className="text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-xl shadow-xs transition-colors"
+                  >
+                    Quản trị
+                  </Link>
+                )}
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="text-xs font-semibold text-red-600 hover:text-red-700 hover:bg-red-50 px-2.5 py-1.5 rounded-xl transition-colors cursor-pointer"
+                  title="Đăng xuất"
+                >
+                  Đăng xuất
+                </button>
+              </div>
+            ) : (
+              /* Menu khi là Khách */
+              <div className="flex items-center gap-2">
+                <Link
+                  href="/login"
+                  className="text-xs font-semibold text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded-xl hover:bg-slate-100 transition-colors"
+                >
+                  Đăng nhập
+                </Link>
+                <Link
+                  href="/register"
+                  className="text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-3.5 py-1.5 rounded-xl shadow-xs transition-colors"
+                >
+                  Đăng ký
+                </Link>
+              </div>
+            )}
           </div>
         </header>
 
@@ -397,7 +567,7 @@ export default function ChatInterface() {
                 </div>
                 <div className="flex items-center justify-between text-[11px] text-slate-400 px-1 mt-1.5">
                   <span>Nhấn Enter để gửi • Shift + Enter để xuống dòng</span>
-                  <span>DAU Second Brain RAG Pipeline</span>
+                  <span>{currentUser ? "Lịch sử đã lưu an toàn vào Database" : "Chế độ Khách (Lưu tạm trình duyệt)"}</span>
                 </div>
               </div>
             </div>

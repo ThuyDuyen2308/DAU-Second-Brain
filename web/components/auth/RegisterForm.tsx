@@ -2,17 +2,22 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import { isValidEmail } from "@/lib/auth";
 
 export default function RegisterForm() {
+  const router = useRouter();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agreeTerms, setAgreeTerms] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errors, setErrors] = useState<{
     fullName?: string;
     email?: string;
@@ -20,10 +25,11 @@ export default function RegisterForm() {
     confirmPassword?: string;
     agreeTerms?: string;
   }>({});
-  const [submittedMessage, setSubmittedMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setServerError(null);
+    setSuccessMessage(null);
     const newErrors: typeof errors = {};
 
     if (!fullName.trim()) {
@@ -38,8 +44,8 @@ export default function RegisterForm() {
 
     if (!password) {
       newErrors.password = "Vui lòng nhập mật khẩu.";
-    } else if (password.length < 8) {
-      newErrors.password = "Mật khẩu phải có tối thiểu 8 ký tự.";
+    } else if (password.length < 6) {
+      newErrors.password = "Mật khẩu phải có tối thiểu 6 ký tự.";
     }
 
     if (!confirmPassword) {
@@ -54,21 +60,58 @@ export default function RegisterForm() {
 
     setErrors(newErrors);
 
-    if (Object.keys(newErrors).length === 0) {
-      setSubmittedMessage(
-        "Giao diện đăng ký tài khoản sinh viên hiện đang ở mức nguyên mẫu (UI Prototype). Không cấp quyền Admin qua giao diện này. Role mặc định khi mở rộng backend là 'student'."
-      );
+    if (Object.keys(newErrors).length > 0) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: fullName.trim(),
+          email: email.trim().toLowerCase(),
+          password,
+          confirmPassword,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        setServerError(data.message || "Đăng ký thất bại. Vui lòng thử lại.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      setSuccessMessage("Đăng ký thành công! Đang chuyển hướng vào hệ thống...");
+      setTimeout(() => {
+        router.push("/");
+        router.refresh();
+      }, 1200);
+    } catch (err: any) {
+      setServerError("Không thể kết nối đến máy chủ. Vui lòng kiểm tra lại mạng.");
+      setIsSubmitting(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {submittedMessage && (
-        <div className="p-3.5 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-800 flex items-start gap-2">
-          <svg className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      {serverError && (
+        <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 flex items-start gap-2">
+          <svg className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <span>{submittedMessage}</span>
+          <span>{serverError}</span>
+        </div>
+      )}
+
+      {successMessage && (
+        <div className="p-3.5 bg-green-50 border border-green-200 rounded-xl text-xs text-green-700 flex items-start gap-2">
+          <svg className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span className="font-semibold">{successMessage}</span>
         </div>
       )}
 
@@ -79,6 +122,7 @@ export default function RegisterForm() {
         onChange={(e) => setFullName(e.target.value)}
         placeholder="Nguyễn Văn A"
         error={errors.fullName}
+        disabled={isSubmitting}
         leftIcon={
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -93,6 +137,7 @@ export default function RegisterForm() {
         onChange={(e) => setEmail(e.target.value)}
         placeholder="student@dau.edu.vn"
         error={errors.email}
+        disabled={isSubmitting}
         leftIcon={
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -105,8 +150,9 @@ export default function RegisterForm() {
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        placeholder="Tối thiểu 8 ký tự"
+        placeholder="Tối thiểu 6 ký tự"
         error={errors.password}
+        disabled={isSubmitting}
         leftIcon={
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -121,6 +167,7 @@ export default function RegisterForm() {
         onChange={(e) => setConfirmPassword(e.target.value)}
         placeholder="Nhập lại mật khẩu"
         error={errors.confirmPassword}
+        disabled={isSubmitting}
         leftIcon={
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -134,6 +181,7 @@ export default function RegisterForm() {
             type="checkbox"
             checked={agreeTerms}
             onChange={(e) => setAgreeTerms(e.target.checked)}
+            disabled={isSubmitting}
             className="w-4 h-4 rounded text-blue-600 border-slate-300 focus:ring-blue-500 mt-0.5"
           />
           <span>
@@ -149,8 +197,8 @@ export default function RegisterForm() {
         )}
       </div>
 
-      <Button type="submit" variant="primary" size="md" className="w-full">
-        Đăng ký tài khoản
+      <Button type="submit" variant="primary" size="md" className="w-full" disabled={isSubmitting}>
+        {isSubmitting ? "Đang xử lý đăng ký..." : "Đăng ký tài khoản"}
       </Button>
 
       <div className="text-center text-xs text-slate-600 pt-2">

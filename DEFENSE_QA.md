@@ -146,12 +146,13 @@ Dạ, AI không can thiệp vào tầng lưu trữ quản trị, mà được t�
 
 ---
 
-### Q23. Admin đã cập nhật vào cơ sở dữ liệu thật chưa?
+### Q23. Hệ thống đã có cơ sở dữ liệu thật chưa?
 **Trả lời:**  
-Dạ, ở giai đoạn bảo vệ đồ án hiện tại, phân hệ Admin đang hoạt động ở mức **nguyên mẫu giao diện (UI Prototype)** kết hợp dữ liệu tĩnh từ kho tài liệu JSON chuẩn hóa:
-- Dữ liệu hiển thị (10 văn bản, 20 trang, 56 chunks) được đọc trực tiếp từ hệ thống file JSON của project.
-- Các thao tác thêm, sửa, xóa hoặc đổi trạng thái người dùng được mô phỏng mượt mà trên bộ nhớ cục bộ (Local State/Session) của trình duyệt để phục vụ việc demo quy trình thao tác thực tế.
-- Hệ thống chưa kết nối cơ sở dữ liệu quan hệ (PostgreSQL) để đảm bảo tính an toàn và ổn định cao nhất trong buổi thuyết minh đồ án.
+Dạ có ạ. Ở Bước 16, hệ thống đã được tích hợp **Cơ sở dữ liệu quan hệ PostgreSQL 17** kết hợp **Prisma ORM** để quản trị dữ liệu người dùng và lịch sử trò chuyện:
+- **Bảng `users`**: Lưu trữ tài khoản sinh viên và quản trị viên, mật khẩu được băm an toàn bằng thuật toán `bcrypt` (12 salt rounds), phân quyền `Role` (`STUDENT` / `ADMIN`).
+- **Bảng `conversations`**: Lưu trữ các cuộc trò chuyện của từng người dùng, hỗ trợ xem lại và đổi tên.
+- **Bảng `messages`**: Lưu trữ từng tin nhắn (câu hỏi của sinh viên và câu trả lời của AI) kèm mảng `citations` JSON trích dẫn nguồn gốc văn bản chuẩn xác.
+- **Bảng `sessions`** và **`password_reset_tokens`**: Hỗ trợ quản lý phiên làm việc và quy trình khôi phục mật khẩu bảo mật một lần (One-Time Token).
 
 ---
 
@@ -160,15 +161,34 @@ Dạ, ở giai đoạn bảo vệ đồ án hiện tại, phân hệ Admin đang
 Dạ có ạ. Hệ thống đã được tích hợp cơ chế xác thực và phân quyền Server-Side hoàn chỉnh cho phân hệ Admin:
 - Sử dụng **HTTP-Only Session Cookie** được ký HMAC-SHA256 phía Server để lưu trữ phiên làm việc an toàn, chống giả mạo token.
 - Sử dụng Next.js Middleware để bảo vệ toàn bộ tuyến đường `/admin/*`. Khi chưa đăng nhập, hệ thống tự động chuyển hướng về `/login`; nếu đăng nhập tài khoản sinh viên không có quyền Admin, hệ thống sẽ tự động chặn và trả về trang 403 Forbidden.
+- Tài khoản Admin được khởi tạo qua script seed bảo mật riêng biệt (`npm run db:seed-admin`), tuyệt đối không cho phép đăng ký Admin công khai trên giao diện người dùng.
 
 ---
 
 ### Q25. Sinh viên có thể tự biến tài khoản của mình thành Admin bằng cách sửa localStorage hay URL không?
 **Trả lời:**  
-Dạ không ạ. Quyền Admin được kiểm tra và xác thực nghiêm ngặt 100% phía Server bằng chữ ký mã hóa HMAC. Client không thể tự đổi vai trò bằng `localStorage` hay truyền tham số URL `?role=admin`. Mọi thay đổi trái phép trên Cookie đều khiến chữ ký HMAC bị sai và bị từ chối lập tức.
+Dạ không ạ. Quyền Admin được kiểm tra và xác thực nghiêm ngặt 100% phía Server bằng chữ ký mã hóa HMAC kết hợp kiểm tra `role: "ADMIN"` trong cơ sở dữ liệu PostgreSQL. Client không thể tự đổi vai trò bằng `localStorage` hay truyền tham số URL `?role=admin`. Mọi thay đổi trái phép trên Cookie đều khiến chữ ký HMAC bị sai và bị từ chối lập tức.
 
 ---
 
-### Q26. Tại sao hệ thống chưa kết nối cơ sở dữ liệu (PostgreSQL / MySQL) cho tài khoản?
+### Q26. Lịch sử chat được lưu trữ như thế nào? Sinh viên đổi máy khác có xem lại được không?
 **Trả lời:**  
-Dạ, mục tiêu ở phạm vi đồ án là tập trung chứng minh tính đúng đắn của kiến trúc RAG, thuật toán Hybrid Search và luồng phân quyền bảo mật phía Server. Việc lưu trữ tài khoản demo và Session qua mã hóa HMAC Server-Side giúp hệ thống chạy hoàn toàn độc lập, nhẹ nhàng, không phụ thuộc hạ tầng DB bên ngoài khi đi thuyết minh.
+Dạ có ạ. Khi sinh viên đã đăng nhập tài khoản:
+- Toàn bộ cuộc trò chuyện và câu hỏi đều được lưu trữ trực tiếp vào bảng `conversations` và `messages` trong cơ sở dữ liệu PostgreSQL gắn chặt với `userId` đã được xác thực phía server.
+- Khi sinh viên đăng nhập ở thiết bị hoặc trình duyệt khác, hệ thống sẽ tự động truy vấn từ PostgreSQL và hiển thị đầy đủ lịch sử cùng với các trích dẫn nguồn (citations) như thời điểm ban đầu.
+- Đồng thời, hệ thống áp dụng cơ chế phân quyền dữ liệu nghiêm ngặt (Data Isolation): Sinh viên A tuyệt đối không thể xem, sửa hoặc xóa cuộc trò chuyện của Sinh viên B (trả về lỗi 403 Forbidden nếu cố tình truy cập trái phép qua API).
+
+---
+
+### Q27. Mật khẩu người dùng được lưu trữ như thế nào? Có nguy cơ lộ mật khẩu thuần không?
+**Trả lời:**  
+Dạ, mật khẩu thuần tuyệt đối **không bao giờ** được lưu trữ trong cơ sở dữ liệu hoặc ghi log:
+- Toàn bộ mật khẩu người dùng (cả sinh viên đăng ký và tài khoản Admin được seed) đều được băm bằng thuật toán **bcrypt** với hệ số `salt rounds = 12`.
+- Khi người dùng đăng nhập, hệ thống dùng hàm `bcrypt.compare` để đối chiếu chuỗi băm mà không cần đảo ngược về mật khẩu gốc.
+- Các API trả về thông tin người dùng (`/api/auth/me`, `/api/auth/login`, `/api/auth/register`) luôn loại bỏ hoàn toàn trường `passwordHash` để ngăn chặn rò rỉ dữ liệu.
+
+---
+
+### Q28. Khi một cuộc trò chuyện bị xóa thì dữ liệu liên quan được xử lý ra sao?
+**Trả lời:**  
+Dạ, trong thiết kế Prisma Schema, quan hệ giữa `Conversation` và `Message` được cấu hình ràng buộc toàn vẹn dữ liệu `onDelete: Cascade`. Khi sinh viên thực hiện xóa một cuộc trò chuyện, toàn bộ các tin nhắn và trích dẫn liên quan đến cuộc trò chuyện đó sẽ tự động được xóa sạch trong PostgreSQL trong cùng một thao tác, không để lại rác dữ liệu mồ côi (orphan records). Thao tác này hoàn toàn độc lập và không ảnh hưởng đến kho tài liệu gốc hay Second Brain.

@@ -5,14 +5,17 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Conversation } from "@/types/ask";
 import { groupConversationsByDate } from "@/lib/chat_storage";
+import { AuthUser } from "@/lib/auth/types";
 
 interface ChatSidebarProps {
   conversations: Conversation[];
   activeId: string | null;
+  currentUser: AuthUser | null;
   onSelectConversation: (id: string) => void;
   onNewConversation: () => void;
   onRenameConversation: (id: string, currentTitle: string) => void;
   onDeleteConversation: (id: string, title: string) => void;
+  onLogout: () => void;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -20,10 +23,12 @@ interface ChatSidebarProps {
 export default function ChatSidebar({
   conversations,
   activeId,
+  currentUser,
   onSelectConversation,
   onNewConversation,
   onRenameConversation,
   onDeleteConversation,
+  onLogout,
   isOpen,
   onClose,
 }: ChatSidebarProps) {
@@ -180,6 +185,31 @@ export default function ChatSidebar({
         </button>
       </div>
 
+      {/* Guest Mode Notification Badge */}
+      {!currentUser && (
+        <div className="mx-3 mt-3 p-2.5 bg-slate-800/80 border border-slate-700/80 rounded-xl text-[11px] text-slate-300 leading-relaxed">
+          <div className="flex items-center gap-1.5 font-bold text-amber-400 mb-0.5">
+            <span>⚡ Chế độ Khách</span>
+          </div>
+          <p className="text-slate-400">Lịch sử chỉ lưu tạm trên máy này. Đăng nhập để lưu vĩnh viễn vào Database.</p>
+          <div className="mt-2 flex items-center gap-2">
+            <Link
+              href="/login"
+              className="text-[11px] font-bold text-blue-400 hover:underline"
+            >
+              Đăng nhập →
+            </Link>
+            <span className="text-slate-600">•</span>
+            <Link
+              href="/register"
+              className="text-[11px] font-bold text-slate-300 hover:underline"
+            >
+              Đăng ký
+            </Link>
+          </div>
+        </div>
+      )}
+
       {/* Conversations List */}
       <div className="flex-1 overflow-y-auto px-3 py-2">
         {!hasAnyConversation ? (
@@ -197,26 +227,58 @@ export default function ChatSidebar({
         )}
       </div>
 
-      {/* Footer Navigation */}
-      <div className="p-3 border-t border-slate-800 bg-slate-950/40 text-xs space-y-1">
-        <Link
-          href="/documents"
-          className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
-          <span>Kho văn bản gốc</span>
-        </Link>
-        <Link
-          href="/admin"
-          className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-          </svg>
-          <span>Quản trị Second Brain</span>
-        </Link>
+      {/* Footer Navigation & User Profile */}
+      <div className="p-3 border-t border-slate-800 bg-slate-950/40 text-xs space-y-2">
+        {currentUser ? (
+          <div className="p-2 bg-slate-800/60 rounded-xl border border-slate-700/50 flex items-center justify-between">
+            <div className="flex items-center gap-2 min-w-0 pr-2">
+              <div className="w-7 h-7 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs flex-shrink-0">
+                {currentUser.name.charAt(0).toUpperCase()}
+              </div>
+              <div className="min-w-0">
+                <div className="font-semibold text-white truncate text-[11px]">{currentUser.name}</div>
+                <div className="text-[10px] text-slate-400 flex items-center gap-1">
+                  <span className={`px-1.5 py-0.2 rounded-xs text-[9px] font-bold uppercase ${
+                    currentUser.role === "admin" ? "bg-amber-500/20 text-amber-300" : "bg-blue-500/20 text-blue-300"
+                  }`}>
+                    {currentUser.role === "admin" ? "Admin" : "Sinh viên"}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={onLogout}
+              className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-slate-700/60 rounded-lg transition-colors cursor-pointer"
+              title="Đăng xuất"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+            </button>
+          </div>
+        ) : null}
+
+        <div className="space-y-0.5">
+          <Link
+            href="/documents"
+            className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <span>Kho văn bản gốc</span>
+          </Link>
+          <Link
+            href="/admin"
+            className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            </svg>
+            <span>Quản trị Second Brain</span>
+          </Link>
+        </div>
       </div>
     </div>
   );
