@@ -12,6 +12,19 @@ interface ChatMessageItemProps {
 export default function ChatMessageItem({ message }: ChatMessageItemProps) {
   const isUser = message.role === "user";
 
+  const getCleanModelName = (model?: string) => {
+    if (!model) return "Trợ lý AI DAU";
+    if (model.toLowerCase().includes("gemini")) return `Mô hình AI: ${model}`;
+    if (
+      model.toLowerCase().includes("synthesizer") ||
+      model.toLowerCase().includes("local") ||
+      model.toLowerCase().includes("fallback")
+    ) {
+      return "Trợ lý AI DAU (Cục bộ)";
+    }
+    return model;
+  };
+
   return (
     <div className={`py-4 sm:py-6 ${isUser ? "bg-white" : "bg-slate-50/70 border-y border-slate-100"}`}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 flex gap-3 sm:gap-4">
@@ -40,7 +53,7 @@ export default function ChatMessageItem({ message }: ChatMessageItemProps) {
           {/* Header Role Label */}
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-900">
-              {isUser ? "Bạn (Sinh viên)" : message.modelUsed || "Trợ lý AI DAU"}
+              {isUser ? "Bạn (Sinh viên)" : getCleanModelName(message.modelUsed)}
             </span>
             <span className="text-[10px] text-slate-400">
               {new Date(message.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}

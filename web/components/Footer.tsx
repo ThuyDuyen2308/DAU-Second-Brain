@@ -1,7 +1,18 @@
 // components/Footer.tsx
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // Ẩn Footer ở trang chủ (/), trang hỏi đáp (/ask) và trang admin (/admin)
+  // để giữ trải nghiệm full-height ChatGPT-like
+  if (pathname === "/" || pathname === "/ask" || pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <footer className="bg-slate-900 text-slate-400 border-t border-slate-800 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">

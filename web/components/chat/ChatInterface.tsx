@@ -181,7 +181,7 @@ export default function ChatInterface() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans text-slate-900">
+    <div className="h-screen bg-[#F8FAFC] flex flex-col font-sans text-slate-900 overflow-hidden">
       {/* Sidebar Lịch sử Chat */}
       <ChatSidebar
         conversations={conversations}
@@ -195,9 +195,9 @@ export default function ChatInterface() {
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 lg:pl-64 flex flex-col min-w-0 min-h-screen">
-        {/* Top Header */}
-        <header className="sticky top-0 z-20 bg-white/90 backdrop-blur-md border-b border-slate-200 h-14 flex items-center justify-between px-4 sm:px-6">
+      <div className="flex-1 lg:pl-64 flex flex-col min-w-0 h-full overflow-hidden">
+        {/* Single Unified Header */}
+        <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-200 h-14 flex items-center justify-between px-4 sm:px-6 flex-shrink-0">
           <div className="flex items-center gap-3">
             <button
               type="button"
@@ -210,25 +210,43 @@ export default function ChatInterface() {
               </svg>
             </button>
 
-            <div className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
               <span className="font-extrabold text-slate-900 text-sm tracking-tight">DAU Second Brain</span>
               <span className="text-slate-300">/</span>
-              <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100">
+              <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-100">
                 Hỏi đáp AI
               </span>
-            </div>
+            </Link>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Link
+              href="/"
+              className="text-xs font-semibold text-slate-600 hover:text-blue-600 px-3 py-1.5 rounded-xl hover:bg-slate-100 transition-colors"
+            >
+              Trang chủ
+            </Link>
             <Link
               href="/documents"
               className="text-xs font-semibold text-slate-600 hover:text-blue-600 px-3 py-1.5 rounded-xl hover:bg-slate-100 transition-colors"
             >
-              Văn bản
+              Tra cứu văn bản
+            </Link>
+            <Link
+              href="/categories"
+              className="hidden sm:inline-block text-xs font-semibold text-slate-600 hover:text-blue-600 px-3 py-1.5 rounded-xl hover:bg-slate-100 transition-colors"
+            >
+              Chủ đề
+            </Link>
+            <Link
+              href="/login"
+              className="text-xs font-semibold text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded-xl hover:bg-slate-100 transition-colors"
+            >
+              Đăng nhập
             </Link>
             <Link
               href="/admin"
-              className="text-xs font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-xl border border-blue-100 transition-colors"
+              className="text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-3.5 py-1.5 rounded-xl shadow-xs transition-colors"
             >
               Quản trị
             </Link>
@@ -236,7 +254,7 @@ export default function ChatInterface() {
         </header>
 
         {/* Chat Body */}
-        <main className="flex-1 flex flex-col min-h-0">
+        <main className="flex-1 overflow-y-auto flex flex-col relative">
           {currentMessages.length === 0 ? (
             /* TRẠNG THÁI BAN ĐẦU KHÔNG CÓ TIN NHẮN (Empty State) */
             <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 max-w-3xl mx-auto w-full text-center">
@@ -301,7 +319,7 @@ export default function ChatInterface() {
             </div>
           ) : (
             /* KHU VỰC CHAT KHI ĐÃ BẮT ĐẦU CUỘC TRÒ CHUYỆN */
-            <div className="flex-1 overflow-y-auto pb-36">
+            <div className="flex-1 overflow-y-auto pb-32">
               {currentMessages.map((msg) => (
                 <ChatMessageItem key={msg.id} message={msg} />
               ))}
@@ -349,7 +367,7 @@ export default function ChatInterface() {
 
           {/* Ô Nhập Câu Hỏi Cố Định Ở Đáy Khi Đã Có Tin Nhắn */}
           {currentMessages.length > 0 && (
-            <div className="fixed bottom-0 left-0 lg:left-64 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 sm:p-4 z-10">
+            <div className="sticky bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 sm:p-4 z-10">
               <div className="max-w-3xl mx-auto">
                 <div className="bg-white rounded-2xl border border-slate-300 shadow-lg p-2 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 transition-all flex items-end gap-2">
                   <textarea
