@@ -31,6 +31,7 @@ model User {
   sessions            Session[]
   conversations       Conversation[]
   passwordResetTokens PasswordResetToken[]
+  importedDocuments   ImportedDocument[]
 
   @@map("users")
 }
@@ -89,4 +90,43 @@ model PasswordResetToken {
 
   @@index([userId])
   @@map("password_reset_tokens")
+}
+
+enum ImportStatus {
+  PENDING
+  PROCESSING
+  PROCESSED
+  FAILED
+  PUBLISHED
+  DUPLICATE
+}
+
+model ImportedDocument {
+  id                  String        @id @default(cuid())
+  uploadedById        String
+  originalName        String
+  storagePath         String
+  mimeType            String
+  fileFormat          String        // "pdf" | "docx" | "html"
+  sizeBytes           Int
+  checksum            String        @unique
+  status              ImportStatus  @default(PENDING)
+  errorMessage        String?       @db.Text
+  retryCount          Int           @default(0)
+  extractedJson       Json?         // Toàn bộ kết quả Python: pages[], metadata_hints, warnings
+  editedMetadata      Json?         // Admin override metadata trước khi publish
+  documentId          String?       // ID trong documents.json sau publish
+  workerPid           Int?          // PID của worker đang xử lý (recovery)
+  processingStartedAt DateTime?
+  processedAt         DateTime?
+  publishedAt         DateTime?
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  uploadedBy User @relation(fields: [uploadedById], references: [id])
+
+  @@index([uploadedById])
+  @@index([status])
+  @@index([checksum])
+  @@map("imported_documents")
 }

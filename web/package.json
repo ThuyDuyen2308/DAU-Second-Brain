@@ -11,7 +11,8 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:seed-admin": "node scripts/seed-admin.js",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "worker": "node scripts/worker.js"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
