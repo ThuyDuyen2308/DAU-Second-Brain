@@ -7,8 +7,9 @@ export interface AIProviderResponse {
 }
 
 /**
- * Trả lời bằng logic nội bộ (Rule-based / Extractive Synthesizer) khi chưa cấu hình API Key.
- * Trích xuất chính xác câu từ tài liệu nguồn thật, tuyệt đối không bịa đặt.
+ * Tra loi bang logic noi bo (Rule-based / Extractive Synthesizer) khi chua cau hinh API Key.
+ * Trich xuat chinh xac cau tu tai lieu nguon that, tuyet doi khong bia dat.
+ * v2: Loc dong OCR loi, mo rong context quanh dong matched, ho tro nhieu nguon.
  */
 export function generateLocalExtractiveAnswer(
   question: string,
@@ -19,38 +20,67 @@ export function generateLocalExtractiveAnswer(
     return "Tôi chưa tìm thấy thông tin phù hợp trong dữ liệu văn bản hiện có của DAU.";
   }
 
-  const primarySource = sources[0];
-  const primaryChunk = chunks[0];
-
-  // Tìm các câu chứa từ khóa chính trong chunk hàng đầu
-  const lines = primaryChunk.text
-    .split(/\n+/)
-    .map((l) => l.trim())
-    .filter((l) => l.length > 20);
-
-  const matchedLines: string[] = [];
-  for (const line of lines) {
-    const lineLower = line.toLowerCase();
-    const hasKeyword = (primaryChunk.matchedKeywords || []).some((kw) =>
-      lineLower.includes(kw.toLowerCase())
-    );
-    if (hasKeyword && !matchedLines.includes(line)) {
-      matchedLines.push(line);
-      if (matchedLines.length >= 3) break;
-    }
+  /** Lọc bỏ dòng OCR lỗi / header / footer vô nghĩa trong văn bản hành chính */
+  function isGarbageLine(line: string): boolean {
+    if (line.length < 5) return true;
+    // Dòng toàn chữ hoa Latin không dấu (header tiêu đề cơ quan bị OCR lỗi)
+    if (/^[A-Z\s\.\-\/\\&()]+$/.test(line) && line.length < 60) return true;
+    // Dòng footer quen thuộc trong văn bản hành chính
+    if (/^(S6:|Luu:|PHO TRUONG|KT\.\s|Noi nhan|PHONG |Nguy[eê]n Thanh)/i.test(line)) return true;
+    return false;
   }
 
-  let excerpt = "";
-  if (matchedLines.length > 0) {
-    excerpt = matchedLines.join("\n- ");
-  } else {
-    excerpt = primaryChunk.text.slice(0, 300).trim() + "...";
+  /** Lấy excerpt từ chunk: lọc OCR lỗi, expand context ±1-2 dòng quanh dòng keyword */
+  function extractExcerptLines(chunk: RetrievedChunk, maxLines: number = 8): string[] {
+    const allLines = chunk.text
+      .split(/\n+/)
+      .map((l) => l.trim())
+      .filter((l) => l.length > 15 && !isGarbageLine(l));
+
+    const keywords = (chunk.matchedKeywords || []).map((kw) => kw.toLowerCase());
+    if (keywords.length === 0) return allLines.slice(0, maxLines);
+
+    const matchedIndices: number[] = [];
+    allLines.forEach((line, i) => {
+      const lower = line.toLowerCase();
+      if (keywords.some((kw) => lower.includes(kw))) matchedIndices.push(i);
+    });
+
+    if (matchedIndices.length === 0) return allLines.slice(0, maxLines);
+
+    // Expand: lấy dòng matched ± context (1 trước, 2 sau) để câu không bị cắt ngang
+    const selectedIndices = new Set<number>();
+    for (const idx of matchedIndices) {
+      for (let j = Math.max(0, idx - 1); j <= Math.min(allLines.length - 1, idx + 2); j++) {
+        selectedIndices.add(j);
+      }
+      if (selectedIndices.size >= maxLines) break;
+    }
+
+    return Array.from(selectedIndices)
+      .sort((a, b) => a - b)
+      .map((i) => allLines[i]);
+  }
+
+  const primarySource = sources[0];
+  const primaryChunk = chunks[0];
+  const primaryLines = extractExcerptLines(primaryChunk, 8);
+
+  // Thêm excerpt từ nguồn thứ 2 nếu có và khác nguồn 1
+  let additionalInfo = "";
+  if (chunks.length > 1 && sources.length > 1 && sources[1].documentId !== primarySource.documentId) {
+    const secondLines = extractExcerptLines(chunks[1], 4);
+    if (secondLines.length > 0) {
+      const s2DocNum = sources[1].documentNumber ? ` (Số: ${sources[1].documentNumber})` : "";
+      additionalInfo = `\n\n**Thông tin liên quan** theo **${sources[1].title}**${s2DocNum} [Nguồn 2]:\n- ${secondLines.join("\n- ")}`;
+    }
   }
 
   const dateStr = primarySource.issueDate ? ` ngày ${primarySource.issueDate}` : "";
   const docNumStr = primarySource.documentNumber ? ` (Số: ${primarySource.documentNumber})` : "";
+  const excerpt = primaryLines.length > 0 ? primaryLines.join("\n- ") : primaryChunk.text.slice(0, 500).trim();
 
-  return `Theo **${primarySource.title}**${docNumStr}${dateStr} [Nguồn 1]:\n\n- ${excerpt}\n\n*(Thông tin được trích xuất trực tiếp từ kho văn bản đã chuẩn hóa của DAU)*.`;
+  return `Theo **${primarySource.title}**${docNumStr}${dateStr} [Nguồn 1]:\n\n- ${excerpt}${additionalInfo}\n\n*(Thông tin được trích xuất trực tiếp từ kho văn bản đã chuẩn hóa của DAU)*.`;
 }
 
 /**
@@ -95,7 +125,7 @@ export async function callAIModel(
           },
         ],
         generationConfig: {
-          temperature: 0.1, // Rất thấp để hạn chế tối đa hallucination
+          temperature: 0.1,
           maxOutputTokens: 1024,
         },
       };
@@ -104,10 +134,9 @@ export async function callAIModel(
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),
-        signal: AbortSignal.timeout(15000), // Timeout 15s tránh treo request
+        signal: AbortSignal.timeout(15000),
       });
 
-      // Xử lý các mã lỗi cụ thể từ Google Gemini API
       if (!response.ok) {
         const errorText = await response.text().catch(() => "");
         console.warn(`[Gemini API HTTP ${response.status}] ${errorText.slice(0, 200)}`);
@@ -116,7 +145,6 @@ export async function callAIModel(
           console.warn("[Gemini API] Quota exceeded or rate limited (429). Fallback to local synthesizer.");
         }
 
-        // Fallback an toàn ngay lập tức, không retry vô hạn gây kiệt quota
         return {
           answer: generateLocalExtractiveAnswer(question, chunks, sources),
           modelUsed: `DAU Extractive Fallback (Gemini API error: ${response.status})`,
