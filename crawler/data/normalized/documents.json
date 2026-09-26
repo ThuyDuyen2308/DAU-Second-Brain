@@ -7,8 +7,8 @@
     "issuing_unit": null,
     "category": "Khảo sát",
     "subcategory": "Khảo sát sinh viên",
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2026-09-04",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -67,7 +67,13 @@
       "detail_file": "E:\\DAU-Second-Brain\\crawler\\data\\details\\thong-bao-to-chuc-khao-sat-nang-luc-toan-hoc-cho-sinh-vien-khoa-tuyen-sinh-nam-2026.html",
       "document_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\43-tb-dhktdn-to-chuc-khao-sat-danh-gia-nang-luc-hoc-phan-toan-20260828015324-e.pdf",
       "extracted_file": "E:\\DAU-Second-Brain\\crawler\\data\\extracted\\2026\\43-tb-dhktdn-to-chuc-khao-sat-danh-gia-nang-luc-hoc-phan-toan-20260828015324-e.json"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: Thời gian khảo sát : 17h00 'Thứ sáu ngày 04/9/2026",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2026-09-04 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_158c03e0c765",
@@ -77,8 +83,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Chuẩn đầu ra",
     "subcategory": "Chứng chỉ ngoại ngữ - tin học",
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2026-12-07",
+    "effective_status": "active",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -146,7 +152,13 @@
       "detail_file": "E:\\DAU-Second-Brain\\crawler\\data\\details\\thong-bao-xet-quy-doi-tuong-duong-chung-chi-ngoai-ngu-tin-hoc-chuan-dau-ra-hoc-ky-1-nam-hoc-2026-2027.html",
       "document_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\thong-bao-xet-quy-doi-tuong-duong-chung-chi-ngoai-ngu-tin-hoc-chuan-dau-ra-hoc-ky-1-nam-hoc-2026-2027-20260824021117-e.pdf",
       "extracted_file": "E:\\DAU-Second-Brain\\crawler\\data\\extracted\\2026\\thong-bao-xet-quy-doi-tuong-duong-chung-chi-ngoai-ngu-tin-hoc-chuan-dau-ra-hoc-ky-1-nam-hoc-2026-2027-20260824021117-e.json"
-    }
+    },
+    "suggested_status": "active",
+    "status_evidence": "Trang 2: đến hết ngày 07/12/2026",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2026-12-07 (vẫn còn trong thời hạn).",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_7c0f885f8d57",
@@ -156,8 +168,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Khảo thí",
     "subcategory": "Phúc khảo bài thi",
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2026-08-24",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -213,7 +225,13 @@
       "detail_file": "E:\\DAU-Second-Brain\\crawler\\data\\details\\thong-bao-cham-phuc-khao-bai-thi-ket-thuc-hoc-phan-dot-2-nam-hoc-2025-2026.html",
       "document_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\thong-bao-cham-phuc-khao-bai-thi-ket-thuc-hoc-phan-dot-2-hoc-ky-2-nam-hoc-2025-2026-20260817080228-e.pdf",
       "extracted_file": "E:\\DAU-Second-Brain\\crawler\\data\\extracted\\2026\\thong-bao-cham-phuc-khao-bai-thi-ket-thuc-hoc-phan-dot-2-hoc-ky-2-nam-hoc-2025-2026-20260817080228-e.json"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: Thời hạn nhận đơn: từ ngày ra thông báo đến ngày 24/08/2026",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2026-08-24 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_87d032708d2f",
@@ -224,7 +242,7 @@
     "category": "Học phí",
     "subcategory": "Thu học phí & Bảo hiểm",
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "active",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -290,7 +308,13 @@
       "detail_file": "E:\\DAU-Second-Brain\\crawler\\data\\details\\thong-bao-ve-viec-nop-hoc-phi-cac-hoc-phan-hoc-lai-va-hoc-cai-thien-doi-voi-sinh-vien-cac-khoa-trong-nam-hoc-2026-2027.html",
       "document_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\32-tb-dhktdn-ve-viec-nop-hoc-phi-cac-hoc-phan-hoc-lai-va-hoc-cai-thien-doi-voi-sinh-vien-cac-khoa-nam-hoc-2026-2027-20260803015350-e.pdf",
       "extracted_file": "E:\\DAU-Second-Brain\\crawler\\data\\extracted\\2026\\32-tb-dhktdn-ve-viec-nop-hoc-phi-cac-hoc-phan-hoc-lai-va-hoc-cai-thien-doi-voi-sinh-vien-cac-khoa-nam-hoc-2026-2027-20260803015350-e.json"
-    }
+    },
+    "suggested_status": "active",
+    "status_evidence": "Trang 4: Thông báo này có hiệu lực từ học kỳ I năm học 2026 - 2027 cho đến khi có thông báo mới",
+    "status_rationale": "Văn bản quy định/quy chế có hiệu lực từ ngày 2026-08-03 và chưa ghi nhận văn bản bãi bỏ/thay thế.",
+    "certainty": "MEDIUM",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_25f4e8253b12",
@@ -300,8 +324,8 @@
     "issuing_unit": null,
     "category": "Học phí",
     "subcategory": "Thu học phí & Bảo hiểm",
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2026-09-17",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -383,7 +407,13 @@
       "detail_file": "E:\\DAU-Second-Brain\\crawler\\data\\details\\thong-bao-ve-viec-nop-hoc-phi-va-bao-hiem-trong-hoc-ky-i-nam-hoc-2026-2027-doi-voi-sinh-vien-cac-khoa-dang-theo-hoc-tai-truong.html",
       "document_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\31-tb-dhktdn-ve-viec-nop-hoc-phi-va-bao-hiem-trong-hoc-ky-1-nam-hoc-2026-2027-20260803015022-e.pdf",
       "extracted_file": "E:\\DAU-Second-Brain\\crawler\\data\\extracted\\2026\\31-tb-dhktdn-ve-viec-nop-hoc-phi-va-bao-hiem-trong-hoc-ky-1-nam-hoc-2026-2027-20260803015022-e.json"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 2: Thời hạn nộp học phí: Từ ngày 17/08/2026 đến ngày 17/09/2026",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2026-09-17 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_569c11a0977a",
@@ -394,7 +424,7 @@
     "category": "Chuẩn đầu ra",
     "subcategory": "Chứng chỉ ngoại ngữ - tin học",
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -449,7 +479,13 @@
       "detail_file": "E:\\DAU-Second-Brain\\crawler\\data\\details\\thong-bao-nop-chung-chi-quy-doi-chuan-dau-ra-ngoai-ngu-tin-hoc.html",
       "document_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\29tb-nop-chung-chi-quy-doi-chuan-dau-ra-20260723105842-e.pdf",
       "extracted_file": "E:\\DAU-Second-Brain\\crawler\\data\\extracted\\2026\\29tb-nop-chung-chi-quy-doi-chuan-dau-ra-20260723105842-e.json"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_5674991fa681",
@@ -459,8 +495,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Khảo thí",
     "subcategory": "Phúc khảo bài thi",
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2026-05-21",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -516,7 +552,13 @@
       "detail_file": "E:\\DAU-Second-Brain\\crawler\\data\\details\\thong-bao-trien-khai-phuc-khao-dot-thi-1-hoc-ky-2-nam-hoc-2025-2026.html",
       "document_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\tb-phuc-khao-bai-thi-kthp-dot-1-hk2-nam-hoc-2025-2026-20260511083640-e.pdf",
       "extracted_file": "E:\\DAU-Second-Brain\\crawler\\data\\extracted\\2026\\tb-phuc-khao-bai-thi-kthp-dot-1-hk2-nam-hoc-2025-2026-20260511083640-e.json"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: đến ngày 21/05/2026",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2026-05-21 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_08fecbb7ea97",
@@ -527,7 +569,7 @@
     "category": "Khảo sát",
     "subcategory": "Khảo sát sinh viên",
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -583,7 +625,13 @@
       "detail_file": "E:\\DAU-Second-Brain\\crawler\\data\\details\\thong-bao-trien-khai-khao-sat-su-hai-long-cua-sinh-vien-nam-hoc-2025-2026.html",
       "document_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\thong-bao-khao-sat-su-hai-long-cua-sv-2025-2026-20260428080310-e.pdf",
       "extracted_file": "E:\\DAU-Second-Brain\\crawler\\data\\extracted\\2026\\thong-bao-khao-sat-su-hai-long-cua-sv-2025-2026-20260428080310-e.json"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_7fd2baa55105",
@@ -593,8 +641,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Khảo thí",
     "subcategory": "Phúc khảo bài thi",
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2026-02-06",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -650,7 +698,13 @@
       "detail_file": "E:\\DAU-Second-Brain\\crawler\\data\\details\\thong-bao-trien-khai-phuc-khao-dot-thi-1-2-hoc-ky-1-nam-hoc-2025-2026-020757.html",
       "document_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2026\\tb-phuc-khao-bai-thi-kthp-dot-3-hk-1-2025-2026-20260122020656-e.pdf",
       "extracted_file": "E:\\DAU-Second-Brain\\crawler\\data\\extracted\\2026\\tb-phuc-khao-bai-thi-kthp-dot-3-hk-1-2025-2026-20260122020656-e.json"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: Thời hạn nhận đơn: từ ngày ra thông báo đến ngày 06/02/2026",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2026-02-06 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_e4a68cfd4a22",
@@ -660,8 +714,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Khảo thí",
     "subcategory": "Phúc khảo bài thi",
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2025-12-31",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -717,7 +771,13 @@
       "detail_file": "E:\\DAU-Second-Brain\\crawler\\data\\details\\thong-bao-trien-khai-phuc-khao-dot-thi-1-2-hoc-ky-1-nam-hoc-2025-2026.html",
       "document_file": "E:\\DAU-Second-Brain\\crawler\\data\\documents\\2025\\tb-phuc-khao-bai-thi-kthp-dot-12-hk-1-2025-2026-20251222093134-e.pdf",
       "extracted_file": "E:\\DAU-Second-Brain\\crawler\\data\\extracted\\2025\\tb-phuc-khao-bai-thi-kthp-dot-12-hk-1-2025-2026-20251222093134-e.json"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: Thời hạn nhận đơn: từ ngày ra thông báo đến ngày 31/12/2025",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2025-12-31 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_5295cdd6d1e0",
@@ -728,7 +788,7 @@
     "category": "Khảo sát",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "active",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -755,7 +815,13 @@
     "provenance": {
       "notification_title": "QUY ĐỊNH 3 CÔNG KHAI CỦA NHÀ TRƯỜNG",
       "detail_file": "https://dau.edu.vn/quy-dinh-3-cong-khai.html"
-    }
+    },
+    "suggested_status": "active",
+    "status_evidence": "Văn bản quy định/quy chế ban hành ngày 2025-08-15, áp dụng dài hạn trong toàn trường.",
+    "status_rationale": "Văn bản thuộc nhóm quy chế/quy định/quy trình nội bộ áp dụng liên tục cho đến khi có văn bản mới.",
+    "certainty": "MEDIUM",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_f2600563ede2",
@@ -766,7 +832,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -793,7 +859,13 @@
     "provenance": {
       "notification_title": "Báo cáo tự đánh giá",
       "detail_file": "https://dau.edu.vn/kiem-dinh-chuong-trinh-dao-tao.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_7f4edf3b03ed",
@@ -804,7 +876,7 @@
     "category": "Khoa học công nghệ",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -831,7 +903,13 @@
     "provenance": {
       "notification_title": "KỶ YẾU KHOA HỌC VÀ GIÁO DỤC D.A.U",
       "detail_file": "https://dau.edu.vn/ky-yeu-khoa-hoc-va-giao-duc-dau.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_8d0e2b1e31b4",
@@ -842,7 +920,7 @@
     "category": "Thông báo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -869,7 +947,13 @@
     "provenance": {
       "notification_title": "TRA CỨU VĂN BẰNG",
       "detail_file": "https://sinhvien.dau.edu.vn/tra-cuu-van-bang.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_dab4cd5378e1",
@@ -880,7 +964,7 @@
     "category": "Sinh viên",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -907,7 +991,13 @@
     "provenance": {
       "notification_title": "HOẠT ĐỘNG SINH VIÊN",
       "detail_file": "https://dau.edu.vn/sv-hoat-dong-sinh-vien.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_913b6e1172a1",
@@ -918,7 +1008,7 @@
     "category": "Sinh viên",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -945,7 +1035,13 @@
     "provenance": {
       "notification_title": "VINH DANH SINH VIÊN",
       "detail_file": "https://dau.edu.vn/sv-vinh-danh-sinh-vien.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_02067d256e06",
@@ -956,7 +1052,7 @@
     "category": "Sinh viên",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -983,7 +1079,13 @@
     "provenance": {
       "notification_title": "CÂU LẠC BỘ SINH VIÊN",
       "detail_file": "https://dau.edu.vn/sv-cau-lac-bo-sinh-vien.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_09c0d4f0f733",
@@ -994,7 +1096,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1021,7 +1123,13 @@
     "provenance": {
       "notification_title": "GIỚI THIỆU",
       "detail_file": "https://dau.edu.vn/khoa-hoc-cong-nghe-052747.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_f75344e858b7",
@@ -1032,7 +1140,7 @@
     "category": "Thông báo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1059,7 +1167,13 @@
     "provenance": {
       "notification_title": "BÀI BÁO TRÊN TẠP CHÍ ISI/Scopus",
       "detail_file": "https://dau.edu.vn/cong-bo-khoa-hoc-052747.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_1c008b37b71e",
@@ -1070,7 +1184,7 @@
     "category": "Thông báo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1097,7 +1211,13 @@
     "provenance": {
       "notification_title": "TẠP CHÍ QUỐC TẾ KHÁC",
       "detail_file": "https://dau.edu.vn/khcn-bai-bao-tren-ky-yeu-hoi-thao-thuoc-scopus.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_6ea0e4c94048",
@@ -1108,7 +1228,7 @@
     "category": "Thông báo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1135,7 +1255,13 @@
     "provenance": {
       "notification_title": "BÀI BÁO TRONG NƯỚC THUỘC HĐCDGSNN",
       "detail_file": "https://dau.edu.vn/khcn-bai-bao-trong-nuoc-thuoc-hdcdgsnn.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_f1cb82050a8f",
@@ -1146,7 +1272,7 @@
     "category": "Khoa học công nghệ",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1173,7 +1299,13 @@
     "provenance": {
       "notification_title": "TIỆN ÍCH NGHIÊN CỨU",
       "detail_file": "https://dau.edu.vn/van-ban-tien-ich-nghien-cuu.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_d14c2ca1b3a8",
@@ -1184,7 +1316,7 @@
     "category": "Thông báo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1211,7 +1343,13 @@
     "provenance": {
       "notification_title": "THỎA THUẬN HỢP TÁC",
       "detail_file": "https://dau.edu.vn/htqt-thoa-thuan-hop-tac.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_1b4012e8eebd",
@@ -1222,7 +1360,7 @@
     "category": "Sinh viên",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1249,7 +1387,13 @@
     "provenance": {
       "notification_title": "CHƯƠNG TRÌNH LIÊN KẾT",
       "detail_file": "https://dau.edu.vn/htqt-chuong-trinh-lien-ket.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_a6ab7cb07fd4",
@@ -1260,7 +1404,7 @@
     "category": "Thông báo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1287,7 +1431,13 @@
     "provenance": {
       "notification_title": "CHƯƠNG TRÌNH TRAO ĐỔI GIAO LƯU",
       "detail_file": "https://dau.edu.vn/htqt-chuong-trinh-giao-luu-trao-doi.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_782310bbb6bc",
@@ -1298,7 +1448,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1325,7 +1475,13 @@
     "provenance": {
       "notification_title": "Kiểm định cơ sở giáo dục",
       "detail_file": "https://dau.edu.vn/kiem-dinh-chat-luong.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_80350c10e842",
@@ -1336,7 +1492,7 @@
     "category": "Thông báo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1363,7 +1519,13 @@
     "provenance": {
       "notification_title": "Chứng nhận kiểm định",
       "detail_file": "https://dau.edu.vn/dbcl-chung-nhan-kiem-dinh-co-so.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_baea9c383278",
@@ -1374,7 +1536,7 @@
     "category": "Tuyển dụng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1401,7 +1563,13 @@
     "provenance": {
       "notification_title": "Giảng viên, trợ giảng",
       "detail_file": "https://dau.edu.vn/tieu-chi-tuyen-dung-052747.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_53bb0a61cace",
@@ -1412,7 +1580,7 @@
     "category": "Tuyển dụng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1439,7 +1607,13 @@
     "provenance": {
       "notification_title": "Cán bộ, nhân viên",
       "detail_file": "https://dau.edu.vn/nhan-su-can-bo-nhan-vien.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_dda212e5e1df",
@@ -1450,7 +1624,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1477,7 +1651,13 @@
     "provenance": {
       "notification_title": "THÔNG BÁO TUYỂN DỤNG",
       "detail_file": "https://dau.edu.vn/nhan-su-thong-bao-tuyen-dung.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_4e2060b6fbf9",
@@ -1488,7 +1668,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1515,7 +1695,13 @@
     "provenance": {
       "notification_title": "KẾ HOẠCH BỒI DƯỠNG",
       "detail_file": "https://dau.edu.vn/nhan-su-ke-hoach-boi-duong.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_9d75f0fcfe5c",
@@ -1526,7 +1712,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1553,7 +1739,13 @@
     "provenance": {
       "notification_title": "Tra cứu khu vực ưu tiên",
       "detail_file": "http://tuyensinh.dau.edu.vn/khu-vuc-123-la-gi-phan-chia-khu-vuc-tuyen-sinh-dai-hoc-cac-thi-sinh-can-nam-chac.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_92c5d898309c",
@@ -1564,7 +1756,7 @@
     "category": "Thông báo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1591,7 +1783,13 @@
     "provenance": {
       "notification_title": "Tra cứu đối tượng ưu tiên",
       "detail_file": "http://tuyensinh.dau.edu.vn/doi-tuong-uu-tien-diem-uu-tien-khu-vuc-tuyen-sinh-dai-hoc.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_b41742465d4e",
@@ -1602,7 +1800,7 @@
     "category": "Sinh viên",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1629,7 +1827,13 @@
     "provenance": {
       "notification_title": "Unitour Lixil TalentMmatch 2026 | Kết nối sinh viên – mở rộng trải nghiệm thiết kế",
       "detail_file": "https://dau.edu.vn/unitour-lixil-talentmmatch-2026-ket-noi-sinh-vien-mo-rong-trai-nghiem-thiet-ke.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_c6d68b3c5b26",
@@ -1640,7 +1844,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1667,7 +1871,13 @@
     "provenance": {
       "notification_title": "Khoa du lịch bước vào chặng đường bảo vệ khóa luận tốt nghiệp",
       "detail_file": "https://dau.edu.vn/khoa-du-lich-buoc-vao-chang-duong-bao-ve-khoa-luan-tot-nghiep.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_f14a432c34b8",
@@ -1678,7 +1888,7 @@
     "category": "Sinh viên",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1705,7 +1915,13 @@
     "provenance": {
       "notification_title": "Kỹ năng xây dựng lộ trình – sức mạnh của ngôn từ: hành trang để sinh viên chủ động kiến tạo tương lai",
       "detail_file": "https://dau.edu.vn/ky-nang-xay-dung-lo-trinh-suc-manh-cua-ngon-tu-hanh-trang-de-sinh-vien-chu-dong-kien-tao-tuong-lai.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_24a112be8a85",
@@ -1716,7 +1932,7 @@
     "category": "Khoa học công nghệ",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1743,7 +1959,13 @@
     "provenance": {
       "notification_title": "[HTQT] Chương trình Học giả Fulbright Hoa Kỳ - Hiệp hội Các Quốc Gia Đông Nam Á (ASEAN) năm học 2022-2023",
       "detail_file": "https://dau.edu.vn/htqt-chuong-trinh-hoc-gia-fulbright-hoa-ky-hiep-hoi-cac-quoc-gia-dong-nam-a-asean-nam-hoc-2022-2023.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_2b4cf8a787d3",
@@ -1754,7 +1976,7 @@
     "category": "Khoa học công nghệ",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1781,7 +2003,13 @@
     "provenance": {
       "notification_title": "KHOA HỌC CÔNG NGHỆ",
       "detail_file": "https://dau.edu.vn/bieu-mau-khcn.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_387a71dd6e99",
@@ -1792,7 +2020,7 @@
     "category": "Khoa học công nghệ",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1819,7 +2047,13 @@
     "provenance": {
       "notification_title": "Các tiện ích nghiên cứu",
       "detail_file": "https://dau.edu.vn/cac-tien-ich-nghien-cuu-031853.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_2bdbc80d443d",
@@ -1830,7 +2064,7 @@
     "category": "Sinh viên",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "active",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1857,7 +2091,13 @@
     "provenance": {
       "notification_title": "Chiến lược phát triển giáo dục Trường Đại học Kiến trúc Đà Nẵng giai đoạn 2020-2025 và tầm nhìn đến năm 2030",
       "detail_file": "https://dau.edu.vn/chien-luoc-phat-trien-giao-duc-truong-dai-hoc-kien-truc-da-nang-giai-doan-2020-2025-va-tam-nhin-den-nam-2030.html"
-    }
+    },
+    "suggested_status": "active",
+    "status_evidence": "Văn bản quy định/quy chế ban hành ngày 2022-10-02, áp dụng dài hạn trong toàn trường.",
+    "status_rationale": "Văn bản thuộc nhóm quy chế/quy định/quy trình nội bộ áp dụng liên tục cho đến khi có văn bản mới.",
+    "certainty": "MEDIUM",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_9eb237ef35e0",
@@ -1868,7 +2108,7 @@
     "category": "Sinh viên",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "active",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1895,7 +2135,13 @@
     "provenance": {
       "notification_title": "Quy chế tổ chức hoạt động của Trường Đại học Kiến trúc Đà Nẵng",
       "detail_file": "https://dau.edu.vn/quy-che-to-chuc-hoat-dong-cua-truong-dai-hoc-kien-truc-da-nang.html"
-    }
+    },
+    "suggested_status": "active",
+    "status_evidence": "Văn bản quy định/quy chế ban hành ngày 2022-10-02, áp dụng dài hạn trong toàn trường.",
+    "status_rationale": "Văn bản thuộc nhóm quy chế/quy định/quy trình nội bộ áp dụng liên tục cho đến khi có văn bản mới.",
+    "certainty": "MEDIUM",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_01d6cb868af0",
@@ -1906,7 +2152,7 @@
     "category": "Sinh viên",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "active",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1933,7 +2179,13 @@
     "provenance": {
       "notification_title": "Quy chế chi tiêu nội bộ năm 2022",
       "detail_file": "https://dau.edu.vn/quy-che-chi-tieu-noi-bo-nam-2021.html"
-    }
+    },
+    "suggested_status": "active",
+    "status_evidence": "Văn bản quy định/quy chế ban hành ngày 2022-10-02, áp dụng dài hạn trong toàn trường.",
+    "status_rationale": "Văn bản thuộc nhóm quy chế/quy định/quy trình nội bộ áp dụng liên tục cho đến khi có văn bản mới.",
+    "certainty": "MEDIUM",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_531c725d6ff0",
@@ -1944,7 +2196,7 @@
     "category": "Sinh viên",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -1971,7 +2223,13 @@
     "provenance": {
       "notification_title": "8 năm – Hành trình gắn kết và trưởng thành cùng Câu lạc bộ Gia đình Kỹ năng DAU",
       "detail_file": "https://dau.edu.vn/8-nam-hanh-trinh-gan-ket-va-truong-thanh-cung-cau-lac-bo-gia-dinh-ky-nang-dau-082712.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_d61d456a9c22",
@@ -1982,7 +2240,7 @@
     "category": "Sinh viên",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2009,7 +2267,13 @@
     "provenance": {
       "notification_title": "Khu vườn bé thơ - nét vẽ gieo mầm yêu thương",
       "detail_file": "https://dau.edu.vn/khu-vuon-be-tho-net-ve-gieo-mam-yeu-thuong-083342.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_6765c57f3ff5",
@@ -2020,7 +2284,7 @@
     "category": "Sinh viên",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2047,7 +2311,13 @@
     "provenance": {
       "notification_title": "CLB V-Sea Team & CLB Âm nhạc KTD gửi nắng cho em 2025",
       "detail_file": "https://dau.edu.vn/clb-v-sea-team-clb-am-nhac-ktd-gui-nang-cho-em-2025-090445.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_4b74489a4f98",
@@ -2058,7 +2328,7 @@
     "category": "Sự kiện",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2085,7 +2355,13 @@
     "provenance": {
       "notification_title": "Chuỗi chiếu phim về Kiến trúc hiện đại",
       "detail_file": "https://dau.edu.vn/chuoi-chieu-phim-ve-kien-truc-hien-dai.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_d4f6e8444a71",
@@ -2096,7 +2372,7 @@
     "category": "Sự kiện",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2123,7 +2399,13 @@
     "provenance": {
       "notification_title": "Livestream Tư vấn tuyển sinh \"DAU đồng hành cùng bạn chắp cánh ước mơ - Số 04: NÂNG TẦM NGOẠI NGỮ - LÀM CHỦ TƯƠNG LAI\"",
       "detail_file": "https://dau.edu.vn/livestream-tu-van-tuyen-sinh-dau-dong-hanh-cung-ban-chap-canh-uoc-mo-so-04-nang-tam-ngoai-ngu-lam-chu-tuong-lai.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_f493ec397a7e",
@@ -2134,7 +2416,7 @@
     "category": "Tuyển dụng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2161,7 +2443,13 @@
     "provenance": {
       "notification_title": "Livestream Tư vấn tuyển sinh \"DAU đồng hành cùng bạn chắp cánh ước mơ\" - Số 03: KẾT NỐI ƯỚC MƠ - CHINH PHỤC NHỮNG CÔNG TRÌNH",
       "detail_file": "https://dau.edu.vn/livestream-tu-van-tuyen-sinh-dau-dong-hanh-cung-ban-chap-canh-uoc-mo-so-03-ket-noi-uoc-mo-chinh-phuc-nhung-cong-trinh.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_87e255066db7",
@@ -2172,7 +2460,7 @@
     "category": "Sự kiện",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2199,7 +2487,13 @@
     "provenance": {
       "notification_title": "Livestream Tư vấn tuyển sinh \"DAU đồng hành cùng bạn chắp cánh ước mơ\" - Số 02: KẾT NỐI ĐAM MÊ - TẠO NGHỀ LẬP NGHIỆP CÙNG KHOA DU LỊCH",
       "detail_file": "https://dau.edu.vn/livestream-tu-van-tuyen-sinh-dau-dong-hanh-cung-ban-chap-canh-uoc-mo-so-02-ket-noi-dam-me-tao-nghe-lap-nghiep-cung-khoa-du-lich.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_143cfb1fab2c",
@@ -2210,7 +2504,7 @@
     "category": "Sự kiện",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2237,7 +2531,13 @@
     "provenance": {
       "notification_title": "Cuộc thi hùng biện tiếng Trung toàn quốc - Đà Nẵng 2022",
       "detail_file": "https://dau.edu.vn/cuoc-thi-hung-bien-tieng-trung-toan-quoc-da-nang-2022.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_685c52df01d6",
@@ -2248,7 +2548,7 @@
     "category": "Sinh viên",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2275,7 +2575,13 @@
     "provenance": {
       "notification_title": "Tuyển thành viên Khóa học mùa hè 2022",
       "detail_file": "https://dau.edu.vn/khoa-hoc-mua-he-031257.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_b6cc841ac746",
@@ -2286,7 +2592,7 @@
     "category": "Sự kiện",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2313,7 +2619,13 @@
     "provenance": {
       "notification_title": "Triển lãm nghệ thuật \"Vươn khơi\"",
       "detail_file": "https://dau.edu.vn/trien-lam-nghe-thuat-vuon-khoi.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_1d368ceefaa6",
@@ -2324,7 +2636,7 @@
     "category": "Khoa học công nghệ",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2351,7 +2663,13 @@
     "provenance": {
       "notification_title": "Hội thảo “ỨNG DỤNG MÔ HÌNH HỌC CÙNG CỘNG ĐỒNG (CEL/SL) TRONG GIÁO DỤC ĐẠI HỌC VIỆT NAM”",
       "detail_file": "https://dau.edu.vn/hoi-thao-ung-dung-mo-hinh-hoc-cung-cong-dong-cel-sl-trong-giao-duc-dai-hoc-viet-nam.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_1e0487fba6d0",
@@ -2362,7 +2680,7 @@
     "category": "Tuyển dụng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2389,7 +2707,13 @@
     "provenance": {
       "notification_title": "Hội thảo \"Giải pháp VCC Smart Home và cơ hội việc làm tại Tổng công ty cổ phần Công trình Viettel - Tập đoàn Viettel\"",
       "detail_file": "https://dau.edu.vn/hoi-thao-giai-phap-vcc-smart-home-va-co-hoi-viec-lam-tai-tong-cong-ty-co-phan-cong-trinh-viettel-tap-doan-viettel-032034.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_0a4e42992e04",
@@ -2400,7 +2724,7 @@
     "category": "Sự kiện",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2427,7 +2751,13 @@
     "provenance": {
       "notification_title": "Ngày hội hướng nghiệp - Thiết kế đồ họa trong game",
       "detail_file": "https://dau.edu.vn/hoi-thao-giai-phap-vcc-smart-home-va-co-hoi-viec-lam-tai-tong-cong-ty-co-phan-cong-trinh-viettel-tap-doan-viettel-032025.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_e9f2200fb3a4",
@@ -2438,7 +2768,7 @@
     "category": "Sự kiện",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2465,7 +2795,13 @@
     "provenance": {
       "notification_title": "Hội thảo chuyên đề \"Xu hướng màu sắc cho năm mới 2020\"",
       "detail_file": "https://dau.edu.vn/hoi-thao-chuyen-de-xu-huong-mau-sac-cho-nam-moi-2020.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_d9b460f3b323",
@@ -2476,7 +2812,7 @@
     "category": "Sự kiện",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2503,7 +2839,13 @@
     "provenance": {
       "notification_title": "Ngày hội hiến máu tại DAU",
       "detail_file": "https://dau.edu.vn/ngay-hoi-hien-mau-tai-dau.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_7384afad2243",
@@ -2514,7 +2856,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2541,7 +2883,13 @@
     "provenance": {
       "notification_title": "Thông báo tuyển dụng giảng viên - Đợt 1/2024",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-dung-giang-vien-dot-1-2024.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_b5cac247f30a",
@@ -2552,7 +2900,7 @@
     "category": "Tuyển dụng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2579,7 +2927,13 @@
     "provenance": {
       "notification_title": "Thông báo kết quả xét hồ sơ tuyển dụng giảng viên - Đợt 02/2023",
       "detail_file": "https://dau.edu.vn/thong-bao-ket-qua-xet-ho-so-tuyen-dung-giang-vien-dot-02-2023.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_2bd4e99ce17a",
@@ -2590,7 +2944,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2617,7 +2971,13 @@
     "provenance": {
       "notification_title": "Thông báo tuyển dụng Cán bộ và Nhân viên phụ trách truyền thông",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-dung-can-bo-va-nhan-vien-phu-trach-truyen-thong.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_73a5a9d36e36",
@@ -2628,7 +2988,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2655,7 +3015,13 @@
     "provenance": {
       "notification_title": "Thông báo tuyển dụng Giảng viên cơ hữu ngành Logistics và Quản lý chuỗi cung ứng (Đợt 1/2023)",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-dung-giang-vien-co-huu-nganh-logistics-va-quan-ly-chuoi-cung-ung-dot-1-2023.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_32fd42d5408b",
@@ -2666,7 +3032,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2693,7 +3059,13 @@
     "provenance": {
       "notification_title": "Thông báo tuyển dụng giảng viên cơ hữu - Năm 2018",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-dung-giang-vien-co-huu-nam-2018.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_7213423825f1",
@@ -2704,7 +3076,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2731,7 +3103,13 @@
     "provenance": {
       "notification_title": "Thông báo tuyển dụng nhân viên Tài chính - Kế toán, đợt 2/2022",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-dung-nhan-vien-tai-chinh-ke-toan-dot-2-2022-023240.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_1510e7372fb1",
@@ -2742,7 +3120,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2769,7 +3147,13 @@
     "provenance": {
       "notification_title": "Thông báo tuyển dụng nhân viên truyền thông",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-dung-nhan-vien-truyen-thong.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_b852fc35e188",
@@ -2780,7 +3164,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2807,7 +3191,13 @@
     "provenance": {
       "notification_title": "Thông báo tuyển dụng giảng viên cơ hữu - Đợt 1/2022",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-dung-giang-vien-co-huu-dot-1-2022.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_739ff88728d2",
@@ -2818,7 +3208,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2845,7 +3235,13 @@
     "provenance": {
       "notification_title": "Thông báo tuyển dụng giảng viên - Đợt 1/2021",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-dung-giang-vien-dot-1-2021.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_5efe2d790d50",
@@ -2856,7 +3252,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2883,7 +3279,13 @@
     "provenance": {
       "notification_title": "Thông báo tuyển dụng đợt 1 - 2020",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-dung-dot-1-2020.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_1ea195f589ee",
@@ -2894,7 +3296,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2921,7 +3323,13 @@
     "provenance": {
       "notification_title": "Thông báo tuyển dụng đợt 1 - 2019",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-dung-dot-1-2019.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_31bbe5fac0dc",
@@ -2932,7 +3340,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2959,7 +3367,13 @@
     "provenance": {
       "notification_title": "Thông báo tuyển dụng giảng viên cơ hữu - Đợt 2/2020",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-dung-giang-vien-co-huu-dot-2-2020.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_6b06a5aa643f",
@@ -2970,7 +3384,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -2997,7 +3411,13 @@
     "provenance": {
       "notification_title": "Thông báo tuyển dụng giảng viên cơ hữu - Đợt 1/2020",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-dung-giang-vien-co-huu-dot-1-2020.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_fb86945b1d58",
@@ -3008,7 +3428,7 @@
     "category": "Đào tạo",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3035,7 +3455,13 @@
     "provenance": {
       "notification_title": "Thông báo tuyển dụng GV cơ hữu - Đợt 2/2022",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-dung-gv-co-huu-dot-2-2022.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_8da581b09dca",
@@ -3046,7 +3472,7 @@
     "category": "Tin tức",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3073,7 +3499,13 @@
     "provenance": {
       "notification_title": "Tra cứu kết quả xét tuyển",
       "detail_file": "https://xettuyen.dau.edu.vn/dang-nhap-xem-ho-so-thi-sinh.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_28a3cd8de096",
@@ -3084,7 +3516,7 @@
     "category": "Sự kiện",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3111,7 +3543,13 @@
     "provenance": {
       "notification_title": "Hội nghị sinh viên nghiên cứu Khoa học năm học 2019 - 2020",
       "detail_file": "https://dau.edu.vn/hoi-nghi-sinh-vien-nghien-cuu-khoa-hoc-nam-hoc-2019-20120.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_15d3e6862646",
@@ -3121,8 +3559,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Sự kiện",
     "subcategory": null,
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2020-12-28",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3149,7 +3587,13 @@
     "provenance": {
       "notification_title": "Hành trang kỹ năng trong thời đại số",
       "detail_file": "https://dau.edu.vn/hanh-trang-ky-nang-trong-thoi-dai-so.html"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: diễn ra vào 13h30 chiều thứ 2, ngày 28/12/2020",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2020-12-28 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_b1bd17825943",
@@ -3160,7 +3604,7 @@
     "category": "Sự kiện",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3187,7 +3631,13 @@
     "provenance": {
       "notification_title": "Buổi giới thiệu chương trình thực tập trải nghiệm thực tế tại Nhật Bản",
       "detail_file": "https://dau.edu.vn/buoi-gioi-thieu-chuong-trinh-thuc-tap-trai-nghiem-thuc-te-tai-nhat-ban.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_38a81111b043",
@@ -3198,7 +3648,7 @@
     "category": "Hợp tác quốc tế",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3225,7 +3675,13 @@
     "provenance": {
       "notification_title": "Đoàn đại diện tỉnh Shiga (Nhật Bản) đến thăm Trường Đại học Kiến trúc Đà Nẵng",
       "detail_file": "https://dau.edu.vn/doan-dai-dien-tinh-shiga-nhat-ban-den-tham-truong-dai-hoc-kien-truc-da-nang.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_03a7166246c7",
@@ -3236,7 +3692,7 @@
     "category": "Hợp tác quốc tế",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3263,7 +3719,13 @@
     "provenance": {
       "notification_title": "Đăng ký tham gia Lễ hội Kanagawa tại Đà Nẵng",
       "detail_file": "https://dau.edu.vn/dang-ky-tham-gia-le-hoi-kanagawa-tai-da-nang.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_8efd922ae953",
@@ -3274,7 +3736,7 @@
     "category": "Hợp tác quốc tế",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3301,7 +3763,13 @@
     "provenance": {
       "notification_title": "Thông báo tuyển sinh lớp Zemi Khóa 2025 – 2026",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-sinh-lop-zemi-khoa-2025-2026.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_867f35e77097",
@@ -3312,7 +3780,7 @@
     "category": "Hợp tác quốc tế",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3339,7 +3807,13 @@
     "provenance": {
       "notification_title": "Thông Báo Tuyển thành viên - Đội thi Hùng Biện Tiếng Nhật - Hưởng ứng Lễ Hội Kanagawa tại Đà Nẵng 2024",
       "detail_file": "https://dau.edu.vn/thong-bao-tuyen-thanh-vien-doi-thi-hung-bien-tieng-nhat-huong-ung-le-hoi-kanagawa-tai-da-nang-2024.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_ce0a32bab258",
@@ -3350,7 +3824,7 @@
     "category": "Hợp tác quốc tế",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3377,7 +3851,13 @@
     "provenance": {
       "notification_title": "[Hỗ trợ truyền thông] Mở đơn đăng ký tham gia Chương trình tập huấn TOT 2024 - Chủ đề: Năng lượng tái tạo và Net Zero/Zero Carbon",
       "detail_file": "https://dau.edu.vn/ho-tro-truyen-thong-mo-don-dang-ky-tham-gia-chuong-trinh-tap-huan-tot-2024-chu-de-nang-luong-tai-tao-va-net-zero-zero-carbon.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_e134a3a53708",
@@ -3388,7 +3868,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3415,7 +3895,13 @@
     "provenance": {
       "notification_title": "Thông báo khảo sát sự hài lòng của sinh viên về hoạt động giảng dạy của giảng viên, học kỳ 2, năm học 2025 - 2026",
       "detail_file": "https://dau.edu.vn/thong-bao-khao-sat-su-hai-long-cua-sinh-vien-ve-hoat-dong-giang-day-cua-giang-vien-hoc-ky-2-nam-hoc-2025-2026.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_083da48402e7",
@@ -3426,7 +3912,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3453,7 +3939,13 @@
     "provenance": {
       "notification_title": "Thông báo khảo sát sự hài lòng của sinh viên đối với các hoạt động của nhà trường",
       "detail_file": "https://dau.edu.vn/thong-bao-khao-sat-su-hai-long-cua-sinh-vien-doi-voi-cac-hoat-dong-cua-nha-truong.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_a1afbb0d672a",
@@ -3464,7 +3956,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "active",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3491,7 +3983,13 @@
     "provenance": {
       "notification_title": "Quy định về kiểm định chất lượng cơ sở giáo dục đại học (Thông tư 20/2026/TT-BGDĐT ngày 31/3/2026)",
       "detail_file": "https://dau.edu.vn/quy-dinh-ve-kiem-dinh-chat-luong-co-so-giao-duc-dai-hoc-thong-tu-20-2026-tt-bgddt-ngay-31-3-2026.html"
-    }
+    },
+    "suggested_status": "active",
+    "status_evidence": "Văn bản quy định/quy chế ban hành ngày 2026-03-31, áp dụng dài hạn trong toàn trường.",
+    "status_rationale": "Văn bản thuộc nhóm quy chế/quy định/quy trình nội bộ áp dụng liên tục cho đến khi có văn bản mới.",
+    "certainty": "MEDIUM",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_ee1a6b6e30c4",
@@ -3501,8 +3999,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2026-04-24",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3529,7 +4027,13 @@
     "provenance": {
       "notification_title": "THÔNG BÁO KHẢO SÁT TOÀN KHÓA HỌC ĐỐI VỚI SINH VIÊN TỐT NGHIỆP ĐỢT 1 NĂM 2026",
       "detail_file": "https://dau.edu.vn/thong-bao-khao-sat-toan-khoa-hoc-doi-voi-sinh-vien-tot-nghiep-dot-1-nam-2026.html"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: Thời gian khảo sát: từ 06/4/2026 đến 11h00 ngày 24/4/2026",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2026-04-24 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_fe7cb766ccbd",
@@ -3539,8 +4043,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2026-01-30",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3567,7 +4071,13 @@
     "provenance": {
       "notification_title": "THÔNG BÁO KHẢO SÁT SỰ HÀI LÒNG CỦA SINH VIÊN VỀ HOẠT ĐỘNG GIẢNG DẠY CỦA GIẢNG VIÊN, HỌC KỲ 1 (2025-2026)",
       "detail_file": "https://dau.edu.vn/thong-bao-khao-sat-su-hai-long-cua-sinh-vien-ve-hoat-dong-giang-day-cua-giang-vien-hoc-ky-1-2025-2026.html"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: Thời gian khảo sát: Từ 21/01/2026 đến hết ngày 30/01/2026",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2026-01-30 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_cce0abba7b69",
@@ -3577,8 +4087,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2025-12-10",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3605,7 +4115,13 @@
     "provenance": {
       "notification_title": "KẾ HOẠCH KHẢO SÁT SỰ HÀI LÒNG CỦA CÁN BỘ QUẢN LÝ, GIẢNG VIÊN, TRỢ GIẢNG VÀ NHÂN VIÊN VỀ MÔI TRƯỜNG LÀM VIỆC TẠI TRƯỜNG",
       "detail_file": "https://dau.edu.vn/ke-hoach-khao-sat-su-hai-long-cua-can-bo-quan-ly-giang-vien-tro-giang-va-nhan-vien-ve-moi-truong-lam-viec-tai-truong-082620.html"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: Thời gian khảo sát: từ 03/12/2025 đến hết ngày 10/12/2025",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2025-12-10 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_2ad86d9a37a2",
@@ -3616,7 +4132,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3643,7 +4159,13 @@
     "provenance": {
       "notification_title": "HỘI NGHỊ SƠ KẾT THỰC HIỆN QUYẾT ĐỊNH 78/QĐ-TTg: Phát triển hệ thống bảo đảm và kiểm định chất lượng giáo dục đối với giáo dục đại học và cao đẳng sư phạm giai đoạn 2022-2030",
       "detail_file": "https://dau.edu.vn/hoi-nghi-so-ket-thuc-hien-quyet-dinh-78-qd-ttg-phat-trien-he-thong-bao-dam-va-kiem-dinh-chat-luong-giao-duc-doi-voi-giao-duc-dai-hoc-va-cao-dang-su-ph.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_12f7a1def8f3",
@@ -3653,8 +4175,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2025-10-10",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3681,7 +4203,13 @@
     "provenance": {
       "notification_title": "Thông báo khảo sát Toàn khóa học đối với sinh viên tốt nghiệp đợt 2 năm 2025",
       "detail_file": "https://dau.edu.vn/thong-bao-khao-sat-toan-khoa-hoc-doi-voi-sinh-vien-tot-nghiep-dot-2-nam-2025-042055.html"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: Thời gian khảo sát: từ 02/10/2025 đến trước 11h00 ngày 10/10/2025",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2025-10-10 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_58e0da15d92f",
@@ -3691,8 +4219,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2025-09-30",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3719,7 +4247,13 @@
     "provenance": {
       "notification_title": "Thông báo khảo sát Công tác tuyển sinh và nhập học năm tân sinh viên khóa 2025",
       "detail_file": "https://dau.edu.vn/thong-bao-khao-sat-toan-khoa-hoc-doi-voi-sinh-vien-tot-nghiep-dot-2-nam-2025.html"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: Thời gian khảo sát: từ 12/9/2025 đến hết ngày 30/9/2025",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2025-09-30 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_50e9a8e5869b",
@@ -3730,7 +4264,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3757,7 +4291,13 @@
     "provenance": {
       "notification_title": "Thông báo khảo sát việc làm của sinh viên tốt nghiệp năm 2024",
       "detail_file": "https://dau.edu.vn/thong-bao-khao-sat-viec-lam-cua-sinh-vien-tot-nghiep-nam-2024.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_547ea499875c",
@@ -3768,7 +4308,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3795,7 +4335,13 @@
     "provenance": {
       "notification_title": "THÔNG BÁO KHẢO SÁT SỰ HÀI LÒNG CỦA SINH VIÊN VỀ HOẠT ĐỘNG GIẢNG DẠY CỦA GIẢNG VIÊN, HỌC KỲ 2 (2024-2025)",
       "detail_file": "https://dau.edu.vn/thong-bao-khao-sat-su-hai-long-cua-sinh-vien-ve-hoat-dong-giang-day-cua-giang-vien-hoc-ky-2-2024-2025.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_dfbd9f939952",
@@ -3806,7 +4352,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3833,7 +4379,13 @@
     "provenance": {
       "notification_title": "THÔNG BÁO KHẢO SÁT SỰ HÀI LÒNG CỦA SINH VIÊN VỀ HOẠT ĐỘNG GIẢNG DẠY CỦA GIẢNG VIÊN, HỌC KỲ 1 (2024-2025)",
       "detail_file": "https://dau.edu.vn/thong-bao-khao-sat-su-hai-long-cua-sinh-vien-ve-hoat-dong-giang-day-cua-giang-vien-hoc-ky-1-2024-2025.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_c748cc3b377e",
@@ -3844,7 +4396,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3871,7 +4423,13 @@
     "provenance": {
       "notification_title": "Thông báo khảo sát việc làm của sinh viên tốt nghiệp năm 2023",
       "detail_file": "https://dau.edu.vn/thong-bao-khao-sat-viec-lam-cua-sinh-vien-tot-nghiep-nam-2023.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_d4eb680372c5",
@@ -3882,7 +4440,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3909,7 +4467,13 @@
     "provenance": {
       "notification_title": "KHẢO SÁT SƠ BỘ PHỤC VỤ ĐÁNH GIÁ NGOÀI",
       "detail_file": "https://dau.edu.vn/khao-sat-so-bo-phuc-vu-danh-gia-ngoai.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_992bb5c76903",
@@ -3920,7 +4484,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3947,7 +4511,13 @@
     "provenance": {
       "notification_title": "BẾ MẠC KHẢO SÁT CHÍNH THỨC ĐÁNH GIÁ NGOÀI",
       "detail_file": "https://dau.edu.vn/be-mac-khao-sat-chinh-thuc-danh-gia-ngoai.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_8265beb7684f",
@@ -3958,7 +4528,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -3985,7 +4555,13 @@
     "provenance": {
       "notification_title": "KHAI MẠC KHẢO SÁT CHÍNH THỨC",
       "detail_file": "https://dau.edu.vn/khai-mac-khao-sat-chinh-thuc-032154.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_6c8d6fbc97aa",
@@ -3996,7 +4572,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4023,7 +4599,13 @@
     "provenance": {
       "notification_title": "Báo cáo Tự đánh giá Chương trình đào tạo",
       "detail_file": "https://dau.edu.vn/bao-cao-tu-danh-gia-chuong-trinh-dao-tao.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_8018a6ed6dda",
@@ -4033,8 +4615,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2023-11-10",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4061,7 +4643,13 @@
     "provenance": {
       "notification_title": "Thông báo về việc lấy ý kiến phản hồi về Báo cáo TĐG CTĐT",
       "detail_file": "https://dau.edu.vn/thong-bao-ve-viec-lay-y-kien-phan-hoi-ve-bao-cao-tdg-ctdt.html"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: đến hết ngày 10/11/2023",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2023-11-10 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_b612db71adb6",
@@ -4072,7 +4660,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4099,7 +4687,13 @@
     "provenance": {
       "notification_title": "BẾ MẠC KHẢO SÁT CHÍNH THỨC",
       "detail_file": "https://dau.edu.vn/be-mac-khao-sat-chinh-thuc.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_f37f0739c362",
@@ -4109,8 +4703,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2023-05-30",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4137,7 +4731,13 @@
     "provenance": {
       "notification_title": "Rà soát quy trình lập kế hoạch chỉ số và chỉ tiêu về Đảm bảo chất lượng và Hệ thống chỉ số đánh giá năng lực thực hiện KPIs về đảm bảo chất lượng",
       "detail_file": "https://dau.edu.vn/ra-soat-quy-trinh-lap-ke-hoach-chi-so-va-chi-tieu-ve-dam-bao-chat-luong-va-he-thong-chi-so-danh-gia-nang-luc-thuc-hien-kpis-ve-dam-bao-chat-luong.html"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: đến hết ngày 30/5/2023",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2023-05-30 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_029339bd6233",
@@ -4148,7 +4748,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4175,7 +4775,13 @@
     "provenance": {
       "notification_title": "Khai mạc khảo sát chính thức phục vụ đánh giá ngoài chương trình đào tạo ngành kế toán, ngành tài chính - ngân hàng, ngành quản trị dịch vụ du lịch & lữ hành, ngành thiết kế nội thất",
       "detail_file": "https://dau.edu.vn/khao-sat-chinh-thuc-4-ctdt.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_07673d8b6f9a",
@@ -4185,8 +4791,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2023-01-10",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4213,7 +4819,13 @@
     "provenance": {
       "notification_title": "Thông báo về việc lấy ý kiến đóng góp Dự thảo báo cáo TĐG CSGD giai đoạn 2018-2022",
       "detail_file": "https://dau.edu.vn/thong-bao-ve-viec-lay-y-kien-dong-gop-du-thao-bao-cao-tdg-csgd-giai-doan-2018-2022.html"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: đến hết ngày 10/01/2023",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2023-01-10 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_6075818b90bb",
@@ -4223,8 +4835,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2023-03-10",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4251,7 +4863,13 @@
     "provenance": {
       "notification_title": "Thông báo về việc lấy ý kiến đóng góp Dự thảo báo cáo TĐG CTĐT ngành Thiết kế nội thất, Tài chính ngân hàng, Kế toán, Quản trị dịch vụ du lịch và lữ hành",
       "detail_file": "https://dau.edu.vn/thong-bao-ve-viec-lay-y-kien-dong-gop-du-thao-bao-cao-tdg-ctdt-nganh-thiet-ke-noi-that-tai-chinh-ngan-hang-ke-toan-quan-tri-dich-vu-du-lich-va-lu-hanh.html"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: đến hết ngày 10/3/2023",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2023-03-10 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_75a7ac815de5",
@@ -4261,8 +4879,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2022-04-30",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4289,7 +4907,13 @@
     "provenance": {
       "notification_title": "Thông báo về việc lấy ý kiến đóng góp Dự thảo báo cáo TĐG CTĐT ngành Kiến trúc, Kỹ thuật xây dựng và Quản trị kinh doanh",
       "detail_file": "https://dau.edu.vn/thong-bao-ve-viec-lay-y-kien-dong-gop-du-thao-bao-cao-tdg-ctdt.html"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: đến hết ngày 30/4/2022",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2022-04-30 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_54fcf13bf9f3",
@@ -4300,7 +4924,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4327,7 +4951,13 @@
     "provenance": {
       "notification_title": "Khảo sát sơ bộ phục vụ đánh giá ngoài chương trình đào tạo ngành kế toán, ngành tài chính - ngân hàng, ngành quản trị dịch vụ du lịch & lữ hành, ngành thiết kế nội thất",
       "detail_file": "https://dau.edu.vn/khao-sat-so-bo-phuc-vu-danh-gia-ngoai-chuong-trinh-dao-tao-nganh-ke-toan-nganh-tai-chinh-ngan-hang-nganh-quan-tri-dich-vu-du-lich-lu-hanh-nganh-thiet-.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_1793a2dfea89",
@@ -4338,7 +4968,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4365,7 +4995,13 @@
     "provenance": {
       "notification_title": "Bế mạc khảo sát chính thức phục vụ đánh giá ngoài chương trình đào tạo ngành Kiến trúc, ngành Xây dựng, ngành Quản trị kinh doanh",
       "detail_file": "https://dau.edu.vn/khao-sat-chinh-thuc.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_9499521225a5",
@@ -4375,8 +5011,8 @@
     "issuing_unit": "Trường Đại học Kiến trúc Đà Nẵng",
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
-    "deadline": null,
-    "effective_status": "unknown",
+    "deadline": "2022-10-01",
+    "effective_status": "deadline_passed",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4403,7 +5039,13 @@
     "provenance": {
       "notification_title": "Khảo sát sơ bộ phục vụ đánh giá ngoài CTĐT ngành Kiến trúc, ngành Xây dựng, ngành Quản trị kinh doanh",
       "detail_file": "https://dau.edu.vn/tin-tuc-094104.html"
-    }
+    },
+    "suggested_status": "deadline_passed",
+    "status_evidence": "Trang 1: đến ngày 01/10/2022",
+    "status_rationale": "Thông báo có thời hạn thực hiện đến ngày 2022-10-01 (mốc thời gian này đã qua). Lưu ý: Không đồng nghĩa với việc văn bản bị bãi bỏ.",
+    "certainty": "HIGH",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_829c0559302a",
@@ -4414,7 +5056,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4441,7 +5083,13 @@
     "provenance": {
       "notification_title": "Khảo sát sơ bộ phục vụ đánh giá ngoài cơ sở giáo dục giai đoạn 2018-2022",
       "detail_file": "https://dau.edu.vn/khao-sat-so-bo-phuc-vu-danh-gia-ngoai-co-so-giao-duc-giai-doan-2018-2022.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_0f972cfe5a6b",
@@ -4452,7 +5100,7 @@
     "category": "Đảm bảo chất lượng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4479,7 +5127,13 @@
     "provenance": {
       "notification_title": "Khai mạc khảo sát chính thức phục vụ đánh giá ngoài chương trình đào tạo ngành Kiến trúc, ngành Xây dựng, ngành Quản trị kinh doanh",
       "detail_file": "https://dau.edu.vn/khai-mac-khao-sat-chinh-thuc.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_0f5a558310fe",
@@ -4490,7 +5144,7 @@
     "category": "Tuyển dụng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "active",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4517,7 +5171,13 @@
     "provenance": {
       "notification_title": "Quy trình tuyển dụng giảng viên Trường Đại học Kiến trúc Đà Nẵng",
       "detail_file": "https://dau.edu.vn/quy-trinh-tuyen-dung-giang-vien-truong-dai-hoc-kien-truc-da-nang.html"
-    }
+    },
+    "suggested_status": "active",
+    "status_evidence": "Văn bản quy định/quy chế ban hành ngày 2022-09-21, áp dụng dài hạn trong toàn trường.",
+    "status_rationale": "Văn bản thuộc nhóm quy chế/quy định/quy trình nội bộ áp dụng liên tục cho đến khi có văn bản mới.",
+    "certainty": "MEDIUM",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_5cd92cd51c55",
@@ -4528,7 +5188,7 @@
     "category": "Tuyển dụng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "active",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4555,7 +5215,13 @@
     "provenance": {
       "notification_title": "Quy trình tuyển dụng và đào tạo giảng viên",
       "detail_file": "https://dau.edu.vn/quy-trinh-tuyen-dung-va-dao-tao-giang-vien.html"
-    }
+    },
+    "suggested_status": "active",
+    "status_evidence": "Văn bản quy định/quy chế ban hành ngày 2022-09-21, áp dụng dài hạn trong toàn trường.",
+    "status_rationale": "Văn bản thuộc nhóm quy chế/quy định/quy trình nội bộ áp dụng liên tục cho đến khi có văn bản mới.",
+    "certainty": "MEDIUM",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_d1ec63116993",
@@ -4566,7 +5232,7 @@
     "category": "Tuyển dụng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "active",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4593,7 +5259,13 @@
     "provenance": {
       "notification_title": "Quy trình đào tạo, bồi dưỡng Trợ giảng thành Giảng viên Trường Đại học Kiến trúc Đà Nẵng",
       "detail_file": "https://dau.edu.vn/quy-trinh-dao-tao-boi-duong-tro-giang-thanh-giang-vien-truong-dai-hoc-kien-truc-da-nang.html"
-    }
+    },
+    "suggested_status": "active",
+    "status_evidence": "Văn bản quy định/quy chế ban hành ngày 2022-09-21, áp dụng dài hạn trong toàn trường.",
+    "status_rationale": "Văn bản thuộc nhóm quy chế/quy định/quy trình nội bộ áp dụng liên tục cho đến khi có văn bản mới.",
+    "certainty": "MEDIUM",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_bdbb46132b2a",
@@ -4604,7 +5276,7 @@
     "category": "Tuyển dụng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "active",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4631,7 +5303,13 @@
     "provenance": {
       "notification_title": "Chiến lược phát triển nguồn nhân lực giai đoạn 2022 - 2026",
       "detail_file": "https://dau.edu.vn/chien-luoc-phat-trien-phat-trien-nguon-nhan-luc-giai-doan-2022-2026.html"
-    }
+    },
+    "suggested_status": "active",
+    "status_evidence": "Văn bản quy định/quy chế ban hành ngày 2023-04-28, áp dụng dài hạn trong toàn trường.",
+    "status_rationale": "Văn bản thuộc nhóm quy chế/quy định/quy trình nội bộ áp dụng liên tục cho đến khi có văn bản mới.",
+    "certainty": "MEDIUM",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_a8b50f426e18",
@@ -4642,7 +5320,7 @@
     "category": "Tuyển dụng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4669,7 +5347,13 @@
     "provenance": {
       "notification_title": "Kế hoạch bồi dưỡng nghiệp vụ, chuyên môn và nâng cao trình độ năm học 2021 - 2022",
       "detail_file": "https://dau.edu.vn/ke-hoach-boi-duong-nghiep-vu-chuyen-mon-va-nang-cao-trinh-do-nam-hoc-2021-2022.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   },
   {
     "id": "dau_doc_c32c897bc156",
@@ -4680,7 +5364,7 @@
     "category": "Tuyển dụng",
     "subcategory": null,
     "deadline": null,
-    "effective_status": "unknown",
+    "effective_status": "unverified",
     "effective_from": null,
     "effective_to": null,
     "replaced_by": null,
@@ -4707,6 +5391,12 @@
     "provenance": {
       "notification_title": "Kế hoạch bồi dưỡng nghiệp vụ, chuyên môn và nâng cao trình độ năm học 2020 - 2021",
       "detail_file": "https://dau.edu.vn/ke-hoach-boi-duong-nghiep-vu-chuyen-mon-va-nang-cao-trinh-do-nam-hoc-2020-2021.html"
-    }
+    },
+    "suggested_status": "unverified",
+    "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+    "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+    "certainty": "LOW",
+    "is_verified": false,
+    "status_history": []
   }
 ]

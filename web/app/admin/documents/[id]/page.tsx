@@ -86,13 +86,85 @@ export default async function AdminDocumentDetailPage({ params }: AdminDocDetail
           </div>
           <div>
             <span className="text-slate-400 font-bold block mb-1">Danh mục</span>
-            <StatusBadge status={doc.category} />
+            <span className="px-2.5 py-0.5 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 border border-slate-200">
+              {doc.category || "Chưa phân loại"}
+            </span>
           </div>
           <div>
             <span className="text-slate-400 font-bold block mb-1">Tổng số trang / Chunks</span>
             <span className="font-bold text-blue-600">
               {doc.total_pages || 1} trang ({docChunks.length} chunks)
             </span>
+          </div>
+        </div>
+
+        {/* Khối Tình trạng hiệu lực & Căn cứ kiểm toán */}
+        <div className="pt-4 border-t border-slate-100 space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span className="text-xs font-bold text-slate-700">Tình trạng hiệu lực văn bản:</span>
+            <StatusBadge status={doc.effective_status} isVerified={doc.is_verified} size="md" />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
+            <div>
+              <span className="text-slate-500 font-semibold block mb-0.5">Hạn thực hiện (Deadline):</span>
+              <span className="font-mono font-bold text-indigo-700">
+                {doc.deadline || "Không quy định hạn chót"}
+              </span>
+            </div>
+            <div>
+              <span className="text-slate-500 font-semibold block mb-0.5">Ngày có hiệu lực:</span>
+              <span className="font-mono font-semibold text-emerald-700">
+                {doc.effective_from || (doc.issue_date ? `Từ ngày ban hành (${doc.issue_date})` : "—")}
+              </span>
+            </div>
+            <div>
+              <span className="text-slate-500 font-semibold block mb-0.5">Ngày hết hiệu lực:</span>
+              <span className="font-mono text-slate-700">
+                {doc.effective_to || "Chưa quy định"}
+              </span>
+            </div>
+          </div>
+
+          {doc.replaced_by && (
+            <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900">
+              <strong>Văn bản thay thế:</strong> {doc.replaced_by}
+            </div>
+          )}
+
+          {doc.status_evidence && (
+            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-1">
+              <span className="font-bold text-slate-700 block">🔍 Căn cứ trích dẫn từ văn bản nguồn:</span>
+              <p className="font-mono italic text-slate-800 bg-white p-2.5 rounded-lg border border-slate-200">
+                {doc.status_evidence}
+              </p>
+              {doc.status_rationale && (
+                <p className="text-[11px] text-slate-600 pt-1">
+                  <strong>Phân tích:</strong> {doc.status_rationale}
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Thông tin kiểm toán Admin */}
+          <div className="flex flex-wrap items-center justify-between text-[11px] text-slate-500 pt-2 border-t border-slate-100">
+            <span>
+              {doc.is_verified ? (
+                <span className="text-blue-700 font-semibold">
+                  ✓ Đã được Admin ({doc.verified_by || "Admin"}) xác minh vào {doc.verified_at?.slice(0, 19).replace("T", " ")}
+                </span>
+              ) : (
+                <span className="text-amber-700">
+                  ⚠️ Trạng thái đề xuất tự động từ Pipeline OCR (Chưa được Admin duyệt thủ công)
+                </span>
+              )}
+            </span>
+            <Link
+              href="/admin/documents"
+              className="text-blue-600 hover:underline font-bold"
+            >
+              Chỉnh sửa hiệu lực trên Quản lý tài liệu →
+            </Link>
           </div>
         </div>
       </div>

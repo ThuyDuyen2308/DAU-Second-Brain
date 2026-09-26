@@ -1,4 +1,4 @@
-﻿import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import StatusBadge from "@/components/StatusBadge";
 import { getDocumentById, getAllDocuments } from "@/lib/documents";
@@ -78,7 +78,7 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
                   </span>
                 )}
               </div>
-              <StatusBadge status={doc.effective_status} size="md" />
+              <StatusBadge status={doc.effective_status} isVerified={doc.is_verified} size="md" />
             </div>
 
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight leading-snug">
@@ -234,18 +234,36 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
             </div>
 
             <div>
-              <span className="text-slate-400 block mb-0.5">Trạng thái hiệu lực:</span>
-              <span className="font-semibold text-slate-800">
-                {doc.effective_status === "unknown" ? "Chưa xác định hiệu lực" : doc.effective_status}
-              </span>
+              <span className="text-slate-400 block mb-1">Tình trạng hiệu lực:</span>
+              <StatusBadge status={doc.effective_status} isVerified={doc.is_verified} size="sm" />
             </div>
 
-            <div>
-              <span className="text-slate-400 block mb-0.5">Hạn chót thực hiện:</span>
-              <span className="font-semibold text-slate-800">
-                {doc.deadline || "Chưa có thông tin"}
-              </span>
-            </div>
+            {doc.deadline && (
+              <div>
+                <span className="text-slate-400 block mb-0.5">Hạn thực hiện (Deadline):</span>
+                <span className="font-semibold text-indigo-700 font-mono">
+                  {doc.deadline}
+                </span>
+              </div>
+            )}
+
+            {doc.effective_from && (
+              <div>
+                <span className="text-slate-400 block mb-0.5">Ngày có hiệu lực:</span>
+                <span className="font-semibold text-emerald-700 font-mono">
+                  {doc.effective_from}
+                </span>
+              </div>
+            )}
+
+            {doc.status_evidence && (
+              <div className="pt-2 border-t border-slate-100">
+                <span className="text-slate-400 block mb-1">Căn cứ hiệu lực:</span>
+                <p className="text-[11px] text-slate-700 italic bg-slate-50 p-2 rounded-lg border border-slate-200">
+                  {doc.status_evidence}
+                </p>
+              </div>
+            )}
 
             <div>
               <span className="text-slate-400 block mb-0.5">Chất lượng OCR:</span>

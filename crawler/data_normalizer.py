@@ -1,4 +1,4 @@
-﻿"""
+"""
 Module Data Normalizer cho DAU Second Brain.
 
 Chức năng:
@@ -37,10 +37,18 @@ from .config import (
     NORMALIZED_DOCUMENTS_FILE,
     OUTPUT_FILE,
 )
+from .validity_extractor import analyze_document_validity
 
 logger = logging.getLogger("DataNormalizer")
 
-ALLOWED_EFFECTIVE_STATUSES = {"unknown", "effective", "expired"}
+ALLOWED_EFFECTIVE_STATUSES = {
+    "active",
+    "deadline_passed",
+    "expired",
+    "replaced",
+    "unverified",
+    "unknown",
+}
 
 
 def generate_document_id(source_url: str, source_file: str, index: int) -> str:
@@ -273,20 +281,37 @@ def normalize_single_document(
     # Document ID
     doc_id = generate_document_id(source_url, source_file, index)
 
+    # Phân tích tình trạng hiệu lực và căn cứ văn bản qua ValidityExtractor
+    validity_info = analyze_document_validity({
+        "title": title,
+        "content": content,
+        "pages": pages,
+        "issue_date": issue_date,
+        "document_number": doc_number,
+    })
+
     # Tạo đối tượng chuẩn theo đúng Schema
     doc = {
         "id": doc_id,
         "title": title,
         "document_number": doc_number,
-        "issue_date": issue_date,
+        "issue_date": validity_info["issue_date"] or issue_date,
         "issuing_unit": issuing_unit,
         "category": category,
         "subcategory": subcategory,
-        "deadline": None,  # Để null vì dữ liệu chưa có trường hạn nộp chính thức chuẩn
-        "effective_status": "unknown",  # Mặc định unknown, không tự kết luận
-        "effective_from": None,
-        "effective_to": None,
-        "replaced_by": None,
+        "deadline": validity_info["deadline"],
+        "effective_status": validity_info["suggested_status"],
+        "effective_from": validity_info["effective_from"],
+        "effective_to": validity_info["effective_to"],
+        "replaced_by": validity_info["replaced_by"],
+        "suggested_status": validity_info["suggested_status"],
+        "status_evidence": validity_info["status_evidence"],
+        "status_rationale": validity_info["status_rationale"],
+        "certainty": validity_info["certainty"],
+        "is_verified": False,
+        "verified_by": None,
+        "verified_at": None,
+        "status_history": [],
         "source_url": source_url,
         "detail_url": detail_url,
         "source_file": source_file,

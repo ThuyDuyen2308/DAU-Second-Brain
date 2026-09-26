@@ -1,4 +1,4 @@
-﻿import fs from "fs";
+import fs from "fs";
 import path from "path";
 import { Document, CategoryStats } from "@/types/document";
 
@@ -106,3 +106,102 @@ export function getRecentDocuments(limit = 5): Document[] {
     })
     .slice(0, limit);
 }
+
+/**
+ * Cập nhật tình trạng hiệu lực văn bản an toàn kèm kiểm toán (Admin Verification)
+ */
+export function updateDocumentValidity(
+  id: string,
+  updates: {
+    effective_status?: Document["effective_status"];
+    deadline?: string | null;
+    effective_from?: string | null;
+    effective_to?: string | null;
+    replaced_by?: string | null;
+    status_evidence?: string | null;
+    status_rationale?: string | null;
+    verified_by?: string | null;
+    verification_note?: string | null;
+  }
+): Document | null {
+  try {
+    if (!fs.existsSync(DATASET_PATH)) {
+      throw new Error(`Dataset file not found at: ${DATASET_PATH}`);
+    }
+    const fileContent = fs.readFileSync(DATASET_PATH, "utf-8");
+    const documents: Document[] = JSON.parse(fileContent);
+
+    const docIndex = documents.findIndex((d) => d.id === id);
+    if (docIndex === -1) {
+      return null;
+    }
+
+    const doc = documents[docIndex];
+    const prevStatus = doc.effective_status;
+    const nowIso = new Date().toISOString();
+
+    const historyEntry = {
+      previous_status: prevStatus,
+      new_status: updates.effective_status || prevStatus,
+      changed_by: updates.verified_by || "admin",
+      changed_at: nowIso,
+      evidence: updates.status_evidence || doc.status_evidence || null,
+      note: updates.verification_note || null,
+    };
+
+    const updatedHistory = Array.isArray(doc.status_history)
+      ? [...doc.status_history, historyEntry]
+      : [historyEntry];
+
+    const updatedDoc: Document = {
+      ...doc,
+      effective_status: updates.effective_status || doc.effective_status,
+      deadline: updates.deadline !== undefined ? updates.deadline : doc.deadline,
+      effective_from: updates.effective_from !== undefined ? updates.effective_from : doc.effective_from,
+      effective_to: updates.effective_to !== undefined ? updates.effective_to : doc.effective_to,
+      replaced_by: updates.replaced_by !== undefined ? updates.replaced_by : doc.replaced_by,
+      status_evidence: updates.status_evidence !== undefined ? updates.status_evidence : doc.status_evidence,
+      status_rationale: updates.status_rationale !== undefined ? updates.status_rationale : doc.status_rationale,
+      is_verified: true,
+      verified_by: updates.verified_by || doc.verified_by || "Admin",
+      verified_at: nowIso,
+      status_history: updatedHistory,
+    };
+
+    documents[docIndex] = updatedDoc;
+
+    fs.writeFileSync(DATASET_PATH, JSON.stringify(documents, null, 2), "utf-8");
+    return updatedDoc;
+  } catch (error) {
+    console.error(`[updateDocumentValidity] Error updating document ${id}:`, error);
+    throw error;
+  }
+}
+
+/**
+ * Thống kê số lượng văn bản theo từng trạng thái hiệu lực
+ */
+export function getEffectiveStatusStats(): Record<string, number> {
+  const docs = getAllDocuments();
+  const stats: Record<string, number> = {
+    active: 0,
+    deadline_passed: 0,
+    expired: 0,
+    replaced: 0,
+    unverified: 0,
+    unknown: 0,
+    total: docs.length,
+  };
+
+  for (const d of docs) {
+    const st = d.effective_status || "unverified";
+    if (stats[st] !== undefined) {
+      stats[st] += 1;
+    } else {
+      stats["unverified"] += 1;
+    }
+  }
+
+  return stats;
+}
+

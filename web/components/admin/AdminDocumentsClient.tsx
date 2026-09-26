@@ -21,6 +21,7 @@ export default function AdminDocumentsClient({
 }: AdminDocumentsClientProps) {
   const searchParams = useSearchParams();
   const initialTab = searchParams.get("tab") === "categories" ? "categories" : "documents";
+  const statusParam = searchParams.get("status") || "all";
 
   const [activeTab, setActiveMainTab] = useState<"documents" | "categories">(initialTab);
 
@@ -28,9 +29,20 @@ export default function AdminDocumentsClient({
   const [docsList, setDocsList] = useState(documents);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [selectedEffectiveStatus, setSelectedEffectiveStatus] = useState("all");
+  const [selectedEffectiveStatus, setSelectedEffectiveStatus] = useState(statusParam);
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; title: string } | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Modal xác minh tình trạng hiệu lực
+  const [editingValidityDoc, setEditingValidityDoc] = useState<Document | null>(null);
+  const [editStatus, setEditStatus] = useState<string>("active");
+  const [editDeadline, setEditDeadline] = useState<string>("");
+  const [editEffectiveFrom, setEditEffectiveFrom] = useState<string>("");
+  const [editEffectiveTo, setEditEffectiveTo] = useState<string>("");
+  const [editReplacedBy, setEditReplacedBy] = useState<string>("");
+  const [editStatusEvidence, setEditStatusEvidence] = useState<string>("");
+  const [editVerificationNote, setEditVerificationNote] = useState<string>("");
+  const [isSavingStatus, setIsSavingStatus] = useState(false);
 
   // Quản lý danh mục
   const [customCategories, setCustomCategories] = useState<CategoryStats[]>(categoryStats);
@@ -40,6 +52,10 @@ export default function AdminDocumentsClient({
   useEffect(() => {
     if (searchParams.get("tab") === "categories") {
       setActiveMainTab("categories");
+    }
+    const st = searchParams.get("status");
+    if (st) {
+      setSelectedEffectiveStatus(st);
     }
   }, [searchParams]);
 
@@ -65,15 +81,72 @@ export default function AdminDocumentsClient({
 
       const matchCategory = selectedCategory === "all" || doc.category === selectedCategory;
 
-      const matchEffective =
-        selectedEffectiveStatus === "all" ||
-        (selectedEffectiveStatus === "effective" && doc.effective_status === "effective") ||
-        (selectedEffectiveStatus === "expired" && doc.effective_status === "expired") ||
-        (selectedEffectiveStatus === "unknown" && (!doc.effective_status || doc.effective_status === "unknown"));
+      let matchEffective = true;
+      if (selectedEffectiveStatus !== "all") {
+        if (selectedEffectiveStatus === "unverified") {
+          matchEffective =
+            doc.effective_status === "unverified" ||
+            doc.effective_status === "unknown" ||
+            !doc.effective_status;
+        } else {
+          matchEffective = doc.effective_status === selectedEffectiveStatus;
+        }
+      }
 
       return matchQuery && matchCategory && matchEffective;
     });
   }, [docsList, searchQuery, selectedCategory, selectedEffectiveStatus]);
+
+  // Mở modal xác minh
+  const openValidityModal = (doc: Document) => {
+    setEditingValidityDoc(doc);
+    setEditStatus(doc.effective_status || "unverified");
+    setEditDeadline(doc.deadline || "");
+    setEditEffectiveFrom(doc.effective_from || "");
+    setEditEffectiveTo(doc.effective_to || "");
+    setEditReplacedBy(doc.replaced_by || "");
+    setEditStatusEvidence(doc.status_evidence || "");
+    setEditVerificationNote("");
+  };
+
+  // Lưu trạng thái và xác minh
+  const handleSaveValidity = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingValidityDoc) return;
+    setIsSavingStatus(true);
+    try {
+      const res = await fetch(`/api/admin/documents/${editingValidityDoc.id}/status`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          effective_status: editStatus,
+          deadline: editDeadline.trim() || null,
+          effective_from: editEffectiveFrom.trim() || null,
+          effective_to: editEffectiveTo.trim() || null,
+          replaced_by: editReplacedBy.trim() || null,
+          status_evidence: editStatusEvidence.trim() || null,
+          verification_note: editVerificationNote.trim() || null,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Không thể cập nhật tình trạng hiệu lực");
+      }
+
+      setDocsList((prev) =>
+        prev.map((d) => (d.id === editingValidityDoc.id ? data.document : d))
+      );
+      setToastMessage(
+        `Đã xác minh và cập nhật tình trạng cho "${editingValidityDoc.title}".`
+      );
+      setEditingValidityDoc(null);
+    } catch (err: any) {
+      setToastMessage(`Lỗi: ${err.message}`);
+    } finally {
+      setIsSavingStatus(false);
+    }
+  };
 
   // Xóa văn bản (demo / local state)
   const handleDeleteConfirm = () => {
@@ -105,17 +178,6 @@ export default function AdminDocumentsClient({
   const selectCategoryAndFilter = (catName: string) => {
     setSelectedCategory(catName);
     setActiveMainTab("documents");
-  };
-
-  const getEffectiveBadge = (status?: string | null) => {
-    switch (status) {
-      case "effective":
-        return <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 text-emerald-800">Còn hiệu lực</span>;
-      case "expired":
-        return <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-red-100 text-red-800">Hết hiệu lực</span>;
-      default:
-        return <span className="px-2 py-0.5 text-[10px] font-medium rounded-full bg-slate-100 text-slate-600">Chưa xác định</span>;
-    }
   };
 
   const totalPages = documents.reduce((acc, d) => acc + (d.total_pages || 1), 0);
@@ -232,12 +294,14 @@ export default function AdminDocumentsClient({
                 <select
                   value={selectedEffectiveStatus}
                   onChange={(e) => setSelectedEffectiveStatus(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
                 >
-                  <option value="all">Tất cả hiệu lực</option>
-                  <option value="effective">Còn hiệu lực</option>
-                  <option value="expired">Hết hiệu lực</option>
-                  <option value="unknown">Chưa xác định</option>
+                  <option value="all">Tất cả trạng thái hiệu lực</option>
+                  <option value="active">🟢 Còn hiệu lực</option>
+                  <option value="deadline_passed">🔵 Hết thời hạn thực hiện</option>
+                  <option value="expired">🔴 Hết hiệu lực</option>
+                  <option value="replaced">⚪ Đã bị thay thế</option>
+                  <option value="unverified">🟡 Chưa xác minh</option>
                 </select>
               </div>
             </div>
@@ -255,7 +319,7 @@ export default function AdminDocumentsClient({
                     setSelectedCategory("all");
                     setSelectedEffectiveStatus("all");
                   }}
-                  className="text-blue-600 hover:underline cursor-pointer"
+                  className="text-blue-600 hover:underline cursor-pointer font-semibold"
                 >
                   Xóa tất cả bộ lọc
                 </button>
@@ -284,8 +348,8 @@ export default function AdminDocumentsClient({
                       <th className="py-3 px-4">Tên văn bản &amp; Số hiệu</th>
                       <th className="py-3 px-3">Danh mục</th>
                       <th className="py-3 px-3">Ngày ban hành</th>
-                      <th className="py-3 px-3">Hiệu lực</th>
-                      <th className="py-3 px-3">Số trang</th>
+                      <th className="py-3 px-3">Tình trạng hiệu lực</th>
+                      <th className="py-3 px-3">Hạn / Hiệu lực</th>
                       <th className="py-3 px-4 text-right">Thao tác</th>
                     </tr>
                   </thead>
@@ -309,7 +373,9 @@ export default function AdminDocumentsClient({
                         </td>
 
                         <td className="py-3.5 px-3 whitespace-nowrap">
-                          <StatusBadge status={doc.category} />
+                          <span className="px-2.5 py-0.5 text-[11px] font-semibold rounded-lg bg-slate-100 text-slate-700 border border-slate-200">
+                            {doc.category || "Chưa phân loại"}
+                          </span>
                         </td>
 
                         <td className="py-3.5 px-3 whitespace-nowrap text-slate-600 font-mono text-[11px]">
@@ -317,19 +383,40 @@ export default function AdminDocumentsClient({
                         </td>
 
                         <td className="py-3.5 px-3 whitespace-nowrap">
-                          {getEffectiveBadge(doc.effective_status)}
+                          <StatusBadge
+                            status={doc.effective_status}
+                            isVerified={doc.is_verified}
+                          />
                         </td>
 
-                        <td className="py-3.5 px-3 whitespace-nowrap text-slate-700 font-semibold">
-                          {doc.total_pages || (doc.pages ? doc.pages.length : 1)} trang
+                        <td className="py-3.5 px-3 whitespace-nowrap text-slate-600 text-[11px]">
+                          {doc.deadline ? (
+                            <span className="font-mono text-indigo-700 font-semibold" title="Hạn thực hiện">
+                              Hạn: {doc.deadline}
+                            </span>
+                          ) : doc.effective_from ? (
+                            <span className="font-mono text-emerald-700 font-semibold" title="Ngày có hiệu lực">
+                              Từ: {doc.effective_from}
+                            </span>
+                          ) : (
+                            <span className="text-slate-400">—</span>
+                          )}
                         </td>
 
                         <td className="py-3.5 px-4 text-right whitespace-nowrap space-x-2">
+                          <button
+                            type="button"
+                            onClick={() => openValidityModal(doc)}
+                            className="px-2.5 py-1 text-amber-700 bg-amber-50 hover:bg-amber-100 font-bold rounded-lg transition-colors inline-block cursor-pointer text-[11px]"
+                            title="Xác minh hoặc điều chỉnh tình trạng hiệu lực"
+                          >
+                            ⚙️ Xác minh
+                          </button>
                           <Link
                             href={`/admin/documents/${doc.id}`}
-                            className="px-2.5 py-1 text-blue-600 hover:bg-blue-50 font-bold rounded-lg transition-colors inline-block"
+                            className="px-2.5 py-1 text-blue-600 hover:bg-blue-50 font-bold rounded-lg transition-colors inline-block text-[11px]"
                           >
-                            Chi tiết &amp; Chunks →
+                            Chi tiết →
                           </Link>
                           <button
                             type="button"
@@ -415,6 +502,198 @@ export default function AdminDocumentsClient({
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* Modal Xác Minh & Hiệu Chỉnh Tình Trạng Hiệu Lực */}
+      {editingValidityDoc && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+          <div className="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 space-y-5 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-start justify-between gap-3 border-b border-slate-100 pb-3">
+              <div>
+                <span className="text-[11px] font-bold text-blue-600 uppercase tracking-wider">
+                  Admin Verification &amp; Audit
+                </span>
+                <h3 className="text-lg font-black text-slate-900 leading-snug">
+                  Xác minh tình trạng hiệu lực văn bản
+                </h3>
+                <p className="text-xs text-slate-600 mt-0.5 font-medium line-clamp-1">
+                  {editingValidityDoc.title}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setEditingValidityDoc(null)}
+                className="p-1 text-slate-400 hover:text-slate-700 text-lg cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Khối căn cứ AI / Pipeline trích xuất tự động */}
+            <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-slate-700">
+                  🔍 Căn cứ trích xuất từ văn bản nguồn:
+                </span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 text-slate-700">
+                  Độ tin cậy: {editingValidityDoc.certainty || "MEDIUM"}
+                </span>
+              </div>
+              <p className="p-2.5 bg-white rounded-xl border border-slate-200 text-slate-800 italic font-mono text-[11px]">
+                {editingValidityDoc.status_evidence || "Chưa tìm thấy điều khoản hiệu lực rõ ràng trong nội dung."}
+              </p>
+              {editingValidityDoc.status_rationale && (
+                <p className="text-[11px] text-slate-600">
+                  <strong>Phân tích:</strong> {editingValidityDoc.status_rationale}
+                </p>
+              )}
+            </div>
+
+            {/* Form chỉnh sửa của Admin */}
+            <form onSubmit={handleSaveValidity} className="space-y-4 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Trạng thái hiệu lực */}
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    Trạng thái hiệu lực <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    value={editStatus}
+                    onChange={(e) => setEditStatus(e.target.value)}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="active">🟢 Còn hiệu lực (Active)</option>
+                    <option value="deadline_passed">🔵 Hết thời hạn thực hiện (Deadline Passed)</option>
+                    <option value="expired">🔴 Hết hiệu lực (Expired)</option>
+                    <option value="replaced">⚪ Đã bị thay thế (Replaced)</option>
+                    <option value="unverified">🟡 Chưa xác minh (Unverified)</option>
+                  </select>
+                </div>
+
+                {/* Hạn thực hiện (Deadline) */}
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    Hạn thực hiện thông báo (YYYY-MM-DD)
+                  </label>
+                  <input
+                    type="text"
+                    value={editDeadline}
+                    onChange={(e) => setEditDeadline(e.target.value)}
+                    placeholder="VD: 2026-09-17"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                {/* Ngày bắt đầu hiệu lực */}
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    Ngày bắt đầu có hiệu lực (YYYY-MM-DD)
+                  </label>
+                  <input
+                    type="text"
+                    value={editEffectiveFrom}
+                    onChange={(e) => setEditEffectiveFrom(e.target.value)}
+                    placeholder="VD: 2026-08-03"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                {/* Ngày hết hiệu lực */}
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    Ngày hết hiệu lực (YYYY-MM-DD)
+                  </label>
+                  <input
+                    type="text"
+                    value={editEffectiveTo}
+                    onChange={(e) => setEditEffectiveTo(e.target.value)}
+                    placeholder="VD: 2027-12-31"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              {/* Văn bản thay thế nếu có */}
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">
+                  Số hiệu / ID văn bản thay thế (nếu có)
+                </label>
+                <input
+                  type="text"
+                  value={editReplacedBy}
+                  onChange={(e) => setEditReplacedBy(e.target.value)}
+                  placeholder="VD: Quyết định 123/QĐ-ĐHKTĐN ngày 10/01/2027"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              {/* Căn cứ xác định trạng thái */}
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">
+                  Căn cứ xác định trạng thái (Trích đoạn hoặc lý do)
+                </label>
+                <textarea
+                  value={editStatusEvidence}
+                  onChange={(e) => setEditStatusEvidence(e.target.value)}
+                  rows={2}
+                  placeholder="Trích dẫn câu văn nguồn làm căn cứ pháp lý..."
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              {/* Ghi chú xác minh của Admin */}
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">
+                  Ghi chú xác minh kiểm toán của Admin
+                </label>
+                <input
+                  type="text"
+                  value={editVerificationNote}
+                  onChange={(e) => setEditVerificationNote(e.target.value)}
+                  placeholder="VD: Đã đối chiếu với văn bản gốc ban hành bởi Phòng Đào tạo."
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              {/* Lịch sử kiểm toán (Audit Trail) */}
+              {editingValidityDoc.status_history && editingValidityDoc.status_history.length > 0 && (
+                <div className="pt-2 border-t border-slate-100">
+                  <span className="font-bold text-slate-600 block mb-1.5">
+                    📜 Lịch sử kiểm toán thay đổi:
+                  </span>
+                  <div className="space-y-1.5 max-h-28 overflow-y-auto font-mono text-[10px] text-slate-600">
+                    {editingValidityDoc.status_history.map((h, hIdx) => (
+                      <div key={hIdx} className="p-1.5 bg-slate-100 rounded-lg">
+                        <strong>{h.changed_at.slice(0, 19).replace("T", " ")}</strong> • Bởi:{" "}
+                        <span className="text-blue-700">{h.changed_by}</span> • {h.previous_status} ➔{" "}
+                        <span className="font-bold text-slate-900">{h.new_status}</span>
+                        {h.note && <span className="block text-slate-500">Ghi chú: {h.note}</span>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Nút thao tác */}
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setEditingValidityDoc(null)}
+                  className="px-4 py-2 text-slate-600 hover:bg-slate-100 font-bold rounded-xl transition-colors cursor-pointer"
+                >
+                  Hủy
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSavingStatus}
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-xs transition-colors cursor-pointer disabled:opacity-50"
+                >
+                  {isSavingStatus ? "Đang lưu..." : "✓ Xác nhận & Lưu hiệu lực"}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

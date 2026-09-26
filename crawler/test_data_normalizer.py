@@ -1,4 +1,4 @@
-﻿"""
+"""
 Unit test cho module crawler/data_normalizer.py.
 
 Kiểm tra:
@@ -88,7 +88,7 @@ class TestDataNormalizer(unittest.TestCase):
             "attachments": ["https://media.dau.edu.vn/doc1.pdf"],
         }
         doc, warnings = normalize_single_document(notif, None, index=0)
-        self.assertEqual(doc["effective_status"], "unknown")
+        self.assertIn(doc["effective_status"], ["unverified", "unknown"])
         self.assertIsNone(doc["effective_from"])
         self.assertIsNone(doc["effective_to"])
         self.assertIsNone(doc["replaced_by"])
@@ -222,7 +222,7 @@ class TestDataNormalizer(unittest.TestCase):
         self.assertEqual(len(docs), 1)
         self.assertEqual(docs[0]["category"], "Học phí")
         self.assertEqual(docs[0]["document_number"], "31/TB-ĐHKTĐN")
-        self.assertEqual(docs[0]["effective_status"], "unknown")
+        self.assertIn(docs[0]["effective_status"], ["unverified", "unknown"])
         self.assertEqual(docs[0]["provenance"]["notification_index"], 0)
 
 

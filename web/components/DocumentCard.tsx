@@ -31,7 +31,11 @@ export default function DocumentCard({ document }: DocumentCardProps) {
               <span className="text-xs text-slate-400 italic">Chưa xác định số VB</span>
             )}
           </div>
-          <StatusBadge status={document.effective_status} size="sm" />
+          <StatusBadge
+            status={document.effective_status}
+            isVerified={document.is_verified}
+            size="sm"
+          />
         </div>
 
         {/* Tiêu đề văn bản */}
@@ -49,13 +53,18 @@ export default function DocumentCard({ document }: DocumentCardProps) {
 
       {/* Chân thẻ: Metadata & Xem chi tiết */}
       <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <span className="flex items-center gap-1">
             <svg className="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             <span>{document.issue_date || "Chưa rõ ngày"}</span>
           </span>
+          {document.deadline && (
+            <span className="font-mono text-[11px] font-semibold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-100">
+              Hạn: {document.deadline}
+            </span>
+          )}
           <span className="flex items-center gap-1">
             <svg className="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

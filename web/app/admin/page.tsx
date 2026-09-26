@@ -1,7 +1,7 @@
 // web/app/admin/page.tsx
 import React from "react";
 import Link from "next/link";
-import { getAllDocuments, getRecentDocuments } from "@/lib/documents";
+import { getAllDocuments, getRecentDocuments, getEffectiveStatusStats } from "@/lib/documents";
 import { createChunksFromDocuments } from "@/lib/ai/chunking";
 import { prisma } from "@/lib/db";
 import StatusBadge from "@/components/StatusBadge";
@@ -17,6 +17,7 @@ export const dynamic = "force-dynamic";
 export default async function AdminDashboardPage() {
   const allDocs = getAllDocuments();
   const recentDocs = getRecentDocuments(5);
+  const statusStats = getEffectiveStatusStats();
 
   const totalDocuments = allDocs.length;
   const totalChunks = createChunksFromDocuments(allDocs).length;
@@ -205,6 +206,103 @@ export default async function AdminDashboardPage() {
           <p className="text-[11px] text-slate-500 mt-1">
             Đoạn ngữ cảnh đang được trích xuất
           </p>
+        </div>
+      </div>
+
+      {/* 2.5. Phân bổ Tình trạng Hiệu lực Pháp lý (5 Trạng Thái Chuẩn) */}
+      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs space-y-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+          <div>
+            <h3 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
+              <span>⚖️ Tình trạng hiệu lực văn bản trong kho</span>
+            </h3>
+            <p className="text-[11px] text-slate-500 mt-0.5">
+              Phân loại nghiêm ngặt theo căn cứ văn bản, hạn thực hiện và kiểm toán Admin
+            </p>
+          </div>
+          <Link
+            href="/admin/documents"
+            className="text-xs font-bold text-blue-600 hover:underline"
+          >
+            Quản lý &amp; Xác minh ({totalDocuments}) →
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-1 text-xs">
+          {/* 1. Còn hiệu lực */}
+          <Link
+            href="/admin/documents?status=active"
+            className="p-3 rounded-xl bg-emerald-50/70 border border-emerald-200/70 hover:bg-emerald-100/70 transition-colors flex flex-col justify-between"
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-emerald-800 text-[11px]">Còn hiệu lực</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            </div>
+            <div className="text-xl font-black text-emerald-900 mt-2">
+              {statusStats.active || 0}
+            </div>
+            <span className="text-[10px] text-emerald-700/80 mt-1">Đang áp dụng</span>
+          </Link>
+
+          {/* 2. Hết thời hạn thực hiện */}
+          <Link
+            href="/admin/documents?status=deadline_passed"
+            className="p-3 rounded-xl bg-indigo-50/70 border border-indigo-200/70 hover:bg-indigo-100/70 transition-colors flex flex-col justify-between"
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-indigo-800 text-[11px]">Hết hạn thực hiện</span>
+              <span className="w-2 h-2 rounded-full bg-indigo-500" />
+            </div>
+            <div className="text-xl font-black text-indigo-900 mt-2">
+              {statusStats.deadline_passed || 0}
+            </div>
+            <span className="text-[10px] text-indigo-700/80 mt-1">Thông báo hết hạn</span>
+          </Link>
+
+          {/* 3. Hết hiệu lực */}
+          <Link
+            href="/admin/documents?status=expired"
+            className="p-3 rounded-xl bg-rose-50/70 border border-rose-200/70 hover:bg-rose-100/70 transition-colors flex flex-col justify-between"
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-rose-800 text-[11px]">Hết hiệu lực</span>
+              <span className="w-2 h-2 rounded-full bg-rose-500" />
+            </div>
+            <div className="text-xl font-black text-rose-900 mt-2">
+              {statusStats.expired || 0}
+            </div>
+            <span className="text-[10px] text-rose-700/80 mt-1">Đã bãi bỏ/hết hạn</span>
+          </Link>
+
+          {/* 4. Đã bị thay thế */}
+          <Link
+            href="/admin/documents?status=replaced"
+            className="p-3 rounded-xl bg-slate-100 border border-slate-300/70 hover:bg-slate-200/70 transition-colors flex flex-col justify-between"
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-slate-800 text-[11px]">Đã thay thế</span>
+              <span className="w-2 h-2 rounded-full bg-slate-500" />
+            </div>
+            <div className="text-xl font-black text-slate-900 mt-2">
+              {statusStats.replaced || 0}
+            </div>
+            <span className="text-[10px] text-slate-600 mt-1">Có văn bản mới</span>
+          </Link>
+
+          {/* 5. Chưa xác minh */}
+          <Link
+            href="/admin/documents?status=unverified"
+            className="p-3 rounded-xl bg-amber-50/70 border border-amber-200/70 hover:bg-amber-100/70 transition-colors flex flex-col justify-between col-span-2 sm:col-span-1"
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-amber-800 text-[11px]">Chưa xác minh</span>
+              <span className="w-2 h-2 rounded-full bg-amber-500" />
+            </div>
+            <div className="text-xl font-black text-amber-900 mt-2">
+              {(statusStats.unverified || 0) + (statusStats.unknown || 0)}
+            </div>
+            <span className="text-[10px] text-amber-700/80 mt-1">Cần Admin duyệt</span>
+          </Link>
         </div>
       </div>
 

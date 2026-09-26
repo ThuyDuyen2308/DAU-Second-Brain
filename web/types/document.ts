@@ -1,4 +1,4 @@
-﻿export interface DocumentPage {
+export interface DocumentPage {
   page_number: number;
   raw_text: string;
   cleaned_text: string;
@@ -25,6 +25,23 @@ export interface DocumentProvenance {
   extracted_file?: string | null;
 }
 
+export type EffectiveStatus =
+  | "active"
+  | "deadline_passed"
+  | "expired"
+  | "replaced"
+  | "unverified"
+  | "unknown";
+
+export interface StatusHistoryEntry {
+  previous_status: string;
+  new_status: string;
+  changed_by: string;
+  changed_at: string;
+  evidence?: string | null;
+  note?: string | null;
+}
+
 export interface Document {
   id: string;
   title: string;
@@ -34,10 +51,18 @@ export interface Document {
   category: string | null;
   subcategory: string | null;
   deadline: string | null;
-  effective_status: "unknown" | "effective" | "expired" | string;
+  effective_status: EffectiveStatus;
   effective_from: string | null;
   effective_to: string | null;
   replaced_by: string | null;
+  suggested_status?: EffectiveStatus | string;
+  status_evidence?: string | null;
+  status_rationale?: string | null;
+  certainty?: "HIGH" | "MEDIUM" | "LOW" | string;
+  is_verified?: boolean;
+  verified_by?: string | null;
+  verified_at?: string | null;
+  status_history?: StatusHistoryEntry[];
   source_url: string;
   detail_url: string;
   source_file: string;
@@ -55,3 +80,4 @@ export interface CategoryStats {
   count: number;
   subcategories: string[];
 }
+
