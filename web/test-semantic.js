@@ -27,9 +27,9 @@ const docs = JSON.parse(fs.readFileSync(datasetPath, "utf-8"));
 const totalPagesInDocs = docs.reduce((acc, d) => acc + (d.pages ? d.pages.length : 1), 0);
 
 assert(
-  docs.length === 10 && totalPagesInDocs === 20,
+  docs.length >= 10 && totalPagesInDocs >= 20,
   "PASS 1: Chunking & Dataset input được đọc chính xác",
-  `10 văn bản mẫu, tổng cộng ${totalPagesInDocs} trang nội dung sẵn sàng làm retrieval units.`
+  `${docs.length} văn bản mẫu, tổng cộng ${totalPagesInDocs} trang nội dung sẵn sàng làm retrieval units.`
 );
 
 // ----------------------------------------------------

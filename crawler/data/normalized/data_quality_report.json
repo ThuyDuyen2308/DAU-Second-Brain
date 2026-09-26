@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-13T16:22:08.696782",
+  "generated_at": "2026-09-26T09:38:54.294507",
   "summary": {
-    "total_documents": 10,
+    "total_documents": 115,
     "good": 7,
-    "warning": 3,
+    "warning": 108,
     "error": 0,
-    "total_issues": 3
+    "total_issues": 219
   },
   "documents": [
     {
@@ -251,6 +251,2847 @@
         "title_content_relation": true,
         "duplicate": true,
         "provenance": true,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_5295cdd6d1e0",
+      "title": "QUY ĐỊNH 3 CÔNG KHAI CỦA NHÀ TRƯỜNG",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_f2600563ede2",
+      "title": "Báo cáo tự đánh giá",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 3 - ISSUE DATE] Không có ngày ban hành (issue_date is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": false,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_7f4edf3b03ed",
+      "title": "KỶ YẾU KHOA HỌC VÀ GIÁO DỤC D.A.U",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_8d0e2b1e31b4",
+      "title": "TRA CỨU VĂN BẰNG",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 3 - ISSUE DATE] Không có ngày ban hành (issue_date is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": false,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_dab4cd5378e1",
+      "title": "HOẠT ĐỘNG SINH VIÊN",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 12 - TITLE VS CONTENT] Mức độ tương đồng giữa tiêu đề và nội dung thấp (0% từ khóa).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": false,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_913b6e1172a1",
+      "title": "VINH DANH SINH VIÊN",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_02067d256e06",
+      "title": "CÂU LẠC BỘ SINH VIÊN",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_09c0d4f0f733",
+      "title": "GIỚI THIỆU",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_f75344e858b7",
+      "title": "BÀI BÁO TRÊN TẠP CHÍ ISI/Scopus",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 3 - ISSUE DATE] Không có ngày ban hành (issue_date is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": false,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_1c008b37b71e",
+      "title": "TẠP CHÍ QUỐC TẾ KHÁC",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 12 - TITLE VS CONTENT] Mức độ tương đồng giữa tiêu đề và nội dung thấp (0% từ khóa).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": false,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_6ea0e4c94048",
+      "title": "BÀI BÁO TRONG NƯỚC THUỘC HĐCDGSNN",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_f1cb82050a8f",
+      "title": "TIỆN ÍCH NGHIÊN CỨU",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_d14c2ca1b3a8",
+      "title": "THỎA THUẬN HỢP TÁC",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_1b4012e8eebd",
+      "title": "CHƯƠNG TRÌNH LIÊN KẾT",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_a6ab7cb07fd4",
+      "title": "CHƯƠNG TRÌNH TRAO ĐỔI GIAO LƯU",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_782310bbb6bc",
+      "title": "Kiểm định cơ sở giáo dục",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 3 - ISSUE DATE] Không có ngày ban hành (issue_date is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": false,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_80350c10e842",
+      "title": "Chứng nhận kiểm định",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_baea9c383278",
+      "title": "Giảng viên, trợ giảng",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_53bb0a61cace",
+      "title": "Cán bộ, nhân viên",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_dda212e5e1df",
+      "title": "THÔNG BÁO TUYỂN DỤNG",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_4e2060b6fbf9",
+      "title": "KẾ HOẠCH BỒI DƯỠNG",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_9d75f0fcfe5c",
+      "title": "Tra cứu khu vực ưu tiên",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_92c5d898309c",
+      "title": "Tra cứu đối tượng ưu tiên",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 9 - KÝ TỰ BẤT THƯỜNG] Phát hiện chuỗi lặp ký tự bất thường (1 chỗ).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": false,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_b41742465d4e",
+      "title": "Unitour Lixil TalentMmatch 2026 | Kết nối sinh viên – mở rộng trải nghiệm thiết kế",
+      "status": "WARNING",
+      "score": 75,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 3 - ISSUE DATE] Không có ngày ban hành (issue_date is null).",
+        "[CHECK 9 - KÝ TỰ BẤT THƯỜNG] Phát hiện chuỗi lặp ký tự bất thường (2 chỗ).",
+        "[CHECK 12 - TITLE VS CONTENT] Mức độ tương đồng giữa tiêu đề và nội dung thấp (0% từ khóa).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": false,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": false,
+        "metadata_consistency": true,
+        "title_content_relation": false,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_c6d68b3c5b26",
+      "title": "Khoa du lịch bước vào chặng đường bảo vệ khóa luận tốt nghiệp",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 9 - KÝ TỰ BẤT THƯỜNG] Phát hiện chuỗi lặp ký tự bất thường (1 chỗ).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": false,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_f14a432c34b8",
+      "title": "Kỹ năng xây dựng lộ trình – sức mạnh của ngôn từ: hành trang để sinh viên chủ động kiến tạo tương lai",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 12 - TITLE VS CONTENT] Mức độ tương đồng giữa tiêu đề và nội dung thấp (8% từ khóa).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": false,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_24a112be8a85",
+      "title": "[HTQT] Chương trình Học giả Fulbright Hoa Kỳ - Hiệp hội Các Quốc Gia Đông Nam Á (ASEAN) năm học 2022-2023",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_2b4cf8a787d3",
+      "title": "KHOA HỌC CÔNG NGHỆ",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_387a71dd6e99",
+      "title": "Các tiện ích nghiên cứu",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_2bdbc80d443d",
+      "title": "Chiến lược phát triển giáo dục Trường Đại học Kiến trúc Đà Nẵng giai đoạn 2020-2025 và tầm nhìn đến năm 2030",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_9eb237ef35e0",
+      "title": "Quy chế tổ chức hoạt động của Trường Đại học Kiến trúc Đà Nẵng",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_01d6cb868af0",
+      "title": "Quy chế chi tiêu nội bộ năm 2022",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_531c725d6ff0",
+      "title": "8 năm – Hành trình gắn kết và trưởng thành cùng Câu lạc bộ Gia đình Kỹ năng DAU",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_d61d456a9c22",
+      "title": "Khu vườn bé thơ - nét vẽ gieo mầm yêu thương",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_6765c57f3ff5",
+      "title": "CLB V-Sea Team & CLB Âm nhạc KTD gửi nắng cho em 2025",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_4b74489a4f98",
+      "title": "Chuỗi chiếu phim về Kiến trúc hiện đại",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 9 - KÝ TỰ BẤT THƯỜNG] Phát hiện chuỗi lặp ký tự bất thường (1 chỗ).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": false,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_d4f6e8444a71",
+      "title": "Livestream Tư vấn tuyển sinh \"DAU đồng hành cùng bạn chắp cánh ước mơ - Số 04: NÂNG TẦM NGOẠI NGỮ - LÀM CHỦ TƯƠNG LAI\"",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_f493ec397a7e",
+      "title": "Livestream Tư vấn tuyển sinh \"DAU đồng hành cùng bạn chắp cánh ước mơ\" - Số 03: KẾT NỐI ƯỚC MƠ - CHINH PHỤC NHỮNG CÔNG TRÌNH",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_87e255066db7",
+      "title": "Livestream Tư vấn tuyển sinh \"DAU đồng hành cùng bạn chắp cánh ước mơ\" - Số 02: KẾT NỐI ĐAM MÊ - TẠO NGHỀ LẬP NGHIỆP CÙNG KHOA DU LỊCH",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_143cfb1fab2c",
+      "title": "Cuộc thi hùng biện tiếng Trung toàn quốc - Đà Nẵng 2022",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_685c52df01d6",
+      "title": "Tuyển thành viên Khóa học mùa hè 2022",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 3 - ISSUE DATE] Không có ngày ban hành (issue_date is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": false,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_b6cc841ac746",
+      "title": "Triển lãm nghệ thuật \"Vươn khơi\"",
+      "status": "WARNING",
+      "score": 80,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 3 - ISSUE DATE] Không có ngày ban hành (issue_date is null).",
+        "[CHECK 12 - TITLE VS CONTENT] Mức độ tương đồng giữa tiêu đề và nội dung thấp (20% từ khóa).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": false,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": false,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_1d368ceefaa6",
+      "title": "Hội thảo “ỨNG DỤNG MÔ HÌNH HỌC CÙNG CỘNG ĐỒNG (CEL/SL) TRONG GIÁO DỤC ĐẠI HỌC VIỆT NAM”",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_1e0487fba6d0",
+      "title": "Hội thảo \"Giải pháp VCC Smart Home và cơ hội việc làm tại Tổng công ty cổ phần Công trình Viettel - Tập đoàn Viettel\"",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_0a4e42992e04",
+      "title": "Ngày hội hướng nghiệp - Thiết kế đồ họa trong game",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_e9f2200fb3a4",
+      "title": "Hội thảo chuyên đề \"Xu hướng màu sắc cho năm mới 2020\"",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_d9b460f3b323",
+      "title": "Ngày hội hiến máu tại DAU",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_7384afad2243",
+      "title": "Thông báo tuyển dụng giảng viên - Đợt 1/2024",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_b5cac247f30a",
+      "title": "Thông báo kết quả xét hồ sơ tuyển dụng giảng viên - Đợt 02/2023",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_2bd4e99ce17a",
+      "title": "Thông báo tuyển dụng Cán bộ và Nhân viên phụ trách truyền thông",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_73a5a9d36e36",
+      "title": "Thông báo tuyển dụng Giảng viên cơ hữu ngành Logistics và Quản lý chuỗi cung ứng (Đợt 1/2023)",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_32fd42d5408b",
+      "title": "Thông báo tuyển dụng giảng viên cơ hữu - Năm 2018",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_7213423825f1",
+      "title": "Thông báo tuyển dụng nhân viên Tài chính - Kế toán, đợt 2/2022",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_1510e7372fb1",
+      "title": "Thông báo tuyển dụng nhân viên truyền thông",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_b852fc35e188",
+      "title": "Thông báo tuyển dụng giảng viên cơ hữu - Đợt 1/2022",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_739ff88728d2",
+      "title": "Thông báo tuyển dụng giảng viên - Đợt 1/2021",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_5efe2d790d50",
+      "title": "Thông báo tuyển dụng đợt 1 - 2020",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_1ea195f589ee",
+      "title": "Thông báo tuyển dụng đợt 1 - 2019",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_31bbe5fac0dc",
+      "title": "Thông báo tuyển dụng giảng viên cơ hữu - Đợt 2/2020",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_6b06a5aa643f",
+      "title": "Thông báo tuyển dụng giảng viên cơ hữu - Đợt 1/2020",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_fb86945b1d58",
+      "title": "Thông báo tuyển dụng GV cơ hữu - Đợt 2/2022",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_8da581b09dca",
+      "title": "Tra cứu kết quả xét tuyển",
+      "status": "WARNING",
+      "score": 80,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 3 - ISSUE DATE] Không có ngày ban hành (issue_date is null).",
+        "[CHECK 12 - TITLE VS CONTENT] Mức độ tương đồng giữa tiêu đề và nội dung thấp (0% từ khóa).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": false,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": false,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_28a3cd8de096",
+      "title": "Hội nghị sinh viên nghiên cứu Khoa học năm học 2019 - 2020",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 12 - TITLE VS CONTENT] Mức độ tương đồng giữa tiêu đề và nội dung thấp (14% từ khóa).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": false,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_15d3e6862646",
+      "title": "Hành trang kỹ năng trong thời đại số",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_b1bd17825943",
+      "title": "Buổi giới thiệu chương trình thực tập trải nghiệm thực tế tại Nhật Bản",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_38a81111b043",
+      "title": "Đoàn đại diện tỉnh Shiga (Nhật Bản) đến thăm Trường Đại học Kiến trúc Đà Nẵng",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_03a7166246c7",
+      "title": "Đăng ký tham gia Lễ hội Kanagawa tại Đà Nẵng",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 9 - KÝ TỰ BẤT THƯỜNG] Phát hiện chuỗi lặp ký tự bất thường (1 chỗ).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": false,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_8efd922ae953",
+      "title": "Thông báo tuyển sinh lớp Zemi Khóa 2025 – 2026",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 9 - KÝ TỰ BẤT THƯỜNG] Phát hiện chuỗi lặp ký tự bất thường (1 chỗ).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": false,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_867f35e77097",
+      "title": "Thông Báo Tuyển thành viên - Đội thi Hùng Biện Tiếng Nhật - Hưởng ứng Lễ Hội Kanagawa tại Đà Nẵng 2024",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 9 - KÝ TỰ BẤT THƯỜNG] Phát hiện chuỗi lặp ký tự bất thường (1 chỗ).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": false,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_ce0a32bab258",
+      "title": "[Hỗ trợ truyền thông] Mở đơn đăng ký tham gia Chương trình tập huấn TOT 2024 - Chủ đề: Năng lượng tái tạo và Net Zero/Zero Carbon",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 9 - KÝ TỰ BẤT THƯỜNG] Phát hiện chuỗi lặp ký tự bất thường (1 chỗ).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": false,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_e134a3a53708",
+      "title": "Thông báo khảo sát sự hài lòng của sinh viên về hoạt động giảng dạy của giảng viên, học kỳ 2, năm học 2025 - 2026",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_083da48402e7",
+      "title": "Thông báo khảo sát sự hài lòng của sinh viên đối với các hoạt động của nhà trường",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_a1afbb0d672a",
+      "title": "Quy định về kiểm định chất lượng cơ sở giáo dục đại học (Thông tư 20/2026/TT-BGDĐT ngày 31/3/2026)",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_ee1a6b6e30c4",
+      "title": "THÔNG BÁO KHẢO SÁT TOÀN KHÓA HỌC ĐỐI VỚI SINH VIÊN TỐT NGHIỆP ĐỢT 1 NĂM 2026",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_fe7cb766ccbd",
+      "title": "THÔNG BÁO KHẢO SÁT SỰ HÀI LÒNG CỦA SINH VIÊN VỀ HOẠT ĐỘNG GIẢNG DẠY CỦA GIẢNG VIÊN, HỌC KỲ 1 (2025-2026)",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_cce0abba7b69",
+      "title": "KẾ HOẠCH KHẢO SÁT SỰ HÀI LÒNG CỦA CÁN BỘ QUẢN LÝ, GIẢNG VIÊN, TRỢ GIẢNG VÀ NHÂN VIÊN VỀ MÔI TRƯỜNG LÀM VIỆC TẠI TRƯỜNG",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_2ad86d9a37a2",
+      "title": "HỘI NGHỊ SƠ KẾT THỰC HIỆN QUYẾT ĐỊNH 78/QĐ-TTg: Phát triển hệ thống bảo đảm và kiểm định chất lượng giáo dục đối với giáo dục đại học và cao đẳng sư phạm giai đoạn 2022-2030",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_12f7a1def8f3",
+      "title": "Thông báo khảo sát Toàn khóa học đối với sinh viên tốt nghiệp đợt 2 năm 2025",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_58e0da15d92f",
+      "title": "Thông báo khảo sát Công tác tuyển sinh và nhập học năm tân sinh viên khóa 2025",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_50e9a8e5869b",
+      "title": "Thông báo khảo sát việc làm của sinh viên tốt nghiệp năm 2024",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_547ea499875c",
+      "title": "THÔNG BÁO KHẢO SÁT SỰ HÀI LÒNG CỦA SINH VIÊN VỀ HOẠT ĐỘNG GIẢNG DẠY CỦA GIẢNG VIÊN, HỌC KỲ 2 (2024-2025)",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_dfbd9f939952",
+      "title": "THÔNG BÁO KHẢO SÁT SỰ HÀI LÒNG CỦA SINH VIÊN VỀ HOẠT ĐỘNG GIẢNG DẠY CỦA GIẢNG VIÊN, HỌC KỲ 1 (2024-2025)",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_c748cc3b377e",
+      "title": "Thông báo khảo sát việc làm của sinh viên tốt nghiệp năm 2023",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_d4eb680372c5",
+      "title": "KHẢO SÁT SƠ BỘ PHỤC VỤ ĐÁNH GIÁ NGOÀI",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_992bb5c76903",
+      "title": "BẾ MẠC KHẢO SÁT CHÍNH THỨC ĐÁNH GIÁ NGOÀI",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_8265beb7684f",
+      "title": "KHAI MẠC KHẢO SÁT CHÍNH THỨC",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_6c8d6fbc97aa",
+      "title": "Báo cáo Tự đánh giá Chương trình đào tạo",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_8018a6ed6dda",
+      "title": "Thông báo về việc lấy ý kiến phản hồi về Báo cáo TĐG CTĐT",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_b612db71adb6",
+      "title": "BẾ MẠC KHẢO SÁT CHÍNH THỨC",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_f37f0739c362",
+      "title": "Rà soát quy trình lập kế hoạch chỉ số và chỉ tiêu về Đảm bảo chất lượng và Hệ thống chỉ số đánh giá năng lực thực hiện KPIs về đảm bảo chất lượng",
+      "status": "WARNING",
+      "score": 95,
+      "issues": [],
+      "warnings": [
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": true,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_029339bd6233",
+      "title": "Khai mạc khảo sát chính thức phục vụ đánh giá ngoài chương trình đào tạo ngành kế toán, ngành tài chính - ngân hàng, ngành quản trị dịch vụ du lịch & lữ hành, ngành thiết kế nội thất",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_07673d8b6f9a",
+      "title": "Thông báo về việc lấy ý kiến đóng góp Dự thảo báo cáo TĐG CSGD giai đoạn 2018-2022",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_6075818b90bb",
+      "title": "Thông báo về việc lấy ý kiến đóng góp Dự thảo báo cáo TĐG CTĐT ngành Thiết kế nội thất, Tài chính ngân hàng, Kế toán, Quản trị dịch vụ du lịch và lữ hành",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_75a7ac815de5",
+      "title": "Thông báo về việc lấy ý kiến đóng góp Dự thảo báo cáo TĐG CTĐT ngành Kiến trúc, Kỹ thuật xây dựng và Quản trị kinh doanh",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_54fcf13bf9f3",
+      "title": "Khảo sát sơ bộ phục vụ đánh giá ngoài chương trình đào tạo ngành kế toán, ngành tài chính - ngân hàng, ngành quản trị dịch vụ du lịch & lữ hành, ngành thiết kế nội thất",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_1793a2dfea89",
+      "title": "Bế mạc khảo sát chính thức phục vụ đánh giá ngoài chương trình đào tạo ngành Kiến trúc, ngành Xây dựng, ngành Quản trị kinh doanh",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_9499521225a5",
+      "title": "Khảo sát sơ bộ phục vụ đánh giá ngoài CTĐT ngành Kiến trúc, ngành Xây dựng, ngành Quản trị kinh doanh",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_829c0559302a",
+      "title": "Khảo sát sơ bộ phục vụ đánh giá ngoài cơ sở giáo dục giai đoạn 2018-2022",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_0f972cfe5a6b",
+      "title": "Khai mạc khảo sát chính thức phục vụ đánh giá ngoài chương trình đào tạo ngành Kiến trúc, ngành Xây dựng, ngành Quản trị kinh doanh",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_0f5a558310fe",
+      "title": "Quy trình tuyển dụng giảng viên Trường Đại học Kiến trúc Đà Nẵng",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_5cd92cd51c55",
+      "title": "Quy trình tuyển dụng và đào tạo giảng viên",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_d1ec63116993",
+      "title": "Quy trình đào tạo, bồi dưỡng Trợ giảng thành Giảng viên Trường Đại học Kiến trúc Đà Nẵng",
+      "status": "WARNING",
+      "score": 85,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 12 - TITLE VS CONTENT] Mức độ tương đồng giữa tiêu đề và nội dung thấp (10% từ khóa).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": false,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_bdbb46132b2a",
+      "title": "Chiến lược phát triển nguồn nhân lực giai đoạn 2022 - 2026",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_a8b50f426e18",
+      "title": "Kế hoạch bồi dưỡng nghiệp vụ, chuyên môn và nâng cao trình độ năm học 2021 - 2022",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
+        "effective_status": true
+      }
+    },
+    {
+      "document_id": "dau_doc_c32c897bc156",
+      "title": "Kế hoạch bồi dưỡng nghiệp vụ, chuyên môn và nâng cao trình độ năm học 2020 - 2021",
+      "status": "WARNING",
+      "score": 90,
+      "issues": [],
+      "warnings": [
+        "[CHECK 2 - DOCUMENT NUMBER] Văn bản không có số hiệu rõ ràng (document_number is null).",
+        "[CHECK 14 - PROVENANCE] Thiếu các trường truy vết nguồn: notification_index, document_file, extracted_file."
+      ],
+      "checks": {
+        "title": true,
+        "document_number": false,
+        "issue_date": true,
+        "source_url": true,
+        "source_file": true,
+        "content": true,
+        "page_count": true,
+        "ocr_text": true,
+        "ocr_characters": true,
+        "metadata_consistency": true,
+        "title_content_relation": true,
+        "duplicate": true,
+        "provenance": false,
         "effective_status": true
       }
     }
