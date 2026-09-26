@@ -1,4 +1,6 @@
-// components/ui/Input.tsx
+
+"use client";
+
 import React from "react";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +22,11 @@ export default function Input({
   id,
   ...props
 }: InputProps) {
-  const inputId = id || `input-${Math.random().toString(36).slice(2)}`;
+  // Tạo ID ổn định giữa server và client
+  const generatedId = React.useId();
+
+  // Ưu tiên ID được truyền từ component cha
+  const inputId = id ?? generatedId;
 
   return (
     <div className="w-full">
@@ -32,12 +38,14 @@ export default function Input({
           {label}
         </label>
       )}
+
       <div className="relative">
         {leftIcon && (
           <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
             {leftIcon}
           </div>
         )}
+
         <input
           id={inputId}
           className={cn(
@@ -53,20 +61,31 @@ export default function Input({
           )}
           {...props}
         />
+
         {rightElement && (
           <div className="absolute inset-y-0 right-0 flex items-center pr-3.5">
             {rightElement}
           </div>
         )}
       </div>
+
       {error && (
         <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1">
-          <svg className="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+          <svg
+            className="w-3.5 h-3.5 flex-shrink-0"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fillRule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+              clipRule="evenodd"
+            />
           </svg>
           {error}
         </p>
       )}
+
       {hint && !error && (
         <p className="mt-1.5 text-xs text-slate-500">{hint}</p>
       )}

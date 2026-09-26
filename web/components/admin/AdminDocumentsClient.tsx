@@ -1,349 +1,477 @@
 // components/admin/AdminDocumentsClient.tsx
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import AdminConfirmDialog from "@/components/admin/AdminConfirmDialog";
 import AdminToast from "@/components/admin/AdminToast";
 import AdminEmptyState from "@/components/admin/AdminEmptyState";
-import { Document } from "@/types/document";
+import StatusBadge from "@/components/StatusBadge";
+import { Document, CategoryStats } from "@/types/document";
 
 interface AdminDocumentsClientProps {
   documents: Document[];
+  categoryStats?: CategoryStats[];
 }
 
-export default function AdminDocumentsClient({ documents }: AdminDocumentsClientProps) {
-  const initialDocs = useMemo(() => {
-    return documents.map((d) => ({
-      id: d.id,
-      title: d.title,
-      documentNumber: d.document_number,
-      issueDate: d.issue_date,
-      category: d.category || "Chưa phân loại",
-      totalPages: d.total_pages || (d.pages ? d.pages.length : 1),
-      chunkCount: Math.ceil((d.content?.length || 500) / 450) || 2,
-      processingStatus: "processed" as "processed" | "unprocessed",
-      effectiveStatus: d.effective_status || "unknown",
-    }));
-  }, [documents]);
+export default function AdminDocumentsClient({
+  documents,
+  categoryStats = [],
+}: AdminDocumentsClientProps) {
+  const searchParams = useSearchParams();
+  const initialTab = searchParams.get("tab") === "categories" ? "categories" : "documents";
 
-  const [docsList, setDocsList] = useState(initialDocs);
+  const [activeTab, setActiveMainTab] = useState<"documents" | "categories">(initialTab);
+
+  // Danh sách tài liệu quản lý
+  const [docsList, setDocsList] = useState(documents);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [selectedStatus, setSelectedStatus] = useState("all");
+  const [selectedEffectiveStatus, setSelectedEffectiveStatus] = useState("all");
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; title: string } | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Lọc theo search, category, processing status
+  // Quản lý danh mục
+  const [customCategories, setCustomCategories] = useState<CategoryStats[]>(categoryStats);
+  const [showAddCatModal, setShowAddCatModal] = useState(false);
+  const [newCatName, setNewCatName] = useState("");
+
+  useEffect(() => {
+    if (searchParams.get("tab") === "categories") {
+      setActiveMainTab("categories");
+    }
+  }, [searchParams]);
+
+  // Danh sách danh mục duy nhất cho bộ lọc
+  const uniqueCategories = useMemo(() => {
+    const set = new Set<string>();
+    documents.forEach((d) => {
+      if (d.category) set.add(d.category);
+    });
+    return Array.from(set);
+  }, [documents]);
+
+  // Lọc văn bản theo search, category, effectiveStatus
   const filteredDocs = useMemo(() => {
     return docsList.filter((doc) => {
       const q = searchQuery.toLowerCase().trim();
       const matchQuery =
         !q ||
         doc.title.toLowerCase().includes(q) ||
-        (doc.documentNumber && doc.documentNumber.toLowerCase().includes(q)) ||
-        (doc.issueDate && doc.issueDate.toLowerCase().includes(q));
+        (doc.document_number && doc.document_number.toLowerCase().includes(q)) ||
+        (doc.issue_date && doc.issue_date.toLowerCase().includes(q)) ||
+        (doc.content && doc.content.toLowerCase().includes(q));
 
       const matchCategory = selectedCategory === "all" || doc.category === selectedCategory;
-      const matchStatus =
-        selectedStatus === "all" ||
-        (selectedStatus === "processed" && doc.processingStatus === "processed") ||
-        (selectedStatus === "unprocessed" && doc.processingStatus === "unprocessed");
 
-      return matchQuery && matchCategory && matchStatus;
+      const matchEffective =
+        selectedEffectiveStatus === "all" ||
+        (selectedEffectiveStatus === "effective" && doc.effective_status === "effective") ||
+        (selectedEffectiveStatus === "expired" && doc.effective_status === "expired") ||
+        (selectedEffectiveStatus === "unknown" && (!doc.effective_status || doc.effective_status === "unknown"));
+
+      return matchQuery && matchCategory && matchEffective;
     });
-  }, [docsList, searchQuery, selectedCategory, selectedStatus]);
+  }, [docsList, searchQuery, selectedCategory, selectedEffectiveStatus]);
 
-  // Categories duy nhất
-  const categories = useMemo(() => {
-    const set = new Set(initialDocs.map((d) => d.category));
-    return Array.from(set);
-  }, [initialDocs]);
-
-  // Handler xóa demo
+  // Xóa văn bản (demo / local state)
   const handleDeleteConfirm = () => {
     if (!deleteTarget) return;
     setDocsList((prev) => prev.filter((d) => d.id !== deleteTarget.id));
     setDeleteTarget(null);
-    setToastMessage("Đây là thao tác demo. Dữ liệu nguồn hiện tại chưa được kết nối database.");
+    setToastMessage(`Đã xóa văn bản "${deleteTarget.title}" khỏi giao diện.`);
   };
+
+  // Thêm danh mục mới
+  const handleAddCategory = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newCatName.trim()) return;
+
+    if (customCategories.some((c) => c.name.toLowerCase() === newCatName.trim().toLowerCase())) {
+      setToastMessage("Danh mục này đã tồn tại trong danh sách.");
+      return;
+    }
+
+    setCustomCategories((prev) => [
+      ...prev,
+      { name: newCatName.trim(), count: 0, subcategories: [] },
+    ]);
+    setNewCatName("");
+    setShowAddCatModal(false);
+    setToastMessage(`Đã tạo danh mục mới "${newCatName.trim()}".`);
+  };
+
+  const selectCategoryAndFilter = (catName: string) => {
+    setSelectedCategory(catName);
+    setActiveMainTab("documents");
+  };
+
+  const getEffectiveBadge = (status?: string | null) => {
+    switch (status) {
+      case "effective":
+        return <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 text-emerald-800">Còn hiệu lực</span>;
+      case "expired":
+        return <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-red-100 text-red-800">Hết hiệu lực</span>;
+      default:
+        return <span className="px-2 py-0.5 text-[10px] font-medium rounded-full bg-slate-100 text-slate-600">Chưa xác định</span>;
+    }
+  };
+
+  const totalPages = documents.reduce((acc, d) => acc + (d.total_pages || 1), 0);
 
   return (
     <div className="space-y-6">
-      {/* 1. Header & Actions */}
+      {/* 1. Header Trang & Tab chuyển đổi Kho văn bản / Danh mục */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-black text-slate-900 tracking-tight">
-            Quản lý văn bản
+            Quản lý tài liệu &amp; Danh mục tri thức
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1">
-            Quản lý kho văn bản được sử dụng làm nguồn tri thức cho hệ thống hỏi đáp.
+            Tra cứu văn bản số hóa, phân loại chủ đề và xem chi tiết các đoạn trích dẫn RAG.
           </p>
         </div>
 
-        <Link
-          href="/admin/documents/new"
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold text-xs rounded-xl shadow-xs transition-colors self-start sm:self-auto cursor-pointer"
-        >
-          <span className="text-base leading-none font-bold">+</span>
-          <span>Thêm văn bản</span>
-        </Link>
-      </div>
-
-      {/* 2. Thanh tìm kiếm & Bộ lọc (Filter Bar) */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs space-y-3">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {/* Ô tìm kiếm */}
-          <div className="sm:col-span-1 relative">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Tìm kiếm theo tiêu đề, số hiệu, ngày..."
-              className="w-full px-3.5 py-2 pl-9 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
-            />
-            <svg
-              className="w-4 h-4 text-slate-400 absolute left-3 top-2.5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </div>
-
-          {/* Lọc danh mục */}
-          <div>
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="all">Tất cả danh mục</option>
-              {categories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Lọc trạng thái xử lý */}
-          <div>
-            <select
-              value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="all">Tất cả trạng thái xử lý</option>
-              <option value="processed">Đã xử lý OCR ({initialDocs.length})</option>
-              <option value="unprocessed">Chưa xử lý (0)</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1">
-          <span>
-            Tìm thấy <strong className="text-slate-700">{filteredDocs.length}</strong> văn bản
-          </span>
-          {(searchQuery || selectedCategory !== "all" || selectedStatus !== "all") && (
+        {/* Nút chuyển đổi Tab & Nút thêm */}
+        <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-semibold">
             <button
-              onClick={() => {
-                setSearchQuery("");
-                setSelectedCategory("all");
-                setSelectedStatus("all");
-              }}
-              className="text-blue-600 hover:underline cursor-pointer"
+              type="button"
+              onClick={() => setActiveMainTab("documents")}
+              className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+                activeTab === "documents"
+                  ? "bg-white text-blue-700 shadow-xs font-bold"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
             >
-              Xóa bộ lọc
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <span>Kho văn bản ({docsList.length})</span>
             </button>
-          )}
+
+            <button
+              type="button"
+              onClick={() => setActiveMainTab("categories")}
+              className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+                activeTab === "categories"
+                  ? "bg-white text-blue-700 shadow-xs font-bold"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+              </svg>
+              <span>Danh mục ({customCategories.length})</span>
+            </button>
+          </div>
+
+          <Link
+            href="/admin/import"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
+          >
+            <span className="text-base leading-none font-bold">+</span>
+            <span>Nhập tài liệu mới</span>
+          </Link>
         </div>
       </div>
 
-      {/* 3. Bảng dữ liệu Desktop (Table) */}
-      {filteredDocs.length === 0 ? (
-        <AdminEmptyState
-          title="Không tìm thấy văn bản phù hợp"
-          description="Thử thay đổi từ khóa tìm kiếm hoặc bỏ bớt các điều kiện lọc để xem kết quả."
-          actionLabel="Xóa bộ lọc"
-          onAction={() => {
-            setSearchQuery("");
-            setSelectedCategory("all");
-            setSelectedStatus("all");
-          }}
-        />
-      ) : (
-        <>
-          {/* Desktop Table View */}
-          <div className="hidden md:block bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr className="bg-slate-50/80 border-b border-slate-200 text-slate-400 uppercase tracking-wider text-[11px] font-bold">
-                    <th className="py-3.5 px-4">Văn bản</th>
-                    <th className="py-3.5 px-3">Số hiệu</th>
-                    <th className="py-3.5 px-3">Ngày</th>
-                    <th className="py-3.5 px-3">Danh mục</th>
-                    <th className="py-3.5 px-3 text-center">Trang</th>
-                    <th className="py-3.5 px-3 text-center">Chunks</th>
-                    <th className="py-3.5 px-3">Trạng thái</th>
-                    <th className="py-3.5 px-4 text-right">Thao tác</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {filteredDocs.map((doc) => (
-                    <tr key={doc.id} className="hover:bg-slate-50/60 transition-colors">
-                      <td className="py-3.5 px-4 max-w-xs">
-                        <Link
-                          href={`/admin/documents/${doc.id}`}
-                          className="font-bold text-slate-900 hover:text-blue-600 transition-colors line-clamp-2"
-                        >
-                          {doc.title}
-                        </Link>
-                        <span className="text-[10px] text-slate-400 font-mono block mt-0.5">
-                          {doc.id}
-                        </span>
-                      </td>
-                      <td className="py-3.5 px-3 font-mono text-slate-600 whitespace-nowrap">
-                        {doc.documentNumber || <span className="text-slate-400 italic">Chưa có</span>}
-                      </td>
-                      <td className="py-3.5 px-3 text-slate-600 whitespace-nowrap">
-                        {doc.issueDate || <span className="text-slate-400 italic">Chưa rõ</span>}
-                      </td>
-                      <td className="py-3.5 px-3 whitespace-nowrap">
-                        <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700">
-                          {doc.category}
-                        </span>
-                      </td>
-                      <td className="py-3.5 px-3 text-center font-semibold text-slate-700">
-                        {doc.totalPages}
-                      </td>
-                      <td className="py-3.5 px-3 text-center font-mono text-slate-500">
-                        {doc.chunkCount}
-                      </td>
-                      <td className="py-3.5 px-3 whitespace-nowrap">
-                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                          Đã xử lý
-                        </span>
-                      </td>
-                      <td className="py-3.5 px-4 text-right whitespace-nowrap">
-                        <div className="inline-flex items-center gap-1.5">
+      {/* 2. NỘI DUNG TAB 1: KHO VĂN BẢN */}
+      {activeTab === "documents" && (
+        <div className="space-y-4">
+          {/* Thanh tìm kiếm & Bộ lọc */}
+          <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs space-y-3">
+            <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 text-xs">
+              {/* Ô tìm kiếm */}
+              <div className="sm:col-span-6 relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Tìm theo tên văn bản, số hiệu (vd: 34/TB, 607/QĐ)..."
+                  className="w-full pl-9 pr-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
+                />
+                <svg
+                  className="w-4 h-4 text-slate-400 absolute left-3 top-2.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-3 top-2 text-slate-400 hover:text-slate-600 text-xs"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+
+              {/* Lọc danh mục */}
+              <div className="sm:col-span-3">
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="all">Tất cả danh mục ({uniqueCategories.length})</option>
+                  {uniqueCategories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Lọc hiệu lực */}
+              <div className="sm:col-span-3">
+                <select
+                  value={selectedEffectiveStatus}
+                  onChange={(e) => setSelectedEffectiveStatus(e.target.value)}
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="all">Tất cả hiệu lực</option>
+                  <option value="effective">Còn hiệu lực</option>
+                  <option value="expired">Hết hiệu lực</option>
+                  <option value="unknown">Chưa xác định</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Thông tin số lượng kết quả */}
+            <div className="flex items-center justify-between pt-1 text-[11px] text-slate-500 border-t border-slate-100">
+              <span>
+                Hiển thị <strong>{filteredDocs.length}</strong> / {docsList.length} văn bản • Tổng số trang: <strong>{totalPages}</strong>
+              </span>
+              {(searchQuery || selectedCategory !== "all" || selectedEffectiveStatus !== "all") && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSelectedCategory("all");
+                    setSelectedEffectiveStatus("all");
+                  }}
+                  className="text-blue-600 hover:underline cursor-pointer"
+                >
+                  Xóa tất cả bộ lọc
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Bảng danh sách văn bản */}
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+            {filteredDocs.length === 0 ? (
+              <AdminEmptyState
+                title="Không tìm thấy văn bản phù hợp"
+                description="Thử tìm kiếm với từ khóa khác hoặc điều chỉnh lại bộ lọc danh mục và hiệu lực."
+                actionLabel="Xóa bộ lọc"
+                onAction={() => {
+                  setSearchQuery("");
+                  setSelectedCategory("all");
+                  setSelectedEffectiveStatus("all");
+                }}
+              />
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
+                    <tr>
+                      <th className="py-3 px-4">Tên văn bản &amp; Số hiệu</th>
+                      <th className="py-3 px-3">Danh mục</th>
+                      <th className="py-3 px-3">Ngày ban hành</th>
+                      <th className="py-3 px-3">Hiệu lực</th>
+                      <th className="py-3 px-3">Số trang</th>
+                      <th className="py-3 px-4 text-right">Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {filteredDocs.map((doc) => (
+                      <tr key={doc.id} className="hover:bg-slate-50/70 transition-colors">
+                        <td className="py-3.5 px-4 max-w-sm sm:max-w-md">
                           <Link
                             href={`/admin/documents/${doc.id}`}
-                            className="p-1.5 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                            title="Xem chi tiết"
+                            className="font-bold text-slate-900 hover:text-blue-600 block line-clamp-2 leading-snug"
                           >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                            </svg>
+                            {doc.title}
                           </Link>
+                          <div className="flex items-center gap-2 mt-1 text-[11px] text-slate-500 font-mono">
+                            <span className="font-semibold text-slate-700">
+                              {doc.document_number || "Không có số hiệu"}
+                            </span>
+                            <span>•</span>
+                            <span className="text-slate-400">ID: {doc.id}</span>
+                          </div>
+                        </td>
+
+                        <td className="py-3.5 px-3 whitespace-nowrap">
+                          <StatusBadge status={doc.category} />
+                        </td>
+
+                        <td className="py-3.5 px-3 whitespace-nowrap text-slate-600 font-mono text-[11px]">
+                          {doc.issue_date || "—"}
+                        </td>
+
+                        <td className="py-3.5 px-3 whitespace-nowrap">
+                          {getEffectiveBadge(doc.effective_status)}
+                        </td>
+
+                        <td className="py-3.5 px-3 whitespace-nowrap text-slate-700 font-semibold">
+                          {doc.total_pages || (doc.pages ? doc.pages.length : 1)} trang
+                        </td>
+
+                        <td className="py-3.5 px-4 text-right whitespace-nowrap space-x-2">
                           <Link
                             href={`/admin/documents/${doc.id}`}
-                            className="p-1.5 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                            title="Chỉnh sửa thông tin"
+                            className="px-2.5 py-1 text-blue-600 hover:bg-blue-50 font-bold rounded-lg transition-colors inline-block"
                           >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                            </svg>
+                            Chi tiết &amp; Chunks →
                           </Link>
                           <button
                             type="button"
                             onClick={() => setDeleteTarget({ id: doc.id, title: doc.title })}
-                            className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
-                            title="Xóa văn bản (Demo)"
+                            className="p-1 text-slate-400 hover:text-red-600 transition-colors cursor-pointer"
+                            title="Xóa văn bản"
                           >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                            </svg>
+                            ✕
                           </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* 3. NỘI DUNG TAB 2: DANH MỤC TRI THỨC (TÍCH HỢP) */}
+      {activeTab === "categories" && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
+            <div>
+              <h3 className="text-sm font-bold text-slate-900">
+                Danh mục tri thức đã chuẩn hóa ({customCategories.length} nhóm)
+              </h3>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Nhấp vào danh mục bất kỳ để lọc nhanh danh sách các văn bản thuộc nhóm đó.
+              </p>
             </div>
+            <button
+              type="button"
+              onClick={() => setShowAddCatModal(true)}
+              className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
+            >
+              + Thêm danh mục
+            </button>
           </div>
 
-          {/* Mobile Card View (Responsive) */}
-          <div className="md:hidden space-y-3">
-            {filteredDocs.map((doc) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {customCategories.map((cat) => (
               <div
-                key={doc.id}
-                className="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs space-y-3"
+                key={cat.name}
+                onClick={() => selectCategoryAndFilter(cat.name)}
+                className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs hover:border-blue-300 hover:shadow-md transition-all cursor-pointer space-y-3 flex flex-col justify-between group"
               >
-                <div className="flex items-start justify-between gap-2">
-                  <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-700">
-                    {doc.category}
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    Đã xử lý
-                  </span>
+                <div>
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <h4 className="font-extrabold text-slate-900 text-sm group-hover:text-blue-600 transition-colors">
+                      {cat.name}
+                    </h4>
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100">
+                      {cat.count} văn bản
+                    </span>
+                  </div>
+
+                  {cat.subcategories && cat.subcategories.length > 0 ? (
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                        Phân nhóm:
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {cat.subcategories.map((sub, sIdx) => (
+                          <span
+                            key={sIdx}
+                            className="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-600"
+                          >
+                            {sub}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-[11px] text-slate-400 italic">Chưa có phân nhóm</p>
+                  )}
                 </div>
 
-                <Link
-                  href={`/admin/documents/${doc.id}`}
-                  className="font-bold text-slate-900 hover:text-blue-600 text-xs block leading-snug"
-                >
-                  {doc.title}
-                </Link>
-
-                <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-500 font-mono pt-2 border-t border-slate-100">
-                  <div>Số: {doc.documentNumber || "Chưa có"}</div>
-                  <div>Ngày: {doc.issueDate || "Chưa rõ"}</div>
-                  <div>Quy mô: {doc.totalPages} trang</div>
-                  <div>Chunks: {doc.chunkCount} đoạn</div>
-                </div>
-
-                <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 text-xs">
-                  <Link
-                    href={`/admin/documents/${doc.id}`}
-                    className="px-3 py-1 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 font-medium"
-                  >
-                    Xem
-                  </Link>
-                  <Link
-                    href={`/admin/documents/${doc.id}`}
-                    className="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg font-medium"
-                  >
-                    Sửa
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => setDeleteTarget({ id: doc.id, title: doc.title })}
-                    className="px-3 py-1 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg font-medium cursor-pointer"
-                  >
-                    Xóa
-                  </button>
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-blue-600 font-semibold">
+                  <span>Xem các văn bản →</span>
+                  <span className="text-slate-400 group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </div>
             ))}
           </div>
-        </>
+        </div>
       )}
 
-      {/* 4. Modal xác nhận xóa văn bản */}
+      {/* Modal Thêm Danh Mục Mới */}
+      {showAddCatModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-xl max-w-sm w-full p-6 space-y-4">
+            <h4 className="text-base font-bold text-slate-900">Thêm danh mục mới</h4>
+            <form onSubmit={handleAddCategory} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Tên danh mục
+                </label>
+                <input
+                  type="text"
+                  value={newCatName}
+                  onChange={(e) => setNewCatName(e.target.value)}
+                  placeholder="Ví dụ: Công tác sinh viên"
+                  autoFocus
+                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
+                />
+              </div>
+              <div className="flex items-center justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowAddCatModal(false)}
+                  className="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 cursor-pointer"
+                >
+                  Hủy
+                </button>
+                <button
+                  type="submit"
+                  disabled={!newCatName.trim()}
+                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold disabled:opacity-50 cursor-pointer"
+                >
+                  Lưu danh mục
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Confirm Delete Dialog */}
       <AdminConfirmDialog
         isOpen={Boolean(deleteTarget)}
-        title="Xóa văn bản khỏi danh sách?"
-        message={`Bạn có chắc chắn muốn xóa văn bản "${deleteTarget?.title}"? Thao tác này là thao tác demo trên giao diện.`}
+        title="Xác nhận xóa văn bản?"
+        message={`Bạn có chắc muốn xóa văn bản "${deleteTarget?.title}"?`}
         confirmLabel="Xóa văn bản"
-        cancelLabel="Hủy"
         isDanger={true}
         onConfirm={handleDeleteConfirm}
         onCancel={() => setDeleteTarget(null)}
       />
 
-      {/* 5. Toast thông báo */}
-      <AdminToast
-        message={toastMessage}
-        type="info"
-        onClose={() => setToastMessage(null)}
-      />
+      {/* Toast Notification */}
+      <AdminToast message={toastMessage} onClose={() => setToastMessage(null)} />
     </div>
   );
 }

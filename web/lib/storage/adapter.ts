@@ -61,6 +61,6 @@ export class LocalStorageAdapter implements IStorageAdapter {
     if (path.isAbsolute(storagePath)) {
       return storagePath;
     }
-    return path.resolve(process.cwd(), storagePath);
+    return path.join(process.cwd(), storagePath);
   }
 }
