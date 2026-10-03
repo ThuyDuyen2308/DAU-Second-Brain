@@ -3,12 +3,27 @@ import { NextRequest, NextResponse } from "next/server";
 import { AUTH_CONFIG } from "@/lib/auth/config";
 import { verifySessionToken } from "@/lib/auth/session";
 
+/**
+ * Đọc session token từ cookie HOẶC Authorization Bearer header.
+ * Ưu tiên Authorization header để hỗ trợ đa tab (mỗi tab giữ session riêng qua sessionStorage).
+ */
+function extractToken(req: NextRequest): string | undefined {
+  // 1. Ưu tiên Authorization Bearer header (tab-isolated từ sessionStorage)
+  const authHeader = req.headers.get("authorization");
+  if (authHeader?.startsWith("Bearer ")) {
+    const bearer = authHeader.slice(7).trim();
+    if (bearer) return bearer;
+  }
+  // 2. Fallback về HTTP-only cookie (đăng nhập thông thường)
+  return req.cookies.get(AUTH_CONFIG.cookieName)?.value;
+}
+
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // 1. Bảo vệ các API quản trị bắt đầu bằng /api/admin
   if (pathname.startsWith("/api/admin")) {
-    const token = req.cookies.get(AUTH_CONFIG.cookieName)?.value;
+    const token = extractToken(req);
 
     if (!token) {
       return NextResponse.json(
@@ -39,7 +54,7 @@ export async function middleware(req: NextRequest) {
 
   // 2. Bảo vệ tất cả tuyến đường giao diện bắt đầu bằng /admin
   if (pathname.startsWith("/admin")) {
-    const token = req.cookies.get(AUTH_CONFIG.cookieName)?.value;
+    const token = extractToken(req);
 
     // Nếu chưa đăng nhập -> Chuyển hướng đến /login với tham số redirect an toàn
     if (!token) {
@@ -54,7 +69,7 @@ export async function middleware(req: NextRequest) {
     if (!session || !session.user) {
       const loginUrl = new URL("/login", req.url);
       loginUrl.searchParams.set("redirect", pathname);
-      
+
       const response = NextResponse.redirect(loginUrl);
       response.cookies.delete(AUTH_CONFIG.cookieName);
       return response;

@@ -18,7 +18,10 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
   const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
-    fetch("/api/auth/me")
+    const token = sessionStorage.getItem("dau_session_token");
+    fetch("/api/auth/me", {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.authenticated && data.user) {
@@ -32,6 +35,9 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
     try {
       setLoggingOut(true);
       await fetch("/api/auth/logout", { method: "POST" });
+      // Xóa token tab-isolated để tránh stale session
+      sessionStorage.removeItem("dau_session_token");
+      sessionStorage.removeItem("dau_session_role");
       onClose();
       router.push("/login");
       router.refresh();

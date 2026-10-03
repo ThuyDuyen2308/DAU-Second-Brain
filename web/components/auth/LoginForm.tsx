@@ -70,6 +70,14 @@ export default function LoginForm() {
         return;
       }
 
+      // Lưu token vào sessionStorage của tab hiện tại (tab-isolated).
+      // Admin tab giữ token admin riêng; user tab giữ token user riêng.
+      // Điều này giải quyết vấn đề cookie bị ghi đè khi đăng nhập nhiều tài khoản ở nhiều tab.
+      if (data.token) {
+        sessionStorage.setItem("dau_session_token", data.token);
+        sessionStorage.setItem("dau_session_role", data.user?.role || "");
+      }
+
       // Xử lý chuyển hướng sau khi đăng nhập thành công
       router.refresh();
 

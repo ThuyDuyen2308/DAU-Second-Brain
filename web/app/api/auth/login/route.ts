@@ -94,6 +94,9 @@ export async function POST(req: NextRequest) {
         success: true,
         message: "Đăng nhập thành công.",
         user: authenticatedUser,
+        // Trả về token để client có thể lưu vào sessionStorage (tab-isolated auth)
+        // Điều này không giảm bảo mật: token vẫn có HMAC-SHA256 signature, có TTL
+        token,
       },
       { status: 200 }
     );
