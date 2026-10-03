@@ -23,19 +23,19 @@ export async function hybridRetrieveChunks(
     keywordWeight = 0.4,
     semanticWeight = 0.6,
     maxChunks = 4,
-    minFinalScore = 15.0,
+    minFinalScore = 20.0,
     customEmbeddingProvider,
   } = options;
 
-  // 1. Thực hiện Keyword Retrieval (Bước 8 - luôn sẵn sàng)
-  const keywordChunks = retrieveRelevantChunks(question, 8.0, maxChunks * 2);
+  // 1. Thực hiện Keyword Retrieval với ngưỡng lọc nghiêm ngặt (>= 15.0)
+  const keywordChunks = retrieveRelevantChunks(question, 15.0, maxChunks * 2);
 
-  // 2. Thử thực hiện Semantic Search
+  // 2. Thử thực hiện Semantic Search với ngưỡng tương đồng cao (>= 0.65)
   let semanticChunks: RetrievedChunk[] = [];
   try {
     semanticChunks = await performSemanticSearch(
       question,
-      0.55,
+      0.65,
       maxChunks * 2,
       customEmbeddingProvider
     );
@@ -43,13 +43,16 @@ export async function hybridRetrieveChunks(
     console.warn("[hybridRetrieveChunks] Semantic search fallback to keyword:", err);
   }
 
-  // 3. Nếu không có Semantic Search (chưa có index hoặc API key), fallback hoàn toàn sang Keyword Search
+  // 3. Nếu không có Semantic Search (chưa có index hoặc API key), fallback sang Keyword Search
   if (!semanticChunks.length) {
-    const formatted = keywordChunks.slice(0, maxChunks).map((c) => ({
-      ...c,
-      keywordScore: c.relevanceScore,
-      finalScore: c.relevanceScore,
-    }));
+    const formatted = keywordChunks
+      .filter((c) => c.relevanceScore >= 20.0)
+      .slice(0, maxChunks)
+      .map((c) => ({
+        ...c,
+        keywordScore: c.relevanceScore,
+        finalScore: c.relevanceScore,
+      }));
     return { chunks: formatted, isHybrid: false };
   }
 

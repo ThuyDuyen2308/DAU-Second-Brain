@@ -7,7 +7,7 @@ import { loadEmbeddingIndex } from "./embedding_cache";
  */
 export async function performSemanticSearch(
   question: string,
-  minSimilarity = 0.55,
+  minSimilarity = 0.65,
   maxChunks = 4,
   customProvider?: IEmbeddingProvider
 ): Promise<RetrievedChunk[]> {

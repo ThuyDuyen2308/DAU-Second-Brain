@@ -2,7 +2,7 @@ import { Document } from "@/types/document";
 import { RetrievedChunk, SourceReference } from "@/types/ask";
 import { getAllDocuments } from "@/lib/documents";
 
-// Danh sách từ dừng phổ biến trong câu hỏi tiếng Việt
+// Danh sách từ dừng và từ đệm phổ biến trong câu hỏi tiếng Việt / hội thoại
 const VI_STOPWORDS = new Set([
   "là", "gì", "như", "thế", "nào", "ở", "đâu", "khi", "bao", "giờ", "mấy",
   "ai", "sao", "có", "không", "cho", "của", "và", "các", "những", "được",
@@ -11,11 +11,20 @@ const VI_STOPWORDS = new Set([
   "muốn", "xem", "thông", "tin", "phải", "làm", "sinh", "viên",
   "trường", "đại", "học", "kiến", "trúc", "đà", "nẵng", "dau",
   "nhà", "nhiêu", "hiện", "tại", "năm", "cần", "hay", "tới", "lại",
-  "hỗ", "trợ"
+  "hỗ", "trợ", "tên", "họ", "liên", "quan", "việc", "chuyện", "thứ",
+  "viết", "nói", "bảo", "người", "bạn", "cậu", "mày", "tao", "ông", "bà",
+  "anh", "chị", "ơi", "vậy", "sao", "nữa", "luôn", "chứ", "rồi", "chưa",
+  "chào", "hello", "hi", "hey", "alo", "vừa", "đang", "đã", "sẽ"
 ]);
 
 const COMPOUND_PHRASES = [
   "học phí",
+  "học lại",
+  "học cải thiện",
+  "nộp học phí",
+  "thời hạn",
+  "hạn nộp",
+  "hạn chót",
   "phúc khảo",
   "chuẩn đầu ra",
   "khảo sát",
@@ -38,8 +47,22 @@ const COMPOUND_PHRASES = [
   "nhật bản",
   "ký túc xá",
   "hiệu trưởng",
-  "điểm chuẩn"
+  "điểm chuẩn",
+  "miễn giảm",
+  "chính sách",
+  "hộp thư",
+  "email",
+  "đối tượng"
 ];
+
+const DOMAIN_CORE_WORDS = new Set([
+  "học", "thi", "điểm", "khảo sát", "phúc khảo", "học phí", "bảo hiểm",
+  "ngoại ngữ", "tin học", "quy đổi", "tín chỉ", "chứng chỉ", "tốt nghiệp",
+  "sinh viên", "học kỳ", "khoa", "ngành", "lớp", "học phần", "miễn giảm",
+  "chính sách", "hộp thư", "email", "học bổng", "tuyển sinh", "quy định",
+  "thông báo", "quy chế", "đào tạo", "hiệu trưởng", "văn bằng", "thời hạn",
+  "hạn nộp", "nộp", "bài thi", "toán học", "lệ phí", "chuẩn đầu ra", "xét tuyển"
+]);
 
 /**
  * Chuẩn hóa và tách các từ khóa quan trọng từ câu hỏi
@@ -62,7 +85,15 @@ export function extractKeywords(question: string): string[] {
     }
   }
 
-  // 2. Giữ các cụm năm học dạng 2026-2027 hoặc 2026/2027
+  // 2. Giữ các cụm số hiệu văn bản (ví dụ: 31/tb, 34/tb-dhktdn) hoặc năm học (2026-2027)
+  const docNumMatches = question.match(/\b(\d+[\/-][a-zA-Z0-9\u00C0-\u1EF9]+|\d+\/\b)/g);
+  if (docNumMatches) {
+    for (const dnm of docNumMatches) {
+      const d = dnm.toLowerCase();
+      if (!keywords.includes(d)) keywords.push(d);
+    }
+  }
+
   const yearMatches = question.match(/\b(202\d[-/]?202\d|202\d)\b/g);
   if (yearMatches) {
     for (const ym of yearMatches) {
@@ -74,7 +105,7 @@ export function extractKeywords(question: string): string[] {
   // 3. Giữ các từ khóa đơn không nằm trong stopwords, không thuộc cụm từ ghép đã bắt
   for (const w of words) {
     if (
-      w.length >= 2 &&
+      w.length >= 3 &&
       !VI_STOPWORDS.has(w) &&
       !keywords.includes(w) &&
       !foundCompounds.some((cp) => cp.includes(w))
@@ -92,7 +123,31 @@ export function extractKeywords(question: string): string[] {
     keywords.push("học kỳ i");
   }
 
+  // GATING CHỐNG HALLUCINATION NGOÀI MIỀN DAU:
+  // Nếu câu hỏi không chứa bất kỳ cụm từ ghép nào, không chứa số hiệu/năm học,
+  // và không chứa bất kỳ từ khóa cốt lõi nào của miền DAU -> coi như câu hỏi ngoài phạm vi.
+  const hasDomainSignal =
+    foundCompounds.length > 0 ||
+    Boolean(docNumMatches && docNumMatches.length > 0) ||
+    keywords.some((k) => DOMAIN_CORE_WORDS.has(k) || Array.from(DOMAIN_CORE_WORDS).some((dc) => k.includes(dc)));
+
+  if (!hasDomainSignal) {
+    return [];
+  }
+
   return keywords;
+}
+
+/**
+ * Kiểm tra chuỗi target có chứa pattern với ranh giới từ phù hợp
+ */
+function matchesWordBoundary(target: string, pattern: string): boolean {
+  if (!target || !pattern) return false;
+  if (pattern.length > 5 || pattern.includes(" ") || pattern.includes("/")) {
+    return target.includes(pattern);
+  }
+  const regex = new RegExp(`(?:^|[\\s.,;:!?"'()\\[\\]\\/\\-])${escapeRegExp(pattern)}(?:$|[\\s.,;:!?"'()\\[\\]\\/\\-])`, "i");
+  return regex.test(target);
 }
 
 /**
@@ -139,25 +194,28 @@ export function scorePageRelevance(
     let kwMatched = false;
 
     // A. Khớp trong Số hiệu văn bản (+35)
-    if (docNumberLower && docNumberLower.includes(kwLower)) {
+    if (docNumberLower && matchesWordBoundary(docNumberLower, kwLower)) {
       score += 35;
       kwMatched = true;
     }
 
     // B. Khớp trong Tiêu đề văn bản (Trọng số rất cao: +20)
-    if (titleLower.includes(kwLower)) {
+    if (titleLower && matchesWordBoundary(titleLower, kwLower)) {
       score += 20;
       kwMatched = true;
     }
 
     // C. Khớp trong Danh mục / Phân nhóm (Trọng số cao: +15)
-    if (categoryLower.includes(kwLower) || subcategoryLower.includes(kwLower)) {
+    if (
+      (categoryLower && matchesWordBoundary(categoryLower, kwLower)) ||
+      (subcategoryLower && matchesWordBoundary(subcategoryLower, kwLower))
+    ) {
       score += 15;
       kwMatched = true;
     }
 
     // D. Khớp trong Nội dung trang văn bản (+5 cho lần đầu, +1 cho các lần xuất hiện tiếp theo)
-    if (textLower.includes(kwLower)) {
+    if (textLower && matchesWordBoundary(textLower, kwLower)) {
       const occurrences = (textLower.match(new RegExp(escapeRegExp(kwLower), "g")) || []).length;
       score += 5 + Math.min(occurrences - 1, 5); // Max thêm 5 điểm tần suất
       kwMatched = true;
@@ -225,7 +283,7 @@ export function extractSnippet(text: string, keywords: string[], maxLength = 240
  */
 export function retrieveRelevantChunks(
   question: string,
-  minScoreThreshold = 15.0,
+  minScoreThreshold = 20.0,
   maxChunks = 4
 ): RetrievedChunk[] {
   const allDocs = getAllDocuments();

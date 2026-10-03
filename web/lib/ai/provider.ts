@@ -17,7 +17,7 @@ export function generateLocalExtractiveAnswer(
   sources: SourceReference[]
 ): string {
   if (!chunks.length || !sources.length) {
-    return "Tôi chưa tìm thấy thông tin phù hợp trong dữ liệu văn bản hiện có của DAU.";
+    return "Không tìm thấy thông tin liên quan trong kho tài liệu DAU.";
   }
 
   /** Lọc bỏ dòng OCR lỗi / header / footer vô nghĩa trong văn bản hành chính */
