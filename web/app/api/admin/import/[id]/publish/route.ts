@@ -131,20 +131,22 @@ export async function POST(
       return NextResponse.json({ error: "Toàn bộ nội dung văn bản sau bóc tách là rỗng." }, { status: 400 });
     }
 
-    // Tổng hợp metadata: Ưu tiên editedMetadata > metadata_hints > default
+    // Tổng hợp metadata: Ưu tiên editedMetadata > metadata_hints > validity_analysis > default
     const edited = (document.editedMetadata as any) || {};
     const hints = extJson.metadata_hints || {};
+    const validity = extJson.validity_analysis || {};
 
     const title = edited.title || hints.title_candidate || document.originalName;
     const docNumber = edited.document_number !== undefined ? edited.document_number : (hints.document_number || null);
-    const issueDate = edited.issue_date !== undefined ? edited.issue_date : (hints.issue_date || null);
+    const issueDate = edited.issue_date !== undefined ? edited.issue_date : (hints.issue_date || validity.issue_date || null);
     const issuingUnit = edited.issuing_unit !== undefined ? edited.issuing_unit : (hints.issuing_unit || null);
     const category = edited.category !== undefined ? edited.category : (hints.category_hint || "Thông báo");
     const subcategory = edited.subcategory || null;
-    const deadline = edited.deadline || null;
+    const deadline = edited.deadline !== undefined ? edited.deadline : (validity.deadline || null);
     
-    // Quy tắc bất biến: Không tự ý đánh dấu "effective" nếu không có căn cứ rõ ràng
-    const effectiveStatus = edited.effective_status || "unknown";
+    // Trạng thái hiệu lực: chỉ khi Admin xác nhận hoặc pipeline đề xuất có căn cứ
+    const effectiveStatus = edited.effective_status || validity.suggested_status || "unverified";
+    const statusEvidence = edited.status_evidence || validity.status_evidence || null;
 
     // Sinh Document ID ổn định theo checksum
     const docId = `dau_doc_${document.checksum.slice(0, 12)}`;
@@ -159,11 +161,14 @@ export async function POST(
       subcategory: subcategory ? String(subcategory).trim() : null,
       deadline: deadline ? String(deadline).trim() : null,
       effective_status: effectiveStatus,
-      effective_from: edited.effective_from || null,
-      effective_to: edited.effective_to || null,
-      replaced_by: edited.replaced_by || null,
-      source_url: "",
-      detail_url: "",
+      effective_from: edited.effective_from || validity.effective_from || null,
+      effective_to: edited.effective_to || validity.effective_to || null,
+      replaced_by: edited.replaced_by || validity.replaced_by || null,
+      status_evidence: statusEvidence,
+      verified_by: edited.verified_by || null,
+      verified_at: edited.verified_at || null,
+      source_url: document.sourceUrl || "",
+      detail_url: document.detailUrl || "",
       source_file: document.originalName,
       file_format: document.fileFormat,
       total_pages: pages.length,
@@ -172,13 +177,14 @@ export async function POST(
       attachments: [],
       metadata: {
         crawled_at: new Date().toISOString(),
-        crawl_status: "admin_imported",
-        content_source: "admin_upload",
+        crawl_status: document.sourceType === "CRAWLER" ? "crawler_imported" : "admin_imported",
+        content_source: document.sourceType === "CRAWLER" ? "crawler" : "admin_upload",
         raw_issue_date: issueDate || undefined,
       },
       provenance: {
         notification_title: title.trim(),
         document_file: document.originalName,
+        detail_file: document.detailUrl || document.sourceUrl || null,
       },
     };
 

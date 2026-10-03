@@ -35,17 +35,43 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-# Thiết lập đường dẫn Tesseract nếu có
-TESSERACT_EXE = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-TESSDATA_DIR = r"C:\Program Files\Tesseract-OCR\tesseract.exe\tessdata"
-if os.path.exists(TESSERACT_EXE):
+# Thiết lập đường dẫn Tesseract
+CANDIDATE_TESSERACT_PATHS = [
+    r"C:\Program Files\Tesseract-OCR\tesseract.exe\tesseract.exe",
+    r"C:\Program Files\Tesseract-OCR\tesseract.exe",
+    r"C:\Users\ACER\AppData\Local\Programs\Tesseract-OCR\tesseract.exe",
+]
+TESSERACT_EXE = None
+TESSDATA_DIR = None
+
+for path_cand in CANDIDATE_TESSERACT_PATHS:
+    if os.path.isfile(path_cand):
+        TESSERACT_EXE = path_cand
+        tessdata_cand = os.path.join(os.path.dirname(path_cand), "tessdata")
+        if os.path.isdir(tessdata_cand):
+            TESSDATA_DIR = tessdata_cand
+        break
+
+if TESSERACT_EXE:
     try:
         import pytesseract
         pytesseract.pytesseract.tesseract_cmd = TESSERACT_EXE
-        if os.path.exists(TESSDATA_DIR):
+        if TESSDATA_DIR:
             os.environ["TESSDATA_PREFIX"] = TESSDATA_DIR
     except ImportError:
         pass
+
+# Import các module phân tích chất lượng và hiệu lực
+try:
+    from .validity_extractor import analyze_document_validity
+    from .data_quality import validate_document
+except ImportError:
+    try:
+        from validity_extractor import analyze_document_validity
+        from data_quality import validate_document
+    except ImportError:
+        analyze_document_validity = None
+        validate_document = None
 
 
 def clean_text(raw: str) -> str:
@@ -406,6 +432,73 @@ def main():
             "category_hint": category_hint,
         }
 
+        # 1. Phân tích hiệu lực pháp lý (Validity Analysis)
+        validity_analysis = {
+            "suggested_status": "unverified",
+            "status": "unverified",
+            "status_evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+            "evidence": "Chưa tìm thấy điều khoản hiệu lực hoặc hạn thực hiện rõ ràng trong nội dung bóc tách.",
+            "evidence_page": None,
+            "deadline": None,
+            "effective_from": None,
+            "effective_to": None,
+            "replaced_by": None,
+            "certainty": "LOW",
+            "status_rationale": "Nội dung văn bản chưa đủ dữ kiện điều khoản hiệu lực hoặc thời hạn cụ thể, cần Admin kiểm tra và xác nhận thủ công.",
+        }
+        if analyze_document_validity:
+            try:
+                synth_doc = {
+                    "title": stem_title,
+                    "document_number": doc_num,
+                    "issue_date": issue_date,
+                    "content": all_text,
+                    "pages": pages,
+                }
+                validity_analysis = analyze_document_validity(synth_doc)
+            except Exception as val_err:
+                warnings.append(f"Không thể phân tích hiệu lực tự động: {str(val_err)}")
+
+        # 2. Đánh giá chất lượng dữ liệu (Quality Report)
+        quality_report = {
+            "score": 100 if len(all_text) >= 50 else 50,
+            "status": "GOOD" if len(all_text) >= 50 else "WARNING",
+            "warnings": [],
+            "issues": [],
+        }
+        if validate_document:
+            try:
+                synth_doc_quality = {
+                    "id": f"temp_{file_path.stem}",
+                    "title": stem_title,
+                    "document_number": doc_num,
+                    "issue_date": issue_date,
+                    "content": all_text,
+                    "source_url": "",
+                    "source_file": file_path.name,
+                    "total_pages": len(pages),
+                    "pages": pages,
+                    "effective_status": validity_analysis.get("suggested_status", "unverified"),
+                }
+                _, q_issues, q_warnings = validate_document(
+                    synth_doc_quality,
+                    seen_ids=set(),
+                    seen_urls=set(),
+                    seen_files=set(),
+                    check_filesystem=False,
+                )
+                score = 100 - (len(q_issues) * 20) - (len(q_warnings) * 5)
+                score = max(0, min(100, score))
+                status = "GOOD" if score >= 80 and not q_issues else ("WARNING" if score >= 50 else "ERROR")
+                quality_report = {
+                    "score": score,
+                    "status": status,
+                    "warnings": q_warnings,
+                    "issues": q_issues,
+                }
+            except Exception as q_err:
+                warnings.append(f"Không thể kiểm tra chất lượng dữ liệu tự động: {str(q_err)}")
+
         result = {
             "success": True,
             "file_format": file_format,
@@ -414,6 +507,8 @@ def main():
             "ocr_performed": ocr_performed,
             "pages": pages,
             "metadata_hints": metadata_hints,
+            "validity_analysis": validity_analysis,
+            "quality_report": quality_report,
             "warnings": warnings,
             "error": None,
         }

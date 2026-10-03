@@ -2,19 +2,29 @@ import fs from "fs";
 import path from "path";
 import { Document, CategoryStats } from "@/types/document";
 
-// Đường dẫn đến file dataset chuẩn hóa
-const DATASET_PATH = path.resolve(process.cwd(), "../crawler/data/normalized/documents.json");
+// Đường dẫn đến file dataset chuẩn hóa (tự động nhận diện thư mục làm việc web hoặc root)
+function getDatasetPath(): string {
+  const p1 = path.resolve(process.cwd(), "../crawler/data/normalized/documents.json");
+  if (fs.existsSync(p1)) return p1;
+  const p2 = path.resolve(process.cwd(), "crawler/data/normalized/documents.json");
+  if (fs.existsSync(p2)) return p2;
+  const p3 = path.resolve(__dirname, "../../crawler/data/normalized/documents.json");
+  if (fs.existsSync(p3)) return p3;
+  return p1;
+}
+const DATASET_PATH = getDatasetPath();
 
 /**
  * Đọc toàn bộ danh sách văn bản từ dataset chuẩn hóa
  */
 export function getAllDocuments(): Document[] {
   try {
-    if (!fs.existsSync(DATASET_PATH)) {
-      console.warn(`[getAllDocuments] Dataset file not found at: ${DATASET_PATH}`);
+    const filePath = getDatasetPath();
+    if (!fs.existsSync(filePath)) {
+      console.warn(`[getAllDocuments] Dataset file not found at: ${filePath}`);
       return [];
     }
-    const fileContent = fs.readFileSync(DATASET_PATH, "utf-8");
+    const fileContent = fs.readFileSync(filePath, "utf-8");
     const documents: Document[] = JSON.parse(fileContent);
     return documents;
   } catch (error) {
@@ -125,10 +135,11 @@ export function updateDocumentValidity(
   }
 ): Document | null {
   try {
-    if (!fs.existsSync(DATASET_PATH)) {
-      throw new Error(`Dataset file not found at: ${DATASET_PATH}`);
+    const filePath = getDatasetPath();
+    if (!fs.existsSync(filePath)) {
+      throw new Error(`Dataset file not found at: ${filePath}`);
     }
-    const fileContent = fs.readFileSync(DATASET_PATH, "utf-8");
+    const fileContent = fs.readFileSync(filePath, "utf-8");
     const documents: Document[] = JSON.parse(fileContent);
 
     const docIndex = documents.findIndex((d) => d.id === id);
@@ -170,7 +181,7 @@ export function updateDocumentValidity(
 
     documents[docIndex] = updatedDoc;
 
-    fs.writeFileSync(DATASET_PATH, JSON.stringify(documents, null, 2), "utf-8");
+    fs.writeFileSync(filePath, JSON.stringify(documents, null, 2), "utf-8");
     return updatedDoc;
   } catch (error) {
     console.error(`[updateDocumentValidity] Error updating document ${id}:`, error);

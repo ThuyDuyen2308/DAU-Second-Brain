@@ -20,8 +20,8 @@ const dotenv = require("dotenv");
 dotenv.config({ path: path.resolve(__dirname, ".env.local") });
 
 // Nạp module TypeScript qua jiti
-const jiti = require("jiti")(process.cwd());
-const { getDocumentById, updateDocumentValidity, getEffectiveStatusStats, searchDocuments } = jiti("./lib/documents.ts");
+const jiti = require("jiti")(__dirname);
+const { getDocumentById, updateDocumentValidity, getEffectiveStatusStats, searchDocuments } = jiti(path.resolve(__dirname, "lib/documents.ts"));
 
 let PASS = 0;
 let FAIL = 0;
