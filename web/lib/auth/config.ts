@@ -8,6 +8,9 @@ export const AUTH_CONFIG = {
   // Tên cookie lưu trữ phiên làm việc
   cookieName: "dau_session",
 
+  // Tên cookie riêng biệt cho Admin (giúp mở đồng thời 2 tab Admin và User không bị ghi đè)
+  adminCookieName: "dau_admin_session",
+
   // Thời hạn phiên: 8 giờ (đơn vị giây)
   sessionMaxAge: 8 * 60 * 60,
 

@@ -5,15 +5,20 @@ import { verifySessionToken } from "@/lib/auth/session";
 
 export async function GET(req: NextRequest) {
   try {
-    // Đọc token từ Authorization Bearer header trước (tab-isolated),
-    // sau đó fallback về cookie (đăng nhập bình thường)
+    // Đọc token từ:
+    // 1. Authorization Bearer header (tab-isolated)
+    // 2. Cookie dau_admin_session (nếu có)
+    // 3. Cookie dau_session
     let token: string | undefined;
     const authHeader = req.headers.get("authorization");
     if (authHeader?.startsWith("Bearer ")) {
       token = authHeader.slice(7).trim() || undefined;
     }
+    if (!token && req.nextUrl.searchParams.get("scope") === "admin") {
+      token = req.cookies.get(AUTH_CONFIG.adminCookieName)?.value;
+    }
     if (!token) {
-      token = req.cookies.get(AUTH_CONFIG.cookieName)?.value;
+      token = req.cookies.get(AUTH_CONFIG.adminCookieName)?.value || req.cookies.get(AUTH_CONFIG.cookieName)?.value;
     }
 
     if (!token) {

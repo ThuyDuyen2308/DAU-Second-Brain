@@ -112,6 +112,21 @@ export async function POST(req: NextRequest) {
       maxAge: AUTH_CONFIG.sessionMaxAge,
     });
 
+    // Nếu tài khoản là Admin, thiết lập thêm cookie admin riêng biệt
+    // Điều này đảm bảo khi mở tab khác đăng nhập tài khoản Sinh viên,
+    // cookie của Admin không bao giờ bị ghi đè hay xung đột.
+    if (authenticatedUser.role === "admin") {
+      response.cookies.set({
+        name: AUTH_CONFIG.adminCookieName,
+        value: token,
+        httpOnly: true,
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+        maxAge: AUTH_CONFIG.sessionMaxAge,
+      });
+    }
+
     return response;
   } catch (error) {
     console.error("[Login API] Lỗi xử lý đăng nhập:", error);

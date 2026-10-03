@@ -5,16 +5,22 @@ import { verifySessionToken } from "@/lib/auth/session";
 
 /**
  * Đọc session token từ cookie HOẶC Authorization Bearer header.
- * Ưu tiên Authorization header để hỗ trợ đa tab (mỗi tab giữ session riêng qua sessionStorage).
+ * Ưu tiên Authorization header để hỗ trợ đa tab.
+ * Nếu truy cập khu vực Admin (/admin hoặc /api/admin), kiểm tra cookie dau_admin_session trước.
  */
-function extractToken(req: NextRequest): string | undefined {
+function extractToken(req: NextRequest, isAdminArea = false): string | undefined {
   // 1. Ưu tiên Authorization Bearer header (tab-isolated từ sessionStorage)
   const authHeader = req.headers.get("authorization");
   if (authHeader?.startsWith("Bearer ")) {
     const bearer = authHeader.slice(7).trim();
     if (bearer) return bearer;
   }
-  // 2. Fallback về HTTP-only cookie (đăng nhập thông thường)
+  // 2. Nếu là khu vực Admin, ưu tiên đọc cookie admin chuyên biệt
+  if (isAdminArea) {
+    const adminToken = req.cookies.get(AUTH_CONFIG.adminCookieName)?.value;
+    if (adminToken) return adminToken;
+  }
+  // 3. Fallback về HTTP-only cookie chung
   return req.cookies.get(AUTH_CONFIG.cookieName)?.value;
 }
 
@@ -23,7 +29,7 @@ export async function middleware(req: NextRequest) {
 
   // 1. Bảo vệ các API quản trị bắt đầu bằng /api/admin
   if (pathname.startsWith("/api/admin")) {
-    const token = extractToken(req);
+    const token = extractToken(req, true);
 
     if (!token) {
       return NextResponse.json(
@@ -38,7 +44,7 @@ export async function middleware(req: NextRequest) {
         { error: "Unauthorized: Phiên làm việc không hợp lệ hoặc đã hết hạn." },
         { status: 401 }
       );
-      response.cookies.delete(AUTH_CONFIG.cookieName);
+      response.cookies.delete(AUTH_CONFIG.adminCookieName);
       return response;
     }
 
@@ -54,7 +60,7 @@ export async function middleware(req: NextRequest) {
 
   // 2. Bảo vệ tất cả tuyến đường giao diện bắt đầu bằng /admin
   if (pathname.startsWith("/admin")) {
-    const token = extractToken(req);
+    const token = extractToken(req, true);
 
     // Nếu chưa đăng nhập -> Chuyển hướng đến /login với tham số redirect an toàn
     if (!token) {
