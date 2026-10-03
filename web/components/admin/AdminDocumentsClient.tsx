@@ -33,6 +33,10 @@ export default function AdminDocumentsClient({
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; title: string } | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Xác minh hàng loạt
+  const [bulkSelectedIds, setBulkSelectedIds] = useState<Set<string>>(new Set());
+  const [bulkVerifying, setBulkVerifying] = useState(false);
+
   // Modal xác minh tình trạng hiệu lực
   const [editingValidityDoc, setEditingValidityDoc] = useState<Document | null>(null);
   const [editStatus, setEditStatus] = useState<string>("active");
@@ -178,6 +182,67 @@ export default function AdminDocumentsClient({
   const selectCategoryAndFilter = (catName: string) => {
     setSelectedCategory(catName);
     setActiveMainTab("documents");
+  };
+
+  // --- Bulk verification helpers ---
+  const toggleBulkSelect = (id: string) => {
+    setBulkSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleSelectAll = () => {
+    if (bulkSelectedIds.size === filteredDocs.length && filteredDocs.length > 0) {
+      setBulkSelectedIds(new Set());
+    } else {
+      setBulkSelectedIds(new Set(filteredDocs.map((d) => d.id)));
+    }
+  };
+
+  const handleBulkVerify = async () => {
+    const idsToVerify = Array.from(bulkSelectedIds);
+    if (!idsToVerify.length) {
+      alert("Vui lòng chọn ít nhất 1 văn bản để xác minh.");
+      return;
+    }
+
+    setBulkVerifying(true);
+    try {
+      const res = await fetch("/api/admin/documents/bulk-verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: idsToVerify }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        // Cập nhật local state: đánh dấu is_verified cho các văn bản đã xác minh thành công
+        const verifiedSet = new Set(
+          (data.results as Array<{ id: string; success: boolean }>)
+            .filter((r) => r.success)
+            .map((r) => r.id)
+        );
+        setDocsList((prev) =>
+          prev.map((d) =>
+            verifiedSet.has(d.id)
+              ? { ...d, is_verified: true, verified_by: data.verifiedBy, verified_at: data.verifiedAt }
+              : d
+          )
+        );
+        setBulkSelectedIds(new Set());
+        setToastMessage(
+          `✓ Hoàn tất xác minh: ${data.verifiedCount} thành công${data.failedCount > 0 ? `, ${data.failedCount} lỗi` : ""}.`
+        );
+      } else {
+        alert("Xác minh thất bại: " + (data.error || "Lỗi không xác định"));
+      }
+    } catch (err: any) {
+      alert("Lỗi kết nối khi xác minh: " + err.message);
+    } finally {
+      setBulkVerifying(false);
+    }
   };
 
   const totalPages = documents.reduce((acc, d) => acc + (d.total_pages || 1), 0);
@@ -327,6 +392,33 @@ export default function AdminDocumentsClient({
             </div>
           </div>
 
+          {/* Bulk Actions Bar — hiện khi có văn bản được chọn */}
+          {bulkSelectedIds.size > 0 && (
+            <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs mb-1">
+              <span className="text-blue-900 font-medium">
+                Đã chọn <strong className="font-bold text-blue-700">{bulkSelectedIds.size}</strong> văn bản
+              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setBulkSelectedIds(new Set())}
+                  className="px-2.5 py-1 text-slate-600 hover:text-slate-900 cursor-pointer"
+                >
+                  Bỏ chọn
+                </button>
+                <button
+                  type="button"
+                  onClick={handleBulkVerify}
+                  disabled={bulkVerifying}
+                  className="px-4 py-1.5 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg shadow-xs transition-all cursor-pointer flex items-center gap-1.5 disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  <span>{bulkVerifying ? "⏳" : "✓"}</span>
+                  <span>{bulkVerifying ? "Đang xác minh..." : "Xác minh đã chọn"}</span>
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Bảng danh sách văn bản */}
           <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
             {filteredDocs.length === 0 ? (
@@ -345,6 +437,15 @@ export default function AdminDocumentsClient({
                 <table className="w-full text-left text-xs">
                   <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
                     <tr>
+                      <th className="py-3 px-3 w-8">
+                        <input
+                          type="checkbox"
+                          checked={filteredDocs.length > 0 && bulkSelectedIds.size === filteredDocs.length}
+                          onChange={toggleSelectAll}
+                          className="rounded border-slate-300 cursor-pointer"
+                          title="Chọn / bỏ chọn tất cả"
+                        />
+                      </th>
                       <th className="py-3 px-4">Tên văn bản &amp; Số hiệu</th>
                       <th className="py-3 px-3">Danh mục</th>
                       <th className="py-3 px-3">Ngày ban hành</th>
@@ -355,7 +456,18 @@ export default function AdminDocumentsClient({
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {filteredDocs.map((doc) => (
-                      <tr key={doc.id} className="hover:bg-slate-50/70 transition-colors">
+                      <tr
+                        key={doc.id}
+                        className={`hover:bg-slate-50/70 transition-colors ${bulkSelectedIds.has(doc.id) ? "bg-blue-50/40" : ""}`}
+                      >
+                        <td className="py-3.5 px-3">
+                          <input
+                            type="checkbox"
+                            checked={bulkSelectedIds.has(doc.id)}
+                            onChange={() => toggleBulkSelect(doc.id)}
+                            className="rounded border-slate-300 cursor-pointer"
+                          />
+                        </td>
                         <td className="py-3.5 px-4 max-w-sm sm:max-w-md">
                           <Link
                             href={`/admin/documents/${doc.id}`}
@@ -369,6 +481,17 @@ export default function AdminDocumentsClient({
                             </span>
                             <span>•</span>
                             <span className="text-slate-400">ID: {doc.id}</span>
+                            {doc.is_verified && (
+                              <>
+                                <span>•</span>
+                                <span
+                                  className="text-[9px] font-bold text-teal-700 bg-teal-50 border border-teal-200 px-1.5 py-0.5 rounded-full"
+                                  title={`Đã xác minh bởi: ${(doc as any).verified_by || "Admin"}`}
+                                >
+                                  ✓ Đã xác minh
+                                </span>
+                              </>
+                            )}
                           </div>
                         </td>
 
