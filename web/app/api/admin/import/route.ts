@@ -60,6 +60,8 @@ export async function GET(req: NextRequest) {
           sizeBytes: true,
           checksum: true,
           status: true,
+          sourceType: true,
+          editedMetadata: true,
           errorMessage: true,
           retryCount: true,
           documentId: true,

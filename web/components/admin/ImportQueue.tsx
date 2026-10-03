@@ -26,6 +26,7 @@ interface ImportedDocItem {
     name: string;
     email: string;
   };
+  editedMetadata?: any;
 }
 
 interface Stats {
@@ -67,6 +68,7 @@ export default function ImportQueue() {
   const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
   const [batchSize, setBatchSize] = useState<number>(20);
   const [bulkPublishing, setBulkPublishing] = useState(false);
+  const [bulkVerifying, setBulkVerifying] = useState(false);
 
   // Tiến trình xử lý hàng loạt
   const [bulkProgress, setBulkProgress] = useState<BulkProgress>({
@@ -414,6 +416,35 @@ export default function ImportQueue() {
     fetchQueue(true);
   };
 
+  // Xác minh hàng loạt các mục đã chọn
+  const handleBulkVerify = async () => {
+    const idsToVerify = Array.from(selectedIds);
+    if (!idsToVerify.length) {
+      alert("Vui lòng chọn ít nhất 1 tài liệu để xác minh.");
+      return;
+    }
+
+    setBulkVerifying(true);
+    try {
+      const res = await fetch("/api/admin/import/bulk-verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: idsToVerify }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert(`✓ Hoàn tất xác minh: ${data.verifiedCount} thành công, ${data.failedCount} lỗi.`);
+        await fetchQueue(true);
+      } else {
+        alert("Xác minh thất bại: " + (data.error || "Lỗi không xác định"));
+      }
+    } catch (err: any) {
+      alert("Lỗi kết nối khi xác minh: " + err.message);
+    } finally {
+      setBulkVerifying(false);
+    }
+  };
+
   const toggleSelectId = (id: string) => {
     setSelectedIds((prev) => {
       const next = new Set(prev);
@@ -626,19 +657,28 @@ export default function ImportQueue() {
         )}
       </div>
 
-      {/* 3. Bulk Actions Bar cho mục đã chọn để Publish */}
+      {/* 3. Bulk Actions Bar cho mục đã chọn */}
       {selectedIds.size > 0 && (
-        <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-2.5 flex items-center justify-between gap-3 text-xs">
+        <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs">
           <span className="text-blue-900 font-medium">
             Đã chọn <strong className="font-bold text-blue-700">{selectedIds.size}</strong> tài liệu
           </span>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={() => setSelectedIds(new Set())}
               className="px-2.5 py-1 text-slate-600 hover:text-slate-900 cursor-pointer"
             >
               Bỏ chọn
+            </button>
+            <button
+              type="button"
+              onClick={handleBulkVerify}
+              disabled={bulkVerifying}
+              className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-xs transition-all cursor-pointer flex items-center gap-1.5"
+            >
+              <span>{bulkVerifying ? "⏳" : "✓"}</span>
+              <span>{bulkVerifying ? "Đang xác minh..." : "Xác minh đã chọn"}</span>
             </button>
             <button
               type="button"
@@ -680,15 +720,14 @@ export default function ImportQueue() {
                     <input
                       type="checkbox"
                       onChange={(e) => {
-                        if (e.target.checked) selectAllProcessed();
+                        if (e.target.checked) setSelectedIds(new Set(documents.map((d) => d.id)));
                         else setSelectedIds(new Set());
                       }}
                       checked={
-                        selectedIds.size > 0 &&
-                        selectedIds.size === documents.filter((d) => d.status === "PROCESSED").length
+                        documents.length > 0 && selectedIds.size === documents.length
                       }
                       className="rounded border-slate-300 cursor-pointer"
-                      title="Chọn tất cả mục đã bóc tách"
+                      title="Chọn tất cả tài liệu"
                     />
                   </th>
                   <th className="py-3 px-4">Tên tài liệu / Nguồn</th>
@@ -706,14 +745,12 @@ export default function ImportQueue() {
                   return (
                     <tr key={doc.id} className="hover:bg-slate-50/70 transition-colors">
                       <td className="py-3 px-4">
-                        {(doc.status === "PROCESSED" || doc.status === "PENDING" || doc.status === "FAILED") && (
-                          <input
-                            type="checkbox"
-                            checked={isSelected}
-                            onChange={() => toggleSelectId(doc.id)}
-                            className="rounded border-slate-300 cursor-pointer"
-                          />
-                        )}
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => toggleSelectId(doc.id)}
+                          className="rounded border-slate-300 cursor-pointer"
+                        />
                       </td>
                       <td className="py-3 px-4">
                         <div className="font-semibold text-slate-900 truncate max-w-xs sm:max-w-md">
@@ -733,6 +770,17 @@ export default function ImportQueue() {
                           >
                             {doc.sourceType === "CRAWLER" ? "🔄 Crawler DAU" : "📤 Tải lên"}
                           </span>
+                          {doc.editedMetadata?.is_verified && (
+                            <>
+                              <span>•</span>
+                              <span
+                                className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-teal-100 text-teal-800 flex items-center gap-0.5"
+                                title={`Xác minh bởi: ${doc.editedMetadata.verified_by || 'Admin'} (${doc.editedMetadata.verified_at ? new Date(doc.editedMetadata.verified_at).toLocaleString('vi-VN') : ''})`}
+                              >
+                                ✓ Đã xác minh
+                              </span>
+                            </>
+                          )}
                           <span>•</span>
                           <span className="font-mono text-slate-400">
                             SHA: {doc.checksum.substring(0, 8)}...
@@ -871,6 +919,14 @@ export default function ImportQueue() {
                     {inspectDoc.sourceType === "CRAWLER" ? "🔄 Thu thập tự động DAU" : "📤 Tải lên trực tiếp"}
                   </span>
                 </div>
+                {inspectDoc.editedMetadata?.is_verified && (
+                  <div>
+                    <span className="text-[10px] text-slate-400 uppercase font-bold block">Trạng thái xác minh:</span>
+                    <span className="font-semibold text-teal-700 flex items-center gap-1">
+                      ✓ Đã xác minh ({inspectDoc.editedMetadata.verified_by || "Admin"})
+                    </span>
+                  </div>
+                )}
                 {inspectDoc.detailUrl && (
                   <div className="sm:col-span-2 truncate">
                     <span className="text-[10px] text-slate-400 uppercase font-bold block">URL Chi tiết:</span>
