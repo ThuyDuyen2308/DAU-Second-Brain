@@ -12,9 +12,18 @@ ATTACHMENT_EXT_REGEX = re.compile(
     r"\.(pdf|docx?|xlsx?|pptx?|zip|rar)($|\?|#)",
     re.IGNORECASE,
 )
+DOC_NUMBER_REGEX = re.compile(r"\b(\d{1,5}\s*/\s*(?:TB|QĐ|QD|HD|KH|TT|BC|CT|NQ)[0-9\/\-A-Za-zĐđ_]*)\b", re.IGNORECASE)
 
 class AuthenticationRequiredError(Exception):
     """Ngoại lệ khi trang yêu cầu đăng nhập hoặc phiên làm việc hết hạn."""
+    pass
+
+class CaptchaRequiredError(Exception):
+    """Ngoại lệ khi trang yêu cầu giải mã xác thực CAPTCHA (ReCaptcha, hCaptcha, Turnstile,...)."""
+    pass
+
+class AccessBlockedError(Exception):
+    """Ngoại lệ khi truy cập bị chặn (403 Forbidden, 429 Rate Limit, Cloudflare Block,...)."""
     pass
 
 def normalize_attachment_url(url: str, base_url: str = "https://sinhvien.dau.edu.vn") -> str:
@@ -125,6 +134,50 @@ def is_login_required(response_or_soup, current_url: str = "") -> bool:
     return False
 
 
+def is_captcha_required(response_or_soup) -> bool:
+    """
+    Kiểm tra xem trang web có đang yêu cầu giải mã CAPTCHA hay không:
+    - reCAPTCHA (g-recaptcha, recaptcha)
+    - hCaptcha (h-captcha)
+    - Cloudflare Turnstile (cf-turnstile)
+    - Input captcha / mã xác nhận bảo mật
+    """
+    if isinstance(response_or_soup, BeautifulSoup):
+        soup = response_or_soup
+    elif hasattr(response_or_soup, "text"):
+        soup = BeautifulSoup(response_or_soup.text, "html.parser")
+    else:
+        soup = BeautifulSoup(str(response_or_soup), "html.parser")
+
+    # 1. Thẻ captcha của các nhà cung cấp
+    if soup.find(class_=re.compile(r"(g-recaptcha|h-captcha|cf-turnstile|captcha)", re.I)):
+        return True
+
+    if soup.find("iframe", src=re.compile(r"(recaptcha|hcaptcha|turnstile|captcha)", re.I)):
+        return True
+
+    # 2. Input captcha
+    if soup.find("input", {"name": re.compile(r"captcha", re.I)}):
+        return True
+
+    # 3. Text yêu cầu captcha
+    text = soup.get_text().lower()
+    if "xác nhận không phải người máy" in text or "nhập mã bảo vệ" in text or "mã captcha" in text:
+        return True
+
+    return False
+
+
+def extract_doc_number_from_text(text: str) -> str:
+    """Tìm số hiệu văn bản (vd: 658/TB-ĐHKT, 34/TB-ĐHKTĐN, 12/QĐ-ĐHKT) trong tiêu đề hoặc đoạn văn."""
+    if not text:
+        return ""
+    m = DOC_NUMBER_REGEX.search(text)
+    if m:
+        return re.sub(r"\s+", "", m.group(1).strip())
+    return ""
+
+
 def extract_date_from_text(text: str) -> str:
     """Tìm chuỗi ngày tháng (DD/MM/YYYY) trong đoạn văn bản."""
     if not text:
@@ -142,7 +195,7 @@ def clean_text(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-def parse_announcement_list(html_content: str, base_url: str = "https://sinhvien.dau.edu.vn") -> list[dict]:
+def parse_announcement_list(html_content: str, base_url: str = "https://sinhvien.dau.edu.vn", source_page: int = 1) -> list[dict]:
     """
     Trích xuất danh sách thông báo từ mã nguồn HTML trang danh mục thông báo.
     Hỗ trợ cấu trúc Bảng (Table), Khối danh sách (Cards/List items) và Fallback liên kết.
@@ -151,23 +204,49 @@ def parse_announcement_list(html_content: str, base_url: str = "https://sinhvien
     [
         {
             "title": "...",
+            "document_number": "...",
+            "published_date": "...",
             "date": "...",
             "detail_url": "...",
-            "attachments": []
+            "attachments": [],
+            "attachment_urls": [],
+            "category": "...",
+            "source_page": 1
         },
         ...
     ]
     """
     soup = BeautifulSoup(html_content, "html.parser")
 
-    # Kiểm tra nếu đây là trang đăng nhập
+    # 1. Kiểm tra nếu đây là trang đăng nhập
     if is_login_required(soup):
         raise AuthenticationRequiredError(
             "Trang web chuyển hướng đến trang đăng nhập hoặc yêu cầu xác thực phiên làm việc."
         )
 
+    # 2. Kiểm tra nếu đây là trang yêu cầu CAPTCHA
+    if is_captcha_required(soup):
+        raise CaptchaRequiredError(
+            "Trang web yêu cầu xác nhận CAPTCHA / mã bảo mật (ReCaptcha, hCaptcha, Turnstile,...)."
+        )
+
     results = []
     seen_urls = set()
+
+    def make_item(t: str, d: str, u: str, cat: str = "") -> dict:
+        doc_num = extract_doc_number_from_text(t) or None
+        pub_date = d if d else None
+        return {
+            "title": t,
+            "document_number": doc_num,
+            "published_date": pub_date,
+            "date": d,
+            "detail_url": u,
+            "attachments": [],
+            "attachment_urls": [],
+            "category": cat or None,
+            "source_page": source_page,
+        }
 
     # CHIẾN LƯỢC 1: Tìm theo thẻ bảng <table> (Cấu trúc phổ biến của OneUni / ASC)
     tables = soup.find_all("table")
@@ -204,12 +283,7 @@ def parse_announcement_list(html_content: str, base_url: str = "https://sinhvien
                     break
 
             seen_urls.add(full_url)
-            results.append({
-                "title": title,
-                "date": date_str,
-                "detail_url": full_url,
-                "attachments": []
-            })
+            results.append(make_item(title, date_str, full_url))
 
     if results:
         return results
@@ -248,12 +322,7 @@ def parse_announcement_list(html_content: str, base_url: str = "https://sinhvien
             date_str = extract_date_from_text(item.get_text())
 
             seen_urls.add(full_url)
-            results.append({
-                "title": title,
-                "date": date_str,
-                "detail_url": full_url,
-                "attachments": []
-            })
+            results.append(make_item(title, date_str, full_url))
 
     if results:
         return results
@@ -280,12 +349,7 @@ def parse_announcement_list(html_content: str, base_url: str = "https://sinhvien
             date_str = extract_date_from_text(parent.get_text()) if parent else ""
 
             seen_urls.add(full_url)
-            results.append({
-                "title": title,
-                "date": date_str,
-                "detail_url": full_url,
-                "attachments": []
-            })
+            results.append(make_item(title, date_str, full_url))
 
     return results
 

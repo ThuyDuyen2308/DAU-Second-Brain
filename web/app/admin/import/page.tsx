@@ -4,9 +4,10 @@
 import React, { useState } from "react";
 import ImportDropzone from "@/components/admin/ImportDropzone";
 import ImportQueue from "@/components/admin/ImportQueue";
+import CrawlerPanel from "@/components/admin/CrawlerPanel";
 
 export default function AdminImportPage() {
-  const [activeMainTab, setActiveMainTab] = useState<"upload" | "queue">("upload");
+  const [activeMainTab, setActiveMainTab] = useState<"upload" | "crawler" | "queue">("upload");
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
@@ -17,7 +18,7 @@ export default function AdminImportPage() {
             Nhập tài liệu &amp; Bóc tách tri thức
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1">
-            Tải lên tài liệu PDF, DOCX, HTML thật vào hệ thống, tự động bóc tách nội dung, duyệt metadata và đưa vào kho tri thức RAG.
+            Tải lên tài liệu PDF, DOCX, HTML thật vào hệ thống hoặc quét tự động từ nguồn DAU, bóc tách nội dung, duyệt metadata và đưa vào kho tri thức RAG.
           </p>
         </div>
 
@@ -36,6 +37,19 @@ export default function AdminImportPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
             </svg>
             <span>Tải lên tài liệu</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveMainTab("crawler")}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+              activeMainTab === "crawler"
+                ? "bg-white text-blue-700 shadow-xs"
+                : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            <span>🔄</span>
+            <span>Quét tự động DAU</span>
           </button>
 
           <button
@@ -63,8 +77,8 @@ export default function AdminImportPage() {
         <div className="space-y-1">
           <p className="font-semibold text-blue-950">Quy trình xử lý tự động:</p>
           <p className="text-blue-800 leading-relaxed">
-            1. File upload được lưu an toàn và xếp vào hàng đợi • 
-            2. Worker bóc tách text (PDF, DOCX, HTML, OCR scan tiếng Việt) • 
+            1. Tải lên file hoặc quét tự động từ cổng thông tin DAU • 
+            2. Worker bóc tách text (PDF, DOCX, HTML, OCR scan tiếng Việt) &amp; phân tích hiệu lực pháp lý • 
             3. Admin kiểm tra bản xem trước và chỉnh sửa metadata • 
             4. Bấm <strong>Công bố</strong> để ghi an toàn vào kho RAG và tự động phục vụ sinh viên hỏi đáp.
           </p>
@@ -74,6 +88,8 @@ export default function AdminImportPage() {
       {/* 3. Nội dung Tab */}
       {activeMainTab === "upload" ? (
         <ImportDropzone onUploadSuccess={() => setActiveMainTab("queue")} />
+      ) : activeMainTab === "crawler" ? (
+        <CrawlerPanel onQueueUpdated={() => setActiveMainTab("queue")} />
       ) : (
         <ImportQueue />
       )}

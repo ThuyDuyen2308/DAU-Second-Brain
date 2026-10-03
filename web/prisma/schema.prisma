@@ -101,6 +101,22 @@ enum ImportStatus {
   DUPLICATE
 }
 
+enum SourceType {
+  MANUAL_UPLOAD
+  CRAWLER
+}
+
+enum CrawlStatus {
+  QUEUED
+  RUNNING
+  COMPLETED
+  PARTIAL
+  FAILED
+  AUTH_REQUIRED
+  CAPTCHA_REQUIRED
+  ACCESS_BLOCKED
+}
+
 model ImportedDocument {
   id                  String        @id @default(cuid())
   uploadedById        String
@@ -111,6 +127,10 @@ model ImportedDocument {
   sizeBytes           Int
   checksum            String        @unique
   status              ImportStatus  @default(PENDING)
+  sourceType          SourceType    @default(MANUAL_UPLOAD)
+  sourceUrl           String?
+  detailUrl           String?
+  crawlJobId          String?
   errorMessage        String?       @db.Text
   retryCount          Int           @default(0)
   extractedJson       Json?         // Toàn bộ kết quả Python: pages[], metadata_hints, warnings
@@ -123,10 +143,40 @@ model ImportedDocument {
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt
 
-  uploadedBy User @relation(fields: [uploadedById], references: [id])
+  uploadedBy User      @relation(fields: [uploadedById], references: [id])
+  crawlJob   CrawlJob? @relation(fields: [crawlJobId], references: [id], onDelete: SetNull)
 
   @@index([uploadedById])
   @@index([status])
   @@index([checksum])
+  @@index([sourceType])
+  @@index([crawlJobId])
   @@map("imported_documents")
+}
+
+model CrawlJob {
+  id              String        @id @default(cuid())
+  status          CrawlStatus   @default(QUEUED)
+  sourceUrl       String
+  maxPages        Int           @default(5)
+  isDryRun        Boolean       @default(false)
+  pagesScanned    Int           @default(0)
+  itemsFound      Int           @default(0)
+  newItems        Int           @default(0)
+  duplicateItems  Int           @default(0)
+  failedItems     Int           @default(0)
+  downloadedFiles Int           @default(0)
+  skippedFiles    Int           @default(0)
+  errorMessage    String?       @db.Text
+  summaryJson     Json?         // Chi tiết danh sách thông báo và kết quả phân loại
+  startedAt       DateTime?
+  finishedAt      DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  importedDocuments ImportedDocument[]
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("crawl_jobs")
 }

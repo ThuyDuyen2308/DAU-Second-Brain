@@ -18,25 +18,6 @@ EXTRACTED_DIR = DATA_DIR / "extracted"
 NORMALIZED_DIR = DATA_DIR / "normalized"
 NORMALIZED_DOCUMENTS_FILE = NORMALIZED_DIR / "documents.json"
 
-# URLs
-BASE_URL = "https://sinhvien.dau.edu.vn"
-ANNOUNCEMENTS_URL = f"{BASE_URL}/sinh-vien/dm-tin/thong-bao.html"
-LOGIN_URL = f"{BASE_URL}/sinh-vien-dang-nhap.html"
-
-# Default params
-DEFAULT_PAGE = 1
-DEFAULT_PAGE_SIZE = 50
-REQUEST_TIMEOUT = 20  # seconds
-REQUEST_DELAY = 1.0   # seconds between requests to be polite
-
-# HTTP Headers
-DEFAULT_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
-    "Accept-Language": "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7",
-    "Connection": "keep-alive",
-}
-
 def load_env_file(filepath: Path = None) -> dict:
     """Đọc file .env đơn giản không cần cài thêm thư viện phụ thuộc."""
     if filepath is None:
@@ -55,6 +36,45 @@ def load_env_file(filepath: Path = None) -> dict:
             except Exception:
                 continue
     return env_vars
+
+
+# URLs & Defaults
+env_vars = load_env_file()
+
+def get_env_or_default(key: str, default: str) -> str:
+    return os.environ.get(key) or env_vars.get(key) or default
+
+BASE_URL = "https://sinhvien.dau.edu.vn"
+CRAWLER_SOURCE_URL = get_env_or_default("DAU_CRAWLER_SOURCE_URL", get_env_or_default("CRAWLER_SOURCE_URL", f"{BASE_URL}/sinh-vien/dm-tin/thong-bao.html"))
+ANNOUNCEMENTS_URL = CRAWLER_SOURCE_URL
+LOGIN_URL = f"{BASE_URL}/sinh-vien-dang-nhap.html"
+
+DAU_CRAWLER_ENABLED = get_env_or_default("DAU_CRAWLER_ENABLED", "true").lower() in ("true", "1", "yes")
+DAU_CRAWLER_MAX_PAGES = int(get_env_or_default("DAU_CRAWLER_MAX_PAGES", "5"))
+DAU_CRAWLER_DELAY_MS = int(get_env_or_default("DAU_CRAWLER_DELAY_MS", "1500"))
+DAU_CRAWLER_TIMEOUT_MS = int(get_env_or_default("DAU_CRAWLER_TIMEOUT_MS", "20000"))
+DAU_CRAWLER_MAX_FILE_SIZE_MB = int(get_env_or_default("DAU_CRAWLER_MAX_FILE_SIZE_MB", "50"))
+DAU_CRAWLER_USER_AGENT = get_env_or_default("DAU_CRAWLER_USER_AGENT", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+
+DEFAULT_PAGE = 1
+DEFAULT_PAGE_SIZE = 50
+REQUEST_TIMEOUT = DAU_CRAWLER_TIMEOUT_MS / 1000.0  # seconds
+REQUEST_DELAY = DAU_CRAWLER_DELAY_MS / 1000.0      # seconds
+
+# Safe file constraints
+SAFE_EXTENSIONS = {".pdf", ".docx", ".doc", ".html", ".htm"}
+UNSAFE_EXTENSIONS = {".exe", ".bat", ".cmd", ".ps1", ".dll", ".sh", ".vbs", ".js", ".py", ".bin", ".com", ".scr", ".msi"}
+
+# Thư mục lưu file upload của Web
+WEB_UPLOADS_DIR = BASE_DIR / "web" / "uploads" / "imported"
+
+# HTTP Headers
+DEFAULT_HEADERS = {
+    "User-Agent": DAU_CRAWLER_USER_AGENT,
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+    "Accept-Language": "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7",
+    "Connection": "keep-alive",
+}
 
 
 def parse_cookie_content(content: str) -> str:
