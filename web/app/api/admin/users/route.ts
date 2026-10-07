@@ -21,17 +21,20 @@ export async function GET(req: Request) {
       );
     }
 
-    const dbUsers = await prisma.user.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        isActive: true,
-        createdAt: true,
-      },
-      orderBy: { createdAt: "desc" },
-    });
+    type RawUser = {
+      id: string;
+      name: string;
+      email: string;
+      role: string;
+      isActive: boolean | null;
+      createdAt: Date;
+    };
+
+    const dbUsers = await prisma.$queryRaw<RawUser[]>`
+      SELECT id, name, email, role, "isActive", "createdAt"
+      FROM users
+      ORDER BY "createdAt" DESC
+    `;
 
     const formattedUsers = dbUsers.map((u) => ({
       id: u.id,
@@ -39,7 +42,7 @@ export async function GET(req: Request) {
       email: u.email,
       role: u.role === "ADMIN" ? ("Admin" as const) : ("Sinh viên" as const),
       status: u.isActive !== false ? ("Hoạt động" as const) : ("Tạm khóa" as const),
-      createdAt: u.createdAt.toISOString().split("T")[0],
+      createdAt: new Date(u.createdAt).toISOString().split("T")[0],
     }));
 
     return NextResponse.json({ users: formattedUsers });
@@ -95,25 +98,27 @@ export async function PATCH(req: Request) {
       );
     }
 
-    const targetUser = await prisma.user.findUnique({
-      where: { id: userId },
-    });
+    await prisma.$executeRaw`
+      UPDATE users SET "isActive" = ${isActive} WHERE id = ${userId}
+    `;
 
-    if (!targetUser) {
+    type RawUser = {
+      id: string;
+      name: string;
+      email: string;
+      role: string;
+      isActive: boolean | null;
+    };
+
+    const rows = await prisma.$queryRaw<RawUser[]>`
+      SELECT id, name, email, role, "isActive" FROM users WHERE id = ${userId} LIMIT 1
+    `;
+
+    if (rows.length === 0) {
       return NextResponse.json({ error: "Không tìm thấy người dùng." }, { status: 404 });
     }
 
-    const updatedUser = await prisma.user.update({
-      where: { id: userId },
-      data: { isActive },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        isActive: true,
-      },
-    });
+    const updatedUser = rows[0];
 
     return NextResponse.json({
       success: true,
@@ -123,7 +128,7 @@ export async function PATCH(req: Request) {
         name: updatedUser.name,
         email: updatedUser.email,
         role: updatedUser.role === "ADMIN" ? "Admin" : "Sinh viên",
-        status: updatedUser.isActive ? "Hoạt động" : "Tạm khóa",
+        status: updatedUser.isActive !== false ? "Hoạt động" : "Tạm khóa",
       },
     });
   } catch (error: unknown) {
