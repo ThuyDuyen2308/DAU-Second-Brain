@@ -41,7 +41,7 @@ export async function middleware(req: NextRequest) {
     const session = await verifySessionToken(token);
     if (!session || !session.user) {
       const response = NextResponse.json(
-        { error: "Unauthorized: Phiên làm việc không hợp lệ hoặc đã hết hạn." },
+        { error: "Unauthorized: Phiên làm việc không hợp lệ hoặc đã hết hạn. Vui lòng đăng nhập lại." },
         { status: 401 }
       );
       response.cookies.delete(AUTH_CONFIG.adminCookieName);
@@ -55,7 +55,14 @@ export async function middleware(req: NextRequest) {
       );
     }
 
-    return NextResponse.next();
+    // Forward user info via header so Route Handlers don't need to re-verify cookie
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set("x-admin-id", session.user.id);
+    requestHeaders.set("x-admin-email", session.user.email);
+    requestHeaders.set("x-admin-role", session.user.role);
+    requestHeaders.set("x-admin-name", encodeURIComponent(session.user.name));
+
+    return NextResponse.next({ request: { headers: requestHeaders } });
   }
 
   // 2. Bảo vệ tất cả tuyến đường giao diện bắt đầu bằng /admin

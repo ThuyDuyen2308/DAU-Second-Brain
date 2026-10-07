@@ -5,43 +5,35 @@ import { verifySessionToken } from "./session";
 import { AuthUser } from "./types";
 
 /**
- * Lấy thông tin người dùng hiện tại từ:
- * 1. Authorization: Bearer <token> header (từ request hoặc next/headers)
- * 2. HTTP-Only Session Cookie trong Server Component / Route Handler
+ * Lấy thông tin người dùng hiện tại.
+ * Đầu tiên đọc từ x-admin-* headers do Middleware inject (nhanh, không re-verify).
+ * Fallback về cookie nếu không có headers (ví dụ trong Server Components).
  */
-export async function getCurrentUser(req?: Request): Promise<AuthUser | null> {
+export async function getCurrentUser(_req?: Request): Promise<AuthUser | null> {
   try {
-    // 1. Kiểm tra header Authorization từ request object nếu được truyền vào
-    if (req) {
-      const authHeader = req.headers.get("authorization");
-      if (authHeader?.startsWith("Bearer ")) {
-        const token = authHeader.slice(7).trim();
-        if (token) {
-          const session = await verifySessionToken(token);
-          if (session?.user) return session.user;
-        }
-      }
-    }
-
-    // 2. Kiểm tra header Authorization từ next/headers
+    // 1. Đọc user từ headers do Middleware inject (chỉ có trong Route Handlers sau khi middleware pass)
     try {
       const headerList = await headers();
-      const authHeader = headerList.get("authorization");
-      if (authHeader?.startsWith("Bearer ")) {
-        const token = authHeader.slice(7).trim();
-        if (token) {
-          const session = await verifySessionToken(token);
-          if (session?.user) return session.user;
-        }
+      const adminId = headerList.get("x-admin-id");
+      const adminEmail = headerList.get("x-admin-email");
+      const adminRole = headerList.get("x-admin-role");
+      const adminNameEncoded = headerList.get("x-admin-name");
+
+      if (adminId && adminEmail && adminRole) {
+        return {
+          id: adminId,
+          email: adminEmail,
+          role: adminRole as "admin" | "student",
+          name: adminNameEncoded ? decodeURIComponent(adminNameEncoded) : adminEmail,
+        };
       }
     } catch {
-      // Bỏ qua nếu không trong ngữ cảnh request có headers()
+      // Không phải trong Route Handler context
     }
 
-    // 3. Kiểm tra HTTP-Only Cookies
+    // 2. Fallback: đọc cookie (dùng trong Server Components)
     const cookieStore = await cookies();
 
-    // 3.1. Kiểm tra cookie admin riêng biệt trước
     const adminToken = cookieStore.get(AUTH_CONFIG.adminCookieName)?.value;
     if (adminToken) {
       const adminSession = await verifySessionToken(adminToken);
@@ -50,7 +42,6 @@ export async function getCurrentUser(req?: Request): Promise<AuthUser | null> {
       }
     }
 
-    // 3.2. Fallback về cookie chung
     const token = cookieStore.get(AUTH_CONFIG.cookieName)?.value;
     if (!token) return null;
 

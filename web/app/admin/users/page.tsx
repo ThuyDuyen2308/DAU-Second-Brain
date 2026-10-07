@@ -17,29 +17,33 @@ interface UserItem {
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<UserItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function loadUsers() {
-      try {
-        const res = await adminFetch("/api/admin/users");
-        if (res.ok) {
-          const data = await res.json();
-          if (data.users && Array.isArray(data.users)) {
-            setUsers(data.users);
-          }
-        } else {
-          const errData = await res.json().catch(() => ({}));
-          console.warn("[AdminUsersPage] Không thể tải danh sách:", errData.error || res.statusText);
-        }
-      } catch (err) {
-        console.warn("Không thể tải danh sách người dùng từ API:", err);
-      } finally {
-        setLoading(false);
+  const loadUsers = async () => {
+    setLoading(true);
+    setLoadError(null);
+    try {
+      const res = await adminFetch("/api/admin/users");
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.users && Array.isArray(data.users)) {
+        setUsers(data.users);
+      } else {
+        const errMsg = data.error || `Lỗi ${res.status}: ${res.statusText}`;
+        console.warn("[AdminUsersPage] Lỗi tải danh sách:", errMsg);
+        setLoadError(errMsg);
       }
+    } catch (err) {
+      console.warn("Không thể tải danh sách người dùng từ API:", err);
+      setLoadError("Không thể kết nối tới máy chủ. Vui lòng thử lại.");
+    } finally {
+      setLoading(false);
     }
+  };
 
+  useEffect(() => {
     loadUsers();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [updatingId, setUpdatingId] = useState<string | null>(null);
@@ -127,6 +131,29 @@ export default function AdminUsersPage() {
                 <tr>
                   <td colSpan={6} className="py-8 text-center text-slate-400">
                     Đang tải danh sách người dùng từ cơ sở dữ liệu...
+                  </td>
+                </tr>
+              ) : loadError ? (
+                <tr>
+                  <td colSpan={6} className="py-8 text-center">
+                    <div className="inline-flex flex-col items-center gap-3 max-w-sm mx-auto">
+                      <div className="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div className="text-xs text-red-700 font-semibold text-center">{loadError}</div>
+                      <div className="text-[11px] text-slate-500 text-center">
+                        Phiên đăng nhập có thể đã hết hạn. Hãy thử đăng xuất và đăng nhập lại.
+                      </div>
+                      <button
+                        type="button"
+                        onClick={loadUsers}
+                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-colors cursor-pointer"
+                      >
+                        Thử lại
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ) : users.length === 0 ? (
