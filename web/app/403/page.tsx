@@ -14,6 +14,10 @@ export default function ForbiddenPage() {
     try {
       setLoggingOut(true);
       await fetch("/api/auth/logout", { method: "POST" });
+      if (typeof window !== "undefined") {
+        sessionStorage.removeItem("dau_session_token");
+        sessionStorage.removeItem("dau_session_role");
+      }
       router.push("/login");
       router.refresh();
     } catch (error) {
@@ -48,14 +52,14 @@ export default function ForbiddenPage() {
         </h1>
 
         <p className="text-xs text-slate-600 leading-relaxed mb-8">
-          Tài khoản hiện tại của bạn không có quyền truy cập vào phân hệ quản trị hệ thống DAU Second Brain. Vui lòng liên hệ cán bộ quản lý hoặc đăng nhập lại bằng tài khoản Admin.
+          Tài khoản hiện tại của bạn là <strong>Sinh viên</strong>, không có quyền truy cập vào phân hệ quản trị hệ thống DAU Second Brain. Vui lòng đăng xuất để đăng nhập bằng tài khoản <strong>Admin</strong>.
         </p>
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-3">
-          <Link href="/" className="w-full">
+          <Link href="/ask" className="w-full">
             <Button variant="secondary" size="md" className="w-full">
-              Về trang chủ
+              Về trang Hỏi đáp AI
             </Button>
           </Link>
           <Button
@@ -65,7 +69,7 @@ export default function ForbiddenPage() {
             onClick={handleLogout}
             disabled={loggingOut}
           >
-            {loggingOut ? "Đang đăng xuất..." : "Đăng xuất"}
+            {loggingOut ? "Đang xử lý..." : "Đăng nhập lại Admin"}
           </Button>
         </div>
       </div>
