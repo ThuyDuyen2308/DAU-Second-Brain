@@ -15,13 +15,12 @@ function extractToken(req: NextRequest, isAdminArea = false): string | undefined
     const bearer = authHeader.slice(7).trim();
     if (bearer) return bearer;
   }
-  // 2. Nếu là khu vực Admin, ưu tiên đọc cookie admin chuyên biệt
+  // 2. Nếu là khu vực Admin (/admin hoặc /api/admin), chỉ chấp nhận cookie admin (dau_admin_session)
   if (isAdminArea) {
-    const adminToken = req.cookies.get(AUTH_CONFIG.adminCookieName)?.value;
-    if (adminToken) return adminToken;
+    return req.cookies.get(AUTH_CONFIG.adminCookieName)?.value;
   }
-  // 3. Fallback về HTTP-only cookie chung
-  return req.cookies.get(AUTH_CONFIG.cookieName)?.value;
+  // 3. Với các khu vực khác (người dùng/sinh viên), đọc cookie chung trước, fallback admin
+  return req.cookies.get(AUTH_CONFIG.cookieName)?.value || req.cookies.get(AUTH_CONFIG.adminCookieName)?.value;
 }
 
 export async function middleware(req: NextRequest) {

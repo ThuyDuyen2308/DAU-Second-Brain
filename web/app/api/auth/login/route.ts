@@ -112,7 +112,7 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     );
 
-    // Thiết lập HTTP-Only Cookie cho Session
+    // Thiết lập HTTP-Only Cookie cho Session chung (được dùng bởi trang người dùng/sinh viên)
     response.cookies.set({
       name: AUTH_CONFIG.cookieName,
       value: token,
@@ -123,9 +123,9 @@ export async function POST(req: NextRequest) {
       maxAge: AUTH_CONFIG.sessionMaxAge,
     });
 
-    // Nếu tài khoản là Admin, thiết lập thêm cookie admin riêng biệt
-    // Điều này đảm bảo khi mở tab khác đăng nhập tài khoản Sinh viên,
-    // cookie của Admin không bao giờ bị ghi đè hay xung đột.
+    // Nếu tài khoản là Admin, thiết lập thêm cookie admin riêng biệt (dau_admin_session).
+    // Khi tài khoản Sinh viên đăng nhập ở tab khác, cookie dau_admin_session KHÔNG bị xóa,
+    // nhờ đó tab Admin và tab Sinh viên có thể chạy đồng thời 100% độc lập.
     if (authenticatedUser.role === "admin") {
       response.cookies.set({
         name: AUTH_CONFIG.adminCookieName,
@@ -135,17 +135,6 @@ export async function POST(req: NextRequest) {
         secure: process.env.NODE_ENV === "production",
         path: "/",
         maxAge: AUTH_CONFIG.sessionMaxAge,
-      });
-    } else {
-      response.cookies.set({
-        name: AUTH_CONFIG.adminCookieName,
-        value: "",
-        httpOnly: true,
-        sameSite: "lax",
-        secure: process.env.NODE_ENV === "production",
-        path: "/",
-        maxAge: 0,
-        expires: new Date(0),
       });
     }
 

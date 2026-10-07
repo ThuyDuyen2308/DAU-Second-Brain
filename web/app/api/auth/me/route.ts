@@ -18,7 +18,8 @@ export async function GET(req: NextRequest) {
       token = req.cookies.get(AUTH_CONFIG.adminCookieName)?.value;
     }
     if (!token) {
-      token = req.cookies.get(AUTH_CONFIG.adminCookieName)?.value || req.cookies.get(AUTH_CONFIG.cookieName)?.value;
+      // Cho người dùng thông thường, ưu tiên cookie dau_session trước, fallback dau_admin_session
+      token = req.cookies.get(AUTH_CONFIG.cookieName)?.value || req.cookies.get(AUTH_CONFIG.adminCookieName)?.value;
     }
 
     if (!token) {
