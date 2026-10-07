@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from "react";
 import AdminToast from "@/components/admin/AdminToast";
+import { adminFetch } from "@/lib/auth/adminFetch";
 
 interface UserItem {
   id: string;
@@ -13,34 +14,26 @@ interface UserItem {
   createdAt: string;
 }
 
-const FALLBACK_USERS: UserItem[] = [
-  {
-    id: "usr_1",
-    name: "Quản trị viên DAU",
-    email: "admin@dau.edu.vn",
-    role: "Admin",
-    status: "Hoạt động",
-    createdAt: "2026-08-01",
-  },
-];
-
 export default function AdminUsersPage() {
-  const [users, setUsers] = useState<UserItem[]>(FALLBACK_USERS);
+  const [users, setUsers] = useState<UserItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadUsers() {
       try {
-        const res = await fetch("/api/admin/users");
+        const res = await adminFetch("/api/admin/users");
         if (res.ok) {
           const data = await res.json();
           if (data.users && Array.isArray(data.users)) {
             setUsers(data.users);
           }
+        } else {
+          const errData = await res.json().catch(() => ({}));
+          console.warn("[AdminUsersPage] Không thể tải danh sách:", errData.error || res.statusText);
         }
       } catch (err) {
-        console.warn("Không thể tải danh sách người dùng từ API, sử dụng dữ liệu mặc định:", err);
+        console.warn("Không thể tải danh sách người dùng từ API:", err);
       } finally {
         setLoading(false);
       }
@@ -55,7 +48,7 @@ export default function AdminUsersPage() {
     const willActive = user.status !== "Hoạt động";
     setUpdatingId(user.id);
     try {
-      const res = await fetch("/api/admin/users", {
+      const res = await adminFetch("/api/admin/users", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

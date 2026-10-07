@@ -84,11 +84,16 @@ export default function RegisterForm() {
         return;
       }
 
+      if (data.token) {
+        sessionStorage.setItem("dau_session_token", data.token);
+        sessionStorage.setItem("dau_session_role", data.user?.role || "student");
+      }
+
       setSuccessMessage("Đăng ký thành công! Đang chuyển hướng vào hệ thống...");
       setTimeout(() => {
-        router.push("/");
+        router.push("/ask");
         router.refresh();
-      }, 1200);
+      }, 1000);
     } catch (err: any) {
       setServerError("Không thể kết nối đến máy chủ. Vui lòng kiểm tra lại mạng.");
       setIsSubmitting(false);

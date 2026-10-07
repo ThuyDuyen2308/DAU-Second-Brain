@@ -3,9 +3,9 @@ import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/auth/server";
 import { prisma } from "@/lib/db";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUser(req);
 
     // 1. Kiểm tra xác thực
     if (!currentUser) {
@@ -57,7 +57,7 @@ export async function GET() {
 
 export async function PATCH(req: Request) {
   try {
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUser(req);
 
     // 1. Kiểm tra xác thực
     if (!currentUser) {

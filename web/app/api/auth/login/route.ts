@@ -136,6 +136,17 @@ export async function POST(req: NextRequest) {
         path: "/",
         maxAge: AUTH_CONFIG.sessionMaxAge,
       });
+    } else {
+      response.cookies.set({
+        name: AUTH_CONFIG.adminCookieName,
+        value: "",
+        httpOnly: true,
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+        maxAge: 0,
+        expires: new Date(0),
+      });
     }
 
     return response;

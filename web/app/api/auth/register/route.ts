@@ -101,6 +101,7 @@ export async function POST(req: NextRequest) {
         success: true,
         message: "Đăng ký tài khoản thành công!",
         user: authenticatedUser,
+        token,
       },
       { status: 201 }
     );

@@ -87,12 +87,19 @@ export default function LoginForm() {
       // Xử lý chuyển hướng sau khi đăng nhập thành công
       router.refresh();
 
-      if (safeRedirect) {
-        router.push(safeRedirect);
-      } else if (data.user?.role === "admin") {
-        router.push("/admin");
+      if (data.user?.role === "admin") {
+        if (safeRedirect && safeRedirect.startsWith("/admin")) {
+          router.push(safeRedirect);
+        } else {
+          router.push("/admin");
+        }
       } else {
-        router.push("/");
+        // Sinh viên / Người dùng thông thường: không bao giờ điều hướng vào /admin
+        if (safeRedirect && !safeRedirect.startsWith("/admin")) {
+          router.push(safeRedirect);
+        } else {
+          router.push("/ask");
+        }
       }
     } catch (err) {
       console.error("Lỗi đăng nhập:", err);

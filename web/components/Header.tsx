@@ -2,12 +2,47 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { AuthUser } from "@/lib/auth/types";
 
 export default function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
+
+  useEffect(() => {
+    const token = typeof window !== "undefined" ? sessionStorage.getItem("dau_session_token") : null;
+    const headers: Record<string, string> = {};
+    if (token) headers["Authorization"] = `Bearer ${token}`;
+
+    fetch("/api/auth/me", { headers })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.authenticated && data.user) {
+          setCurrentUser(data.user);
+        } else {
+          setCurrentUser(null);
+        }
+      })
+      .catch(() => setCurrentUser(null));
+  }, [pathname]);
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      if (typeof window !== "undefined") {
+        sessionStorage.removeItem("dau_session_token");
+        sessionStorage.removeItem("dau_session_role");
+      }
+      setCurrentUser(null);
+      router.push("/");
+      router.refresh();
+    } catch (err) {
+      console.error("Lỗi đăng xuất:", err);
+    }
+  };
 
   // Ẩn Header toàn cục ở trang chủ (/), trang hỏi đáp (/ask) và trang admin (/admin)
   // để tránh trùng lặp 2 Header và giữ trải nghiệm full-screen ChatGPT-like
@@ -17,6 +52,7 @@ export default function Header() {
 
   const navLinks = [
     { href: "/", label: "Trang chủ" },
+    { href: "/ask", label: "Hỏi đáp AI" },
     { href: "/documents", label: "Tra cứu văn bản" },
     { href: "/categories", label: "Chủ đề" },
   ];
@@ -71,18 +107,47 @@ export default function Header() {
 
           {/* Auth Actions - Right */}
           <div className="hidden md:flex items-center gap-2">
-            <Link
-              href="/login"
-              className="px-3.5 py-2 text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors"
-            >
-              Đăng nhập
-            </Link>
-            <Link
-              href="/admin"
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors"
-            >
-              Quản trị
-            </Link>
+            {currentUser ? (
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-800">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span className="truncate max-w-[130px]">{currentUser.name}</span>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-bold ${currentUser.role === "admin" ? "bg-purple-100 text-purple-700" : "bg-blue-100 text-blue-700"}`}>
+                    {currentUser.role === "admin" ? "Admin" : "SV"}
+                  </span>
+                </div>
+                {currentUser.role === "admin" && (
+                  <Link
+                    href="/admin"
+                    className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors"
+                  >
+                    Quản trị
+                  </Link>
+                )}
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-50 rounded-xl transition-colors cursor-pointer"
+                >
+                  Đăng xuất
+                </button>
+              </div>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="px-3.5 py-2 text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors"
+                >
+                  Đăng nhập
+                </Link>
+                <Link
+                  href="/ask"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors"
+                >
+                  Hỏi đáp AI
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -115,20 +180,49 @@ export default function Header() {
               </Link>
             ))}
             <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
-              <Link
-                href="/login"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full text-center px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 rounded-xl"
-              >
-                Đăng nhập
-              </Link>
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full text-center px-4 py-2 bg-blue-600 text-white font-bold text-xs rounded-xl"
-              >
-                Quản trị
-              </Link>
+              {currentUser ? (
+                <div className="space-y-2">
+                  <div className="px-3 py-1.5 text-xs text-slate-700 font-medium">
+                    Đăng nhập bởi: <span className="font-bold">{currentUser.name}</span> ({currentUser.role})
+                  </div>
+                  {currentUser.role === "admin" && (
+                    <Link
+                      href="/admin"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-full text-center px-4 py-2 bg-blue-600 text-white font-bold text-xs rounded-xl"
+                    >
+                      Khu vực Quản trị
+                    </Link>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      handleLogout();
+                    }}
+                    className="w-full text-center px-3 py-2 text-xs font-semibold text-red-600 bg-red-50 rounded-xl"
+                  >
+                    Đăng xuất
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full text-center px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 rounded-xl"
+                  >
+                    Đăng nhập
+                  </Link>
+                  <Link
+                    href="/ask"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full text-center px-4 py-2 bg-blue-600 text-white font-bold text-xs rounded-xl"
+                  >
+                    Hỏi đáp AI
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}
