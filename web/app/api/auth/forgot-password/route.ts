@@ -59,11 +59,17 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Lưu ý: Cần cấu hình SMTP server (SendGrid / Resend / AWS SES) để gửi email chứa link đặt lại mật khẩu
-    // Ví dụ link thực tế: https://dau.edu.vn/reset-password?token=${rawToken}
     console.log(`[Forgot Password] Đã tạo token reset cho user ${user.id} (hạn dùng: 1h).`);
 
-    return NextResponse.json(genericResponse, { status: 200 });
+    return NextResponse.json(
+      {
+        ...genericResponse,
+        // Cung cấp link reset trong môi trường test/demo để người dùng có thể thử nghiệm ngay mà không cần cấu hình SMTP
+        resetUrl: `/reset-password?token=${rawToken}`,
+        token: rawToken,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("[Forgot Password API] Lỗi xử lý yêu cầu:", error);
     return NextResponse.json(

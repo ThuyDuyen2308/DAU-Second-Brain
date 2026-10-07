@@ -11,40 +11,83 @@ import { isValidEmail } from "@/lib/auth";
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [resetUrl, setResetUrl] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) {
-      setError("Vui lòng nhập email sinh viên.");
+      setError("Vui lòng nhập email tài khoản.");
       return;
     }
     if (!isValidEmail(email)) {
-      setError("Định dạng email không hợp lệ.");
+      setError("Định dạng email không hợp lệ (ví dụ: student@dau.edu.vn).");
       return;
     }
-    setError(null);
-    setSubmitted(true);
+
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setError(data.message || "Không thể xử lý yêu cầu lúc này.");
+        return;
+      }
+
+      setSubmitted(true);
+      if (data.resetUrl) {
+        setResetUrl(data.resetUrl);
+      }
+    } catch (err) {
+      console.error("Lỗi gửi yêu cầu quên mật khẩu:", err);
+      setError("Không thể kết nối đến máy chủ. Vui lòng thử lại sau.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <AuthLayout
       title="Khôi phục mật khẩu"
-      subtitle="Nhập email sinh viên để nhận liên kết đặt lại mật khẩu"
+      subtitle="Nhập email sinh viên hoặc quản trị để nhận liên kết đặt lại mật khẩu"
     >
       {submitted ? (
         <div className="space-y-4">
-          <div className="p-4 bg-blue-50 border border-blue-200 rounded-2xl text-xs text-blue-900 leading-relaxed">
-            <div className="font-bold text-sm text-blue-950 mb-1">
-              Đã ghi nhận yêu cầu khôi phục
+          <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-xs text-emerald-950 leading-relaxed">
+            <div className="font-bold text-sm text-emerald-900 mb-1 flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              Đã tạo yêu cầu khôi phục mật khẩu
             </div>
-            <p className="mb-2">
-              Email xác nhận: <span className="font-semibold">{email}</span>
+            <p className="mb-2 text-slate-700">
+              Hệ thống đã ghi nhận yêu cầu cho email: <span className="font-semibold text-slate-900">{email}</span>
             </p>
             <p className="text-slate-600">
-              Chức năng khôi phục mật khẩu sẽ được tích hợp khi hệ thống xác thực hoàn thiện.
+              Liên kết đặt lại mật khẩu có hiệu lực trong vòng <strong className="text-slate-800">1 giờ</strong>.
             </p>
           </div>
+
+          {resetUrl && (
+            <div className="p-4 bg-blue-50 border border-blue-200 rounded-2xl text-xs text-blue-900">
+              <div className="font-semibold mb-1.5 text-blue-950">
+                🔗 Liên kết đặt lại mật khẩu:
+              </div>
+              <Link
+                href={resetUrl}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-xs transition-colors shadow-xs"
+              >
+                Tiếp tục đặt lại mật khẩu mới →
+              </Link>
+            </div>
+          )}
 
           <Link
             href="/login"
@@ -54,13 +97,13 @@ export default function ForgotPasswordPage() {
           </Link>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-5" autoComplete="off">
           <Input
-            label="Email sinh viên"
+            label="Email tài khoản"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="sinhvien@dau.edu.vn"
+            placeholder="Nhập email (ví dụ: student@dau.edu.vn)"
             error={error || undefined}
             leftIcon={
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,8 +112,8 @@ export default function ForgotPasswordPage() {
             }
           />
 
-          <Button type="submit" variant="primary" size="md" className="w-full">
-            Gửi yêu cầu khôi phục
+          <Button type="submit" variant="primary" size="md" className="w-full" disabled={loading}>
+            {loading ? "Đang xử lý..." : "Gửi yêu cầu khôi phục"}
           </Button>
 
           <div className="text-center text-xs text-slate-600 pt-2">
