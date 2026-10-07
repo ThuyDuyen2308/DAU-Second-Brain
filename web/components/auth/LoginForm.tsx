@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
@@ -19,6 +19,12 @@ export default function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string; general?: string }>({});
   const [loading, setLoading] = useState(false);
+
+  // Ép buộc form luôn rỗng khi mount, chống Chromium/Cốc Cốc tự nạp mật khẩu đã lưu
+  useEffect(() => {
+    setEmail("");
+    setPassword("");
+  }, []);
 
   // Validate redirect path to prevent open redirect vulnerabilities
   const getSafeRedirect = (url: string | null): string | null => {
@@ -97,7 +103,13 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5" autoComplete="off">
+    <form onSubmit={handleSubmit} className="space-y-5" autoComplete="off" role="presentation">
+      {/* Dummy fields để hứng cơ chế autofill của trình duyệt (Chromium/Cốc Cốc/Edge) */}
+      <div className="sr-only" aria-hidden="true" style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, width: 0, pointerEvents: "none" }}>
+        <input type="text" name="fake_username_autofill" tabIndex={-1} autoComplete="off" />
+        <input type="password" name="fake_password_autofill" tabIndex={-1} autoComplete="new-password" />
+      </div>
+
       {/* Banner thông báo chuyển hướng nếu yêu cầu Admin */}
       {isAdminRedirect && (
         <div className="p-3.5 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-800 flex items-start gap-2">
@@ -121,7 +133,7 @@ export default function LoginForm() {
       <Input
         label="Email tài khoản"
         type="email"
-        name="email"
+        name="login_user_identifier"
         autoComplete="off"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -138,8 +150,8 @@ export default function LoginForm() {
         <Input
           label="Mật khẩu"
           type={showPassword ? "text" : "password"}
-          name="password"
-          autoComplete="current-password"
+          name="login_user_credential"
+          autoComplete="new-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
