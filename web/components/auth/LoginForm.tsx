@@ -38,9 +38,9 @@ export default function LoginForm() {
     const newErrors: typeof errors = {};
 
     if (!email.trim()) {
-      newErrors.email = "Vui lòng nhập email sinh viên hoặc quản trị.";
+      newErrors.email = "Vui lòng nhập email tài khoản.";
     } else if (!isValidEmail(email)) {
-      newErrors.email = "Định dạng email không hợp lệ (ví dụ: admin@dau.edu.vn).";
+      newErrors.email = "Định dạng email không hợp lệ (ví dụ: student@dau.edu.vn).";
     }
 
     if (!password) {
@@ -97,7 +97,7 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-5" autoComplete="off">
       {/* Banner thông báo chuyển hướng nếu yêu cầu Admin */}
       {isAdminRedirect && (
         <div className="p-3.5 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-800 flex items-start gap-2">
@@ -121,9 +121,11 @@ export default function LoginForm() {
       <Input
         label="Email tài khoản"
         type="email"
+        name="email"
+        autoComplete="off"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="admin@dau.edu.vn hoặc student@dau.edu.vn"
+        placeholder="Nhập email của bạn (ví dụ: student@dau.edu.vn)"
         error={errors.email}
         leftIcon={
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,6 +138,8 @@ export default function LoginForm() {
         <Input
           label="Mật khẩu"
           type={showPassword ? "text" : "password"}
+          name="password"
+          autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
