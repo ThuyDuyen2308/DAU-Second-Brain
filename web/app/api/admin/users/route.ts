@@ -7,7 +7,6 @@ export async function GET(req: Request) {
   try {
     const currentUser = await getCurrentUser(req);
 
-    // 1. Kiểm tra xác thực
     if (!currentUser) {
       return NextResponse.json(
         { error: "Unauthorized: Vui lòng đăng nhập." },
@@ -15,15 +14,13 @@ export async function GET(req: Request) {
       );
     }
 
-    // 2. Kiểm tra phân quyền: Chỉ role admin được phép truy cập
     if (currentUser.role !== "admin") {
       return NextResponse.json(
-        { error: "Forbidden: Bạn không có quyền xem danh sách người dùng hệ thống." },
+        { error: "Forbidden: Bạn không có quyền xem danh sách người dùng." },
         { status: 403 }
       );
     }
 
-    // 3. Truy vấn danh sách người dùng từ PostgreSQL (loại bỏ tuyệt đối passwordHash)
     const dbUsers = await prisma.user.findMany({
       select: {
         id: true,
@@ -46,10 +43,11 @@ export async function GET(req: Request) {
     }));
 
     return NextResponse.json({ users: formattedUsers });
-  } catch (error) {
-    console.error("[GET /api/admin/users Error]", error);
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error("[GET /api/admin/users Error]", msg);
     return NextResponse.json(
-      { error: "Lỗi máy chủ khi truy vấn danh sách người dùng." },
+      { error: `Lỗi máy chủ khi truy vấn danh sách người dùng: ${msg}` },
       { status: 500 }
     );
   }
@@ -59,7 +57,6 @@ export async function PATCH(req: Request) {
   try {
     const currentUser = await getCurrentUser(req);
 
-    // 1. Kiểm tra xác thực
     if (!currentUser) {
       return NextResponse.json(
         { error: "Unauthorized: Vui lòng đăng nhập." },
@@ -67,7 +64,6 @@ export async function PATCH(req: Request) {
       );
     }
 
-    // 2. Kiểm tra phân quyền Admin
     if (currentUser.role !== "admin") {
       return NextResponse.json(
         { error: "Forbidden: Chỉ quản trị viên mới có quyền cập nhật trạng thái tài khoản." },
@@ -92,7 +88,6 @@ export async function PATCH(req: Request) {
       );
     }
 
-    // 3. Không cho phép admin tự khóa chính mình
     if (currentUser.id === userId && !isActive) {
       return NextResponse.json(
         { error: "Bạn không thể tự khóa tài khoản quản trị của chính mình." },
@@ -100,16 +95,12 @@ export async function PATCH(req: Request) {
       );
     }
 
-    // 4. Cập nhật vào PostgreSQL
     const targetUser = await prisma.user.findUnique({
       where: { id: userId },
     });
 
     if (!targetUser) {
-      return NextResponse.json(
-        { error: "Không tìm thấy người dùng trong cơ sở dữ liệu." },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Không tìm thấy người dùng." }, { status: 404 });
     }
 
     const updatedUser = await prisma.user.update({
@@ -128,16 +119,16 @@ export async function PATCH(req: Request) {
       success: true,
       message: `Đã ${isActive ? "mở khóa" : "tạm khóa"} tài khoản ${updatedUser.email} thành công.`,
       user: {
-        ...updatedUser,
+        id: updatedUser.id,
+        name: updatedUser.name,
+        email: updatedUser.email,
         role: updatedUser.role === "ADMIN" ? "Admin" : "Sinh viên",
         status: updatedUser.isActive ? "Hoạt động" : "Tạm khóa",
       },
     });
-  } catch (error) {
-    console.error("[PATCH /api/admin/users Error]", error);
-    return NextResponse.json(
-      { error: "Lỗi máy chủ khi cập nhật trạng thái người dùng." },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error("[PATCH /api/admin/users Error]", msg);
+    return NextResponse.json({ error: `Lỗi máy chủ: ${msg}` }, { status: 500 });
   }
 }
