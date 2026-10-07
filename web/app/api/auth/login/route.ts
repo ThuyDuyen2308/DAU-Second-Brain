@@ -40,6 +40,17 @@ export async function POST(req: NextRequest) {
       if (dbUser && dbUser.passwordHash) {
         const isPasswordCorrect = await verifyPassword(cleanPassword, dbUser.passwordHash);
         if (isPasswordCorrect) {
+          // Kiểm tra xem tài khoản có bị tạm khóa không
+          if (dbUser.isActive === false) {
+            return NextResponse.json(
+              {
+                success: false,
+                message: "Tài khoản của bạn đã bị tạm khóa bởi Quản trị viên. Vui lòng liên hệ hỗ trợ để được mở khóa.",
+              },
+              { status: 403 }
+            );
+          }
+
           authenticatedUser = {
             id: dbUser.id,
             email: dbUser.email,

@@ -49,17 +49,45 @@ export default function AdminUsersPage() {
     loadUsers();
   }, []);
 
-  const toggleStatus = (id: string) => {
-    setUsers((prev) =>
-      prev.map((u) => {
-        if (u.id === id) {
-          const newStatus = u.status === "Hoạt động" ? "Tạm khóa" : "Hoạt động";
-          return { ...u, status: newStatus };
-        }
-        return u;
-      })
-    );
-    setToastMessage("Đã cập nhật trạng thái người dùng.");
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
+
+  const toggleStatus = async (user: UserItem) => {
+    const willActive = user.status !== "Hoạt động";
+    setUpdatingId(user.id);
+    try {
+      const res = await fetch("/api/admin/users", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: user.id,
+          isActive: willActive,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setToastMessage(data.error || "Không thể cập nhật trạng thái người dùng.");
+        return;
+      }
+
+      setUsers((prev) =>
+        prev.map((u) => {
+          if (u.id === user.id) {
+            return {
+              ...u,
+              status: willActive ? "Hoạt động" : "Tạm khóa",
+            };
+          }
+          return u;
+        })
+      );
+      setToastMessage(data.message || `Đã ${willActive ? "mở khóa" : "tạm khóa"} tài khoản thành công.`);
+    } catch (err) {
+      console.error("Lỗi khi cập nhật trạng thái người dùng:", err);
+      setToastMessage("Lỗi kết nối khi cập nhật trạng thái người dùng.");
+    } finally {
+      setUpdatingId(null);
+    }
   };
 
   return (
@@ -157,10 +185,15 @@ export default function AdminUsersPage() {
                     <td className="py-3.5 px-4 text-right">
                       <button
                         type="button"
-                        onClick={() => toggleStatus(u.id)}
-                        className="px-2.5 py-1 text-slate-600 hover:text-blue-600 hover:bg-slate-100 rounded-lg font-medium transition-colors cursor-pointer"
+                        disabled={updatingId === u.id}
+                        onClick={() => toggleStatus(u)}
+                        className="px-2.5 py-1 text-slate-600 hover:text-blue-600 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg font-medium transition-colors cursor-pointer"
                       >
-                        {u.status === "Hoạt động" ? "Khóa" : "Mở khóa"}
+                        {updatingId === u.id
+                          ? "Đang xử lý..."
+                          : u.status === "Hoạt động"
+                          ? "Khóa"
+                          : "Mở khóa"}
                       </button>
                     </td>
                   </tr>
